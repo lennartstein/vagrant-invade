@@ -4,9 +4,7 @@ module Vagrant
         class Plugin < Vagrant.plugin('2')
             name "Invade"
 
-            description <<-DESC
-            This plugin configures Vagrant for you
-            DESC
+            description "This plugin configures Vagrant for you"
 
             command 'invade' do
                 require_relative 'command'
