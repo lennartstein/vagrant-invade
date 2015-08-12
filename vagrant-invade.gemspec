@@ -3,7 +3,7 @@ require File.expand_path('../lib/vagrant-invade/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name            = 'vagrant-invade'
-  s.version         = Vagrant::Invade::VERSION
+  s.version         = VagrantPlugins::Invade::VERSION
   s.date            = '2015-08-10'
   s.summary         = "List all vms"
   s.description     = "A simple vagrant plugin for listing all vms"
