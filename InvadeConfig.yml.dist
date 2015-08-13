@@ -1,0 +1,52 @@
+
+invade:
+  enabled: true
+  terminal: dark
+
+# Machine settings. Each entry is one box
+machines:
+  lps:
+    name: 'default-invade-box'
+    url: 'innogames/debian-jessie-8.1.0'
+
+    # Network settings
+    network:
+      type: 'private'
+      ip: '10.11.121.5'
+      hostname: 'vagrant.vm'
+
+    # Synced Folder settings
+    synced_folder:
+      enable: true
+      source: '../..'
+      path: '/www'
+      type: 'nfs'
+      owern: 'vagrant' # VirtualBox only
+      group: 'www-data' # VirtualBox only
+      dmode: 775
+      fmode: 664
+      nfs_options:
+        - nolock
+        - udp
+        - v3
+
+    # Performance settings
+    performance:
+      cores: 8
+
+    ssh:
+      enabled: true
+      folder: '~/.ssh/'
+
+    puppet:
+      enabled: true
+      folder: '../puppet'
+
+    plugins:
+      hostmanager:
+        enabled: true
+        manage_host: true
+        ignore_private_ip: false
+        include_offline: true
+      winnfsd:
+        logging: false

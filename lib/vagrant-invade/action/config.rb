@@ -16,9 +16,9 @@ module VagrantPlugins
 
         def call(env)
           root_path = @env[:root_path]
-          config_file_path = "#{root_path}/InvadeConfig.yaml"
+          config_file_path = "#{root_path}/InvadeConfig.yml"
           template_file_path = config_file_path + '.dist'
-          default_config_file_path = Dir.pwd + '/InvadeConfig.yaml.dist'
+          default_config_file_path = Dir.pwd + '/InvadeConfig.yml.dist'
 
           # Return here if Invade Configuration file already exists
           if File.exist?(config_file_path)

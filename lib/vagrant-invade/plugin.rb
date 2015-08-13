@@ -11,7 +11,6 @@ module VagrantPlugins
 
       # Configuration
       config(:invade) do
-        require 'yaml'
         require_relative 'config'
         Config
       end
