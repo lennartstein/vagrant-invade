@@ -9,16 +9,11 @@ module VagrantPlugins
         Command
       end
 
-      # Configuration
-      config(:invade) do
-        require_relative 'config'
-        Config
-      end
-
-      # Hook - Check configuration of Invade before doing a "vagrant up"
+      # Hook - Check and update the Vagrantfile with Invade before an "up"
       action_hook(:invade, :machine_action_up) do |hook|
         require 'vagrant-invade/action'
         hook.prepend(Action.config)
+        # hook.prepend(Action.validate)
       end
     end
   end

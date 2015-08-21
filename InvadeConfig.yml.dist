@@ -1,38 +1,44 @@
-
-invade:
-  enabled: true
-  terminal: dark
+enabled: true
+terminal: dark
 
 # Machine settings. Each entry is one box
 machines:
+
+  # Machine LPS
   lps:
-    name: 'default-invade-box'
-    url: 'innogames/debian-jessie-8.1.0'
+
+    # Box related settings
+    box:
+      name: invade/default
+
+    # VM related settings. Performance, naming
+    vm:
+      name: 'my-1337-project'
+      provider: 'virtualbox'
+      cores: 4
+      memory: 512
 
     # Network settings
     network:
       type: 'private'
-      ip: '10.11.121.5'
-      hostname: 'vagrant.vm'
+      ip: '10.42.133.7'
+      hostname: 'invaded.vm'
 
     # Synced Folder settings
     synced_folder:
-      enable: true
-      source: '../..'
-      path: '/www'
-      type: 'nfs'
-      owern: 'vagrant' # VirtualBox only
-      group: 'www-data' # VirtualBox only
-      dmode: 775
-      fmode: 664
-      nfs_options:
-        - nolock
-        - udp
-        - v3
-
-    # Performance settings
-    performance:
-      cores: 8
+      www:
+        enable: true
+        source: '../..'
+        path: '/www'
+        type: 'nfs'
+        owern: 'vagrant'
+        group: 'www-data'
+        dmode: 775
+        fmode: 664
+        nfs_options:
+          - nolock
+          - udp
+          - v3
 
     ssh:
       enabled: true
