@@ -10,7 +10,7 @@ module VagrantPlugins
           @app = app
           @env = env
           @logger = Log4r::Logger.new('vagrant::invade::action::validate')
-
+          @validationErrors = 0
         end
 
         def call(env)
@@ -30,18 +30,18 @@ module VagrantPlugins
             invade_rand = rand(9999)
 
             # Box
-            @env[:ui].info("[Invade] Machine #{machine.upcase} - Box") if @invade['debug']
+            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Box") if @invade['debug']
             section['box']['name'] = validate(section['box']['name'], 'name', 'string', 'invade/default')
             section['box']['url']  = validate(section['box']['url'], 'url', 'string', 'invade/default')
 
             # Network
-            @env[:ui].info("[Invade] Machine #{machine.upcase} - Network") if @invade['debug']
+            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Network") if @invade['debug']
             section['network']['type']     = validate(section['network']['type'], 'type', 'string', 'private')
             section['network']['ip']       = validate(section['network']['ip'], 'ip', 'string', "192.168.133.#{7+index}")
             section['network']['hostname'] = validate(section['network']['hostname'], 'hostname', 'string', "invade#{index if index > 0}.vm")
 
             # Virtual machine
-            @env[:ui].info("[Invade] Machine #{machine.upcase} - VM") if @invade['debug']
+            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - VM") if @invade['debug']
             section['vm']['provider']     = validate(section['vm']['provider'], 'provider', 'string', 'virtualbox')
             section['vm']['name']         = validate(section['vm']['name'], 'name', 'string', "invade-#{invade_rand}-#{index}")
             section['vm']['cores']        = validate(section['vm']['cores'], 'cores', 'integer', 4)
@@ -51,9 +51,9 @@ module VagrantPlugins
 
             # Synced folder
             # Since more than one synced folder can be configured a loop is needed
-            @env[:ui].info("[Invade] Machine #{machine.upcase} - Synced Folders") if @invade['debug']
+            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Synced Folders") if @invade['debug']
             section['synced_folder'].each_with_index do |(sf, option), index|
-              @env[:ui].info("\t#{sf.upcase}:") if @invade['debug']
+              @env[:ui].info("\tSynced folder [#{index+1}]: #{sf}") if @invade['debug']
               option['enabled'] = validate(option['enabled'], 'enabled', 'bool', false)
               option['source'] = validate(option['source'], 'source', 'string', '.')
               option['path'] = validate(option['path'], 'path', 'string', '/www')
@@ -66,7 +66,7 @@ module VagrantPlugins
             end
 
             # PUPPET
-            @env[:ui].info("[Invade] Machine #{machine.upcase} - Puppet") if @invade['debug']
+            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Puppet") if @invade['debug']
             section['puppet']['enabled'] = validate(section['puppet']['enabled'], 'enabled', 'bool', true)
             section['puppet']['folder'] = validate(section['puppet']['folder'], 'folder', 'string', './puppet/')
             section['puppet']['manifests_folder'] = validate(section['puppet']['manifests_folder'], 'manifests_folder', 'string', 'manifests')
@@ -75,12 +75,12 @@ module VagrantPlugins
             section['puppet']['modules'] = validate(section['puppet']['modules'], 'modules', 'array', [])
 
             # SSH
-            @env[:ui].info("[Invade] Machine #{machine.upcase} - SSH") if @invade['debug']
+            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - SSH") if @invade['debug']
             section['ssh']['enabled'] = validate(section['ssh']['enabled'], 'enabled', 'bool', true)
             section['ssh']['folder'] = validate(section['ssh']['folder'], 'folder', 'string', '~/.shh/')
 
             # PLUGINS
-            @env[:ui].info("[Invade] Machine #{machine.upcase} - Plugins") if @invade['debug']
+            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Plugins") if @invade['debug']
 
             # PLUGIN: Hostmanager
             @env[:ui].info("\tHostmanager:") if @invade['debug']
@@ -108,6 +108,12 @@ module VagrantPlugins
             section['plugins']['winnfsd']['logging'] = validate(
               section['plugins']['winnfsd']['logging'], 'logging', 'bool', false
             )
+          end
+
+          if @validationErrors > 0
+            @env[:ui].warn('[Invade] Validation of configuration has warnings. Use debug mode to see details.')
+          else
+            @env[:ui].success('[Invade] Validation of configuration succeeded.')
           end
 
           @app.call(env)
@@ -140,10 +146,11 @@ module VagrantPlugins
           if [true, false].include? value
             @env[:ui].success("\t#{name} => #{value}") if @invade['debug']
           elsif value === nil
-            @env[:ui].warn("\tOption is not set. Set '#{name}' => #{default.to_s.upcase}.") if @invade['debug']
+            @env[:ui].info("\tOption is not set. Set '#{name}' => #{default.to_s.upcase}.") if @invade['debug']
             return default
           else
-            @env[:ui].warn("\t#{name} => #{value} is not a boolean. Set to #{default.to_s.upcase}.")
+            @env[:ui].warn("\tWarning: #{name} => #{value} is not a boolean. Set '#{name}' to default value #{default.to_s.upcase}.")
+            @validationErrors = @validationErrors + 1
             return default
           end
 
@@ -156,13 +163,14 @@ module VagrantPlugins
           if value.is_a? String
             @env[:ui].success("\t#{name} => '#{value}'") if @invade['debug']
           elsif value === nil
-            @env[:ui].warn("\tOption is not set. Set '#{name}' => '#{default}'.") if @invade['debug']
+            @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.") if @invade['debug']
             return default
           elsif value === ''
             @env[:ui].warn("\tEmpty string is not valid. Set '#{name}' => '#{default}'.") if @invade['debug']
             return default
           else
-            @env[:ui].warn("\t'#{value}' is not a string. Set to '#{default}'.")
+            @env[:ui].warn("\tWarning: '#{value}' is not a string. Set to '#{name}' to default value '#{default}'.")
+            @validationErrors = @validationErrors + 1
             return default
           end
 
@@ -175,10 +183,11 @@ module VagrantPlugins
           if value.is_a? Integer or is_number(value)
             @env[:ui].success("\t#{name} => #{value}") if @invade['debug']
           elsif value === nil
-            @env[:ui].warn("\tOption is not set. Set '#{name}' => '#{default}'.") if @invade['debug']
+            @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.") if @invade['debug']
             return default
           else
-            @env[:ui].warn("\t#{value} is not an integer. Set to #{default}.")
+            @env[:ui].warn("\tWarning: '#{value}' is not an integer. Set '#{name}' to default value #{default}.")
+            @validationErrors = @validationErrors + 1
             return default
           end
 
@@ -191,10 +200,11 @@ module VagrantPlugins
           if value.is_a? Array
             @env[:ui].success("\t#{name} => #{value}") if @invade['debug']
           elsif value === nil
-            @env[:ui].warn("\tOption is not set. Set '#{name}' => '#{default}'.")  if @invade['debug']
+            @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.")  if @invade['debug']
             return default
           else
-            @env[:ui].warn("\t'#{value}' is not an array. Set '#{name}' => #{default}.")
+            @env[:ui].warn("\tWarning: '#{value}' is not an array. Set '#{name}' to default value #{default}.")
+            @validationErrors = @validationErrors + 1
             return default
           end
 
