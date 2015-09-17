@@ -1,5 +1,5 @@
 enabled: true
-verbose: true
+debug: false
 
 # Machine settings. Each entry is one box
 machines:
