@@ -34,14 +34,25 @@ module VagrantPlugins
               FileUtils.cp(template_file_path, config_file_path)
               @logger.debug 'Config file could not be found. Copied template file.'
               @env[:ui].debug '[Invade] Configuration file could not be found.'
-              @env[:ui].debug "[Invade] Template file \"#{template_file_path}\" copied to \"#{config_file_path}\"."
+              @env[:ui].warn '[Invade] Copying template configuration...'
+              @env[:ui].warn "\tFrom: \"#{template_file_path}\""
+              @env[:ui].warn "\tTo: \"#{config_file_path}\""
+              sleep 2
+              @env[:ui].warn '[Invade] Restarting vagrant...'
+              sleep 3
+              ENV['VAGRANT_HOME'] ? exec('vagrant up') : exec('bundle exec vagrant up')
             rescue
               # If not found default invade configuration file will be copied.
               FileUtils.cp(default_config_file_path, config_file_path)
               @logger.info 'Template file could not be found. Copied default invade configuration file.'
               @env[:ui].warn '[Invade] Template file could not be found.'
-              @env[:ui].warn "[Invade] Default file \"#{template_file_path}\" copied to \"#{config_file_path}\"."
-              @env[:ui].warn '[Invade] Please update the configuration file and do a "vagrant up" again!'
+              @env[:ui].warn '[Invade] Copying default configuration...'
+              @env[:ui].warn "\tFrom: \"#{template_file_path}\""
+              @env[:ui].warn "\tTo: \"#{config_file_path}\""
+              sleep 2
+              @env[:ui].warn '[Invade] Restarting vagrant...'
+              sleep 3
+              ENV['VAGRANT_HOME'] ? exec('vagrant up') : exec('bundle exec vagrant up')
             end
           end
 
