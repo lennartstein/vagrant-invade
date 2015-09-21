@@ -12,9 +12,7 @@ require 'vagrant-invade/command'
 module VagrantPlugins
   module Invade
 
-    public
-
-    # TODO: Implement Error Class of Vagrant
+    autoload :Generator, 'vagrant-invade/generator'
 
     def self.get_invade_config
       #Loading Invade configuration settings from file

@@ -32,7 +32,7 @@ module VagrantPlugins
             # Box
             @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Box") if @invade['debug']
             section['box']['name'] = validate(section['box']['name'], 'name', 'string', 'invade/default')
-            section['box']['url']  = validate(section['box']['url'], 'url', 'string', 'invade/default')
+            section['box']['url']  = validate(section['box']['url'], 'url', 'string', nil)
 
             # Network
             @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Network") if @invade['debug']

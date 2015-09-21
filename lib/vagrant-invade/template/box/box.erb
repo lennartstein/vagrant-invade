@@ -1,4 +1,6 @@
 
-    # Box Configuration
-    config.vm.box       = <%= invade_box_name %>
-    config.vm.box_url   = <%= invade_box_url %>
+# Box Configuration
+config.vm.box       = <%= name %>
+<% if url -%>
+config.vm.box_url   = <%= url %>
+<% end %>
