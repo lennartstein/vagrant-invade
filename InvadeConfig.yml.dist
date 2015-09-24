@@ -1,5 +1,5 @@
 enabled: true
-debug: true
+debug: false
 
 # Machine settings. Each entry is one box
 machines:
@@ -11,18 +11,18 @@ machines:
     box:
       name: invade/default
 
-    # VM related settings. Performance, naming
-    vm:
-      name: 'my-1337-project'
-      provider: 'virtualbox'
-      cores: 4
-      memory: 512
-
     # Network settings
     network:
       type: 'private'
       ip: '10.42.133.7'
       hostname: 'invaded.vm'
+
+    # Provider related settings. Performance, naming
+    provider:
+      name: 'my-1337-project'
+      type: 'virtualbox'
+      cores: 4
+      memory: 512
 
     # Synced Folder settings
     synced_folder:
@@ -44,9 +44,22 @@ machines:
       enabled: true
       folder: '~/.ssh/'
 
-    puppet:
-      enabled: true
-      folder: '../puppet'
+    provision:
+      tmp-folder:
+        enabled: true
+        type: shell-inline
+        inline: 'chmod 777 /tmp'
+      run-composer:
+        enabled: true
+        type: shell
+        file: '/home/vagrant/provision/shell/run-composer.sh'
+      puppet:
+        enabled: true
+        type: puppet
+        folder: '../puppet'
+        options:
+          - manifests
+          - modules
 
     plugins:
       hostmanager:

@@ -3,30 +3,35 @@ module VagrantPlugins
     module Generator
 
       require 'erb'
-      require 'erubis'
 
       class Box
 
         attr_reader :result
-        attr_accessor :ui, :options
+        attr_accessor :machine_name, :options
 
-        def initialize(ui, options, result: nil)
-          @ui       = ui
+        def initialize(machine_name, options, result: nil)
+          @machine_name = machine_name
           @options  = options
           @result   = result
-          @templates_path = File.join(File.dirname(__FILE__), '../template')
         end
 
         def build
           b = binding
-          template_file = "#{@templates_path}/box/box.erb"
+          template_file = "#{TEMPLATE_PATH}/box/box.erb"
 
-          # Values for box section
-          name  = options['name']
-          url   = options['url']
+          begin
 
+            # Get machine name
+            machine_name = @machine_name
 
-          ERB.new(File.read(template_file).gsub(/^\s+/, ""), 0, "-", "@result").result b
+            # Values for box section
+            name  = @options['name']
+            url   = @options['url']
+
+            ERB.new(File.read(template_file), 0, "-", "@result").result b
+          rescue TypeError, SyntaxError, SystemCallError => e
+            raise(e)
+          end
         end
       end
     end

@@ -1,0 +1,12 @@
+# Provider Configuration
+<%= machine_name -%>.vm.provider :virtualbox do |virtualbox|
+  virtualbox.name    = <%= name -%>
+  virtualbox.cpus    = <%= cpus -%>
+  virtualbox.memory  = <%= memory -%>
+  <% if natdns -%>
+  virtualbox.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+  <% end -%>
+  <% if nicspeed -%>
+  virtualbox.customize ['modifyvm', :id, '--nicspeed1', '10485760']
+  <% end -%>
+end

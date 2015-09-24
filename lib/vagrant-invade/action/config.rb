@@ -40,7 +40,11 @@ module VagrantPlugins
               sleep 2
               @env[:ui].warn '[Invade] Restarting vagrant...'
               sleep 3
-              ENV['VAGRANT_HOME'] ? exec('vagrant up') : exec('bundle exec vagrant up')
+              if !Vagrant.in_installer? && !Vagrant.very_quiet?
+                Kernel.exec('bundle exec vagrant up')
+              else
+                Kernel.exec('vagrant up')
+              end
             rescue
               # If not found default invade configuration file will be copied.
               FileUtils.cp(default_config_file_path, config_file_path)
@@ -52,7 +56,11 @@ module VagrantPlugins
               sleep 2
               @env[:ui].warn '[Invade] Restarting vagrant...'
               sleep 3
-              ENV['VAGRANT_HOME'] ? exec('vagrant up') : exec('bundle exec vagrant up')
+              if !Vagrant.in_installer? && !Vagrant.very_quiet?
+                Kernel.exec('bundle exec vagrant up')
+              else
+                Kernel.exec('vagrant up')
+              end
             end
           end
 

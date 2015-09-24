@@ -1,6 +1,5 @@
-
 # Box Configuration
-config.vm.box       = <%= name %>
+<%= machine_name %>.vm.box = <%= name -%>
 <% if url -%>
-config.vm.box_url   = <%= url %>
-<% end %>
+<%= machine_name %>.vm.box_url = <%= url -%>
+<% end -%>

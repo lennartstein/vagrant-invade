@@ -4,30 +4,32 @@ module VagrantPlugins
 
       require 'erb'
 
-      class Network
+      class Vagrantfile
 
         attr_reader :result
-        attr_accessor :machine_name, :options
+        attr_accessor :machine_name, :sections
 
-        def initialize(machine_name, options, result: nil)
+        def initialize(machine_name, sections, result: nil)
           @machine_name = machine_name
-          @options  = options
+          @sections  = sections
           @result   = result
         end
 
         def build
           b = binding
-          template_file = "#{TEMPLATE_PATH}/network/network.erb"
+          template_file = "#{TEMPLATE_PATH}/v2.erb"
 
           begin
 
             # Get machine name
             machine_name = @machine_name
 
-            # Values for network section
-            type  = options['type']
-            ip = options['ip']
-            hostname = options['hostname']
+            # Sections for vagrantfile to generate
+            box       = @sections['box']
+            network   = @sections['network']
+            vm        = @sections['vm']
+            sf        = @sections['sf']
+            provision = @sections['provision']
 
             ERB.new(File.read(template_file), 0, '-', '@result').result b
           rescue TypeError, SyntaxError, SystemCallError => e

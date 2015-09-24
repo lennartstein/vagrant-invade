@@ -40,39 +40,45 @@ module VagrantPlugins
             section['network']['ip']       = validate(section['network']['ip'], 'ip', 'string', "192.168.133.#{7+index}")
             section['network']['hostname'] = validate(section['network']['hostname'], 'hostname', 'string', "invade#{index if index > 0}.vm")
 
-            # Virtual machine
-            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - VM") if @invade['debug']
-            section['vm']['provider']     = validate(section['vm']['provider'], 'provider', 'string', 'virtualbox')
-            section['vm']['name']         = validate(section['vm']['name'], 'name', 'string', "invade-#{invade_rand}-#{index}")
-            section['vm']['cores']        = validate(section['vm']['cores'], 'cores', 'integer', 4)
-            section['vm']['memory']       = validate(section['vm']['memory'], 'memory', 'integer', 512)
-            section['vm']['hostresolver'] = validate(section['vm']['hostresolver'], 'hostresolver', 'bool', true)
-            section['vm']['nicspeed']     = validate(section['vm']['nicspeed'], 'nicspeed', 'integer', 10485760)
+            # Provider
+            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Provider") if @invade['debug']
+            section['provider']['name'] = validate(section['provider']['name'], 'name', 'string', "invade-#{invade_rand}-#{index}")
+            section['provider']['type'] = validate(section['provider']['provider'], 'provider', 'string', 'virtualbox')
+            section['provider']['cores'] = validate(section['provider']['cores'], 'cores', 'integer', 4)
+            section['provider']['memory'] = validate(section['provider']['memory'], 'memory', 'integer', 512)
+            section['provider']['hostresolver'] = validate(section['provider']['hostresolver'], 'hostresolver', 'bool', true)
+            section['provider']['nicspeed'] = validate(section['provider']['nicspeed'], 'nicspeed', 'integer', 10485760)
 
             # Synced folder
             # Since more than one synced folder can be configured a loop is needed
-            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Synced Folders") if @invade['debug']
-            section['synced_folder'].each_with_index do |(sf, option), index|
-              @env[:ui].info("\tSynced folder [#{index+1}]: #{sf}") if @invade['debug']
-              option['enabled'] = validate(option['enabled'], 'enabled', 'bool', false)
-              option['source'] = validate(option['source'], 'source', 'string', '.')
-              option['path'] = validate(option['path'], 'path', 'string', '/www')
-              option['type'] = validate(option['type'], 'type', 'string', '')
-              option['owner'] = validate(option['owner'], 'owner', 'string', 'vagrant')
-              option['group'] = validate(option['group'], 'group', 'string', 'root')
-              option['dmode'] = validate(option['dmode'], 'dmode', 'integer', 755)
-              option['fmode'] = validate(option['fmode'], 'fmode', 'integer', 664)
-              option['nfs_options'] = validate(option['nfs_options'], 'nfs_options', 'array', ['nolock'])
+            unless section['synced_folder'] == nil
+              @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Synced Folders") if @invade['debug']
+              section['synced_folder'].each_with_index do |(sf, option), index|
+                @env[:ui].info("\tSynced folder [#{index+1}]: #{sf}") if @invade['debug']
+                option['enabled'] = validate(option['enabled'], 'enabled', 'bool', false)
+                option['source'] = validate(option['source'], 'source', 'string', '.')
+                option['path'] = validate(option['path'], 'path', 'string', '/www')
+                option['type'] = validate(option['type'], 'type', 'string', '')
+                option['owner'] = validate(option['owner'], 'owner', 'string', 'vagrant')
+                option['group'] = validate(option['group'], 'group', 'string', 'root')
+                option['dmode'] = validate(option['dmode'], 'dmode', 'integer', 755)
+                option['fmode'] = validate(option['fmode'], 'fmode', 'integer', 664)
+                option['nfs_options'] = validate(option['nfs_options'], 'nfs_options', 'array', ['nolock'])
+              end
             end
 
-            # PUPPET
-            @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Puppet") if @invade['debug']
-            section['puppet']['enabled'] = validate(section['puppet']['enabled'], 'enabled', 'bool', true)
-            section['puppet']['folder'] = validate(section['puppet']['folder'], 'folder', 'string', './puppet/')
-            section['puppet']['manifests_folder'] = validate(section['puppet']['manifests_folder'], 'manifests_folder', 'string', 'manifests')
-            section['puppet']['modules_folder'] = validate(section['puppet']['modules_folder'], 'modules_folder', 'string', 'modules')
-            section['puppet']['hiera'] = validate(section['puppet']['hiera'], 'hiera', 'string', 'hiera.yml')
-            section['puppet']['modules'] = validate(section['puppet']['modules'], 'modules', 'array', [])
+            # PROVISION
+            unless section['provision'] == nil
+              @env[:ui].info("[Invade] Validate machine #{machine.upcase} - Provision") if @invade['debug']
+              section['provision'].each_with_index do |(provision, option), index|
+                @env[:ui].info("\tProvisioning [#{index+1}]: #{provision}") if @invade['debug']
+                option['enabled'] = validate(option['enabled'], 'enabled', 'bool', false)
+                option['type'] = validate(option['type'], 'type', 'string', nil)
+                option['file'] = validate(option['file'], 'file', 'string', nil)
+                option['inline'] = validate(option['inline'], 'inline', 'string', nil)
+                option['options'] = validate(option['options'], 'options', 'array', [])
+              end
+            end
 
             # SSH
             @env[:ui].info("[Invade] Validate machine #{machine.upcase} - SSH") if @invade['debug']

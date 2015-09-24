@@ -10,30 +10,119 @@ module VagrantPlugins
         def initialize(app, env)
           @app = app
           @env = env
-          @invade = env[:invade]
           @logger = Log4r::Logger.new('vagrant::invade::action::generate')
+          @machine_name = "default"
         end
 
         def call(env)
-          box('test', 'http://google.de')
+
+          @env[:ui].warn '[Invade] Generating Vagrantfile...'
+          sleep 1
+
+          # Get current machine name
+          @machine_name = env[:invade]['machines'].keys.first.to_s
+
+          sections = Hash.new
+
+          # Box section generation
+          sections['box'] = generate_box(
+            env[:invade]['machines']['lps']['box']
+          )
+
+          # Network section generation
+          sections['network'] = generate_network(
+            env[:invade]['machines']['lps']['network']
+          )
+
+          # # Virutal Machine section generation
+          # sections['vm'] = generate_virtual_machine(
+          #   env[:invade]['machines']['lps']['vm']
+          # )
+          #
+          # # Synced Folder section generation
+          # sections['synced_folder'] = generate_synced_folder(
+          #   env[:invade]['machines']['lps']['sf']
+          # )
+          #
+          # # Provision section generation
+          # sections['provision'] = generate_provision(
+          #   env[:invade]['machines']['lps']['provision']
+          # )
+
+          # Finally generate Vagrantfile
+          vagrantfile = generate_vagrantfile(env, sections)
+          vagrantfile
 
           @app.call(env)
         end
 
         private
 
-        def box(name, url)
-          require 'vagrant-invade/generator/box'
-
-          options = Hash.new
-          options['name'] = 'test/test1'
-          options['url'] = 'https://google.com/test1'
-
-          box = Generator::Box.new(@env[:ui], options)
+        def generate_box(options)
+          box = Generator::Box.new(@machine_name, options)
           box.build
 
-          puts box.result
+          box.result
         end
+
+        def generate_network(options)
+          network = Generator::Network.new(@machine_name, options)
+          network.build
+
+          network.result
+        end
+
+        def generate_provider_vmware(options)
+          vmware = Generator::Provider::VMWare.new(@machine_name, options)
+          vmware.build
+
+          vmware.result
+        end
+
+        def generate_provider_virtualbox(options)
+          virtualbox = Generator::Provider::VirtualBox.new(@machine_name, options)
+          virtualbox.build
+
+          virtualbox.result
+        end
+
+        def generate_vagrantfile(env, sections)
+          require 'digest'
+          require 'vagrant-invade/generator/vagrantfile'
+
+          vagrantfile = Generator::Vagrantfile.new(@machine_name, sections)
+          vagrantfile.build
+
+          # Get project root and default vagrantfile filename
+          ENV['VAGRANT_VAGRANTFILE'] ? vagrantfile_name = ENV['VAGRANT_VAGRANTFILE'] : vagrantfile_name = "Vagrantfile"
+
+          currentVagrantfile = "#{env[:root_path]}/#{vagrantfile_name}"
+
+          # Compare md5 strings to replace Vagrantfile only if content changed
+          md5_new = Digest::MD5.hexdigest(vagrantfile.result)
+          md5_current = Digest::MD5.file(currentVagrantfile).hexdigest
+
+          unless md5_new.equal? md5_current
+
+            open("myfile.out", 'w+') do |f|
+              f.puts vagrantfile.result
+            end
+
+            # open("#{currentVagrantfile}", 'w+') do |f|
+            #   f.puts vagrantfile.result
+            # end
+
+            @env[:ui].warn '[Invade] Restarting Vagrant with new Vagrantfile...'
+            sleep 2
+
+            if !Vagrant.in_installer? && !Vagrant.very_quiet?
+              Kernel.exec('bundle exec vagrant up')
+            else
+              Kernel.exec('vagrant up')
+            end
+          end
+        end
+
       end
     end
   end
