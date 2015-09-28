@@ -1,5 +1,6 @@
-enabled: true
-debug: false
+invade:
+  enabled: true
+  debug: false
 
 # Machine settings. Each entry is one box
 machines:

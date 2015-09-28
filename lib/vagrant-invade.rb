@@ -13,6 +13,7 @@ module VagrantPlugins
   module Invade
 
     autoload :Generator, 'vagrant-invade/generator'
+    autoload :Validator, 'vagrant-invade/validator'
 
     def self.get_invade_config
       #Loading Invade configuration settings from file
