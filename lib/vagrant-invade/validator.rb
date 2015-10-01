@@ -6,6 +6,9 @@ module VagrantPlugins
       autoload :Box, 'vagrant-invade/validator/box'
       autoload :Network, 'vagrant-invade/validator/network'
       autoload :Provider, 'vagrant-invade/validator/provider'
+      autoload :Provision, 'vagrant-invade/validator/provision'
+      autoload :SyncedFolder, 'vagrant-invade/validator/synced_folder'
+      autoload :SSH, 'vagrant-invade/validator/ssh'
 
       VALIDATION_ERRORS = 0
 

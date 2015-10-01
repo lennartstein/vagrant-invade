@@ -34,6 +34,10 @@ module VagrantPlugins
             env[:invade]['machines']['lps']['network']
           )
 
+          sections['provider'] = generate_provider(
+            env[:invade]['machines']['lps']['provider']
+          )
+
           # # Virutal Machine section generation
           # sections['vm'] = generate_virtual_machine(
           #   env[:invade]['machines']['lps']['vm']
@@ -72,18 +76,19 @@ module VagrantPlugins
           network.result
         end
 
-        def generate_provider_vmware(options)
-          vmware = Generator::Provider::VMWare.new(@machine_name, options)
-          vmware.build
+        def generate_provider(options)
+          case options['type']
+          when 'virtualbox'
+            provider = Generator::Provider::VirtualBox.new(@machine_name, options)
+          when 'vmware'
+            provider = Generator::Provider::VMware.new(@machine_name, options)
+          else
+            raise StandardError, "Provider unknown or not set. Please check the provider configuration."
+          end
 
-          vmware.result
-        end
+          provider.build
 
-        def generate_provider_virtualbox(options)
-          virtualbox = Generator::Provider::VirtualBox.new(@machine_name, options)
-          virtualbox.build
-
-          virtualbox.result
+          provider.result
         end
 
         def generate_vagrantfile(env, sections)

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/mitchellh/vagrant.git
-  revision: 186f3f25e37fea939d1f92a54bd51e6ff838d004
+  revision: b721eb62cfbfa93895d0d4cf019436ab6b1df05d
   specs:
     vagrant (1.7.4)
       bundler (>= 1.5.2, <= 1.10.5)
@@ -18,7 +18,7 @@ GIT
       rest-client (>= 1.6.0, < 2.0)
       wdm (~> 0.1.0)
       winrm (~> 1.3)
-      winrm-fs (~> 0.2.0)
+      winrm-fs (~> 0.2.2)
 
 PATH
   remote: .
@@ -47,12 +47,12 @@ GEM
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
-    little-plugger (1.1.3)
+    little-plugger (1.1.4)
     log4r (1.1.10)
     logging (1.8.2)
       little-plugger (>= 1.1.3)
       multi_json (>= 1.8.4)
-    mime-types (2.6.1)
+    mime-types (2.6.2)
     mini_portile (0.6.0)
     multi_json (1.11.2)
     net-scp (1.1.2)
@@ -64,7 +64,7 @@ GEM
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     nori (2.6.0)
-    rb-fsevent (0.9.5)
+    rb-fsevent (0.9.6)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rb-kqueue (0.2.4)
@@ -80,7 +80,7 @@ GEM
     unf_ext (0.0.7.1)
     uuidtools (2.1.5)
     wdm (0.1.1)
-    winrm (1.3.3)
+    winrm (1.3.4)
       builder (>= 2.1.2)
       gssapi (~> 1.2)
       gyoku (~> 1.0)
@@ -103,4 +103,4 @@ DEPENDENCIES
   vagrant-invade!
 
 BUNDLED WITH
-   1.10.6
+   1.10.5

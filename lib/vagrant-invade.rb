@@ -18,7 +18,7 @@ module VagrantPlugins
     def self.get_invade_config
       #Loading Invade configuration settings from file
       @source_root = VagrantPlugins::Invade.source_root
-      invade_config_file = "#{@source_root}/InvadeConfig.yml"
+      invade_config_file = "#{@source_root}/invade.yml"
 
       if File.exist?(invade_config_file)
         begin

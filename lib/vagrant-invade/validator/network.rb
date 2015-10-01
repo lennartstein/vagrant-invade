@@ -21,7 +21,7 @@ module VagrantPlugins
         end
 
         def validate
-          return DEFAULT unless network
+          return nil unless network
 
           # NETWORK TYPE
           @network['type'] = Validator.validate(
@@ -37,8 +37,6 @@ module VagrantPlugins
           @network['hostname'] = Validator.validate(
             @network['hostname'], 'hostname', 'string', "#{DEFAULT['hostname']}#{7 + index if @index}"
           )
-
-          puts @network
 
           @network
         end

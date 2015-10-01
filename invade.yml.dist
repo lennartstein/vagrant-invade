@@ -20,43 +20,32 @@ machines:
 
     # Provider related settings. Performance, naming
     provider:
-      name: 'my-1337-project'
-      type: 'virtualbox'
-      cores: 4
-      memory: 512
+      virtualbox:
+        name: 'my-1337-project'
+        cores: 4
+        memory: 512
 
     # Synced Folder settings
     synced_folder:
-      www:
+      nfs:
         enable: true
         source: '../..'
-        path: '/www'
-        type: 'nfs'
-        owner: 'vagrant'
-        group: 'www-data'
-        dmode: 775
-        fmode: 664
         nfs_options:
           - nolock
           - udp
           - v3
 
     ssh:
-      enabled: true
-      folder: '~/.ssh/'
+      path: '~/.ssh/'
 
     provision:
-      tmp-folder:
-        enabled: true
-        type: shell-inline
+      shell:
+        name: 'set-permissions'
         inline: 'chmod 777 /tmp'
-      run-composer:
-        enabled: true
-        type: shell
-        file: '/home/vagrant/provision/shell/run-composer.sh'
+      shell:
+        name: 'run-composer'
+        path: '/home/vagrant/provision/shell/run-composer.sh'
       puppet:
-        enabled: true
-        type: puppet
         folder: '../puppet'
         options:
           - manifests
