@@ -22,7 +22,7 @@ module VagrantPlugins
           end
 
           def validate
-            return nil unless shell
+            return nil unless @shell
 
             # NAME
             @shell['name'] = Validator.validate(
@@ -49,6 +49,7 @@ module VagrantPlugins
               @shell['privileged'], 'privileged', 'boolean', DEFAULT['privileged']
             )
 
+            @shell
           end
         end
       end

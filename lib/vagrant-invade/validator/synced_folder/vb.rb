@@ -21,7 +21,7 @@ module VagrantPlugins
           end
 
           def validate
-            return false unless vb
+            return false unless @vb
 
             # OWNER
             @vb['owner'] = Validator.validate(
@@ -43,6 +43,7 @@ module VagrantPlugins
               @vb['fmode'], 'fmode', 'integer', "#{DEFAULT['fmode']}"
             )
 
+            @vb
           end
         end
       end

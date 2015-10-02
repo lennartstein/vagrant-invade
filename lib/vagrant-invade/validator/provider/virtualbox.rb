@@ -20,7 +20,7 @@ module VagrantPlugins
           end
 
           def validate
-            return nil unless virtualbox
+            return nil unless @virtualbox
 
             # GUI
             @virtualbox['gui'] = Validator.validate(
@@ -37,6 +37,7 @@ module VagrantPlugins
               @virtualbox['nicspeed'], 'nicspeed', 'integer', "#{DEFAULT['nicspeed']}"
             )
 
+            @virtualbox
           end
         end
       end

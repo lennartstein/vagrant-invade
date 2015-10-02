@@ -9,6 +9,7 @@ module VagrantPlugins
       autoload :Provision, 'vagrant-invade/validator/provision'
       autoload :SyncedFolder, 'vagrant-invade/validator/synced_folder'
       autoload :SSH, 'vagrant-invade/validator/ssh'
+      autoload :Plugin, 'vagrant-invade/validator/plugin'
 
       VALIDATION_ERRORS = 0
 
@@ -25,27 +26,6 @@ module VagrantPlugins
       def self.set_invade(env)
         @invade = env[:invade]['invade']
       end
-
-      def self.validate(value, name, type, default)
-
-        case type
-        when 'bool'
-          validate_boolean(value, name, default)
-        when 'string'
-          validate_string(value, name, default)
-        when 'integer'
-          validate_integer(value, name, default)
-        when 'array'
-          validate_array(value, name, default)
-        else
-          @env[:ui].warn(
-            "\t'#{value}' not a type. Defined variable types are boolean, string, integer and array. Option is set to default '#{default}'."
-          )
-          return default
-        end
-      end
-
-      private
 
       # Validates to BOOLEAN and returns the value at success or a default if not
       def self.validate_boolean(value, name, default)

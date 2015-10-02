@@ -23,7 +23,7 @@ module VagrantPlugins
           end
 
           def validate
-            return nil unless puppet
+            return nil unless @puppet
 
             # FOLDER
             @puppet['folder'] = Validator.validate(
@@ -55,6 +55,7 @@ module VagrantPlugins
               @puppet['facter'], 'facter', 'string', DEFAULT['facter']
             )
 
+            @puppet
           end
         end
       end

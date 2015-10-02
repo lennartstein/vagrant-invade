@@ -20,7 +20,7 @@ module VagrantPlugins
           end
 
           def validate
-            return nil unless nfs
+            return nil unless @nfs
 
             # USER ID
             @nfs['uid'] = Validator.validate(
@@ -37,6 +37,7 @@ module VagrantPlugins
               @nfs['options'], 'options', 'array', DEFAULT['options']
             )
 
+            @nfs
           end
         end
       end

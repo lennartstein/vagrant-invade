@@ -16,8 +16,9 @@ module VagrantPlugins
           end
 
           def validate
-            return false unless vmware
+            return false unless @vmware
 
+            @vmware
           end
         end
       end

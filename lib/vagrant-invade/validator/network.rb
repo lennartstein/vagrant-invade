@@ -21,7 +21,7 @@ module VagrantPlugins
         end
 
         def validate
-          return nil unless network
+          return nil unless @network
 
           # NETWORK TYPE
           @network['type'] = Validator.validate(
