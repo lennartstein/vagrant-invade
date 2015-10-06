@@ -6,9 +6,6 @@ module VagrantPlugins
         autoload :VirtualBox, 'vagrant-invade/validator/provider/virtualbox'
         autoload :VMware, 'vagrant-invade/validator/provider/vmware'
 
-        attr_accessor :env
-        attr_accessor :provider
-
         DEFAULT = {
           'name' => nil,
           'core' => 1,
@@ -16,24 +13,24 @@ module VagrantPlugins
         }
 
         def self.validate_base(env, provider)
-          return nil unless @provider
+          return nil unless provider
 
           # NAME
-          @provider['name'] = Validator.validate(
-            @provider['name'], 'name', 'string', DEFAULT['name']
+          provider['name'] = Validator.validate_string(
+            provider['name'], 'name', DEFAULT['name']
           )
 
           # CORE
-          @provider['cores'] = Validator.validate(
-            @provider['cores'], 'cores', 'integer', "#{DEFAULT['cores']}"
+          provider['cores'] = Validator.validate_integer(
+            provider['cores'], 'cores', DEFAULT['cores']
           )
 
           # MEMORY
-          @provider['memory'] = Validator.validate(
-            @provider['memory'], 'memory', 'integer', "#{DEFAULT['memory']}"
+          provider['memory'] = Validator.validate_integer(
+            provider['memory'], 'memory', DEFAULT['memory']
           )
 
-          @provider
+          provider
         end
 
       end

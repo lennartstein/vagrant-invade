@@ -1,18 +1,18 @@
 module VagrantPlugins
   module Invade
-    module Generator
+    module Builder
       module Provider
 
-        require 'erb'
+        require 'erubis'
 
         class VirtualBox
 
           attr_reader :result
-          attr_accessor :machine_name, :options
+          attr_accessor :machine_name, :virtualbox_data
 
-          def initialize(machine_name, options, result: nil)
+          def initialize(machine_name, virtualbox_data, result: nil)
             @machine_name = machine_name
-            @options  = options
+            @virtualbox_data  = virtualbox_data
             @result   = result
           end
 
@@ -26,14 +26,15 @@ module VagrantPlugins
               machine_name = @machine_name
 
               # Values for provider section
-              name      = @options['name']
-              type      = @options['type']
-              cores     = @options['cores']
-              memory    = @options['memory']
-              nicspeed  = @options['nicspeed']
-              natdns    = @options['natdns']
+              name = @virtualbox_data['name']
+              type = @virtualbox_data['type']
+              cpus = @virtualbox_data['cores']
+              memory = @virtualbox_data['memory']
+              nicspeed = @virtualbox_data['nicspeed']
+              natdns = @virtualbox_data['natdns']
 
-              ERB.new(File.read(template_file), 0, "-", "@result").result b
+              eruby = Erubis::Eruby.new(File.read(template_file))
+              @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)
             end

@@ -6,7 +6,7 @@ module VagrantPlugins
         class WinNFSd
 
           attr_accessor :env
-          attr_accessor :win_nfsd
+          attr_accessor :winnfsd
 
           DEFAULT = {
             'enabled' => true,
@@ -15,35 +15,35 @@ module VagrantPlugins
             'guid' => Process.gid
           }
 
-          def initialize(env, win_nfsd)
+          def initialize(env, winnfsd)
             @env = env
-            @win_nfsd = win_nfsd
+            @winnfsd = winnfsd
           end
 
           def validate
-            return nil unless @win_nfsd
+            return nil unless @winnfsd
 
             # ENABLED
-            @win_nfsd['enabled'] = Validator.validate(
-              @win_nfsd['enabled'], 'enabled', 'boolean', DEFAULT['enabled']
+            @winnfsd['enabled'] = Validator.validate_boolean(
+              @winnfsd['enabled'], 'enabled', DEFAULT['enabled']
             )
 
             # LOGGING (activate the logging of the NFS daemon which will show the daemon window in the foreground)
-            @win_nfsd['logging'] = Validator.validate(
-              @win_nfsd['logging'], 'logging', 'boolean', DEFAULT['logging']
+            @winnfsd['logging'] = Validator.validate_boolean(
+              @winnfsd['logging'], 'logging', DEFAULT['logging']
             )
 
             # User ID
-            @win_nfsd['uid'] = Validator.validate(
-              @win_nfsd['uid'], 'uid', 'boolean', DEFAULT['uid']
+            @winnfsd['uid'] = Validator.validate_integer(
+              @winnfsd['uid'], 'uid', DEFAULT['uid']
             )
 
             # Group ID
-            @win_nfsd['guid'] = Validator.validate(
-              @win_nfsd['guid'], 'guid', 'integer', DEFAULT['guid']
+            @winnfsd['guid'] = Validator.validate_integer(
+              @winnfsd['guid'], 'guid', DEFAULT['guid']
             )
 
-            @win_nfsd
+            @winnfsd
           end
         end
       end

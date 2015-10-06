@@ -3,27 +3,7 @@
 
 Vagrant.configure(2) do |config|
 
-  config.vm.define "<%= machine_name %>" do |<%= machine_name %>|
-
-    <% if box %>
-    <%= box -%>
-    <% end -%>
-
-    <% if network -%>
-    <%= network -%>
-    <% end -%>
-
-    <% if vm -%>
-    <%= vm -%>
-    <% end -%>
-
-    <% if sf -%>
-    <%= sf -%>
-    <% end -%>
-
-    <% if provision -%>
-    <%= provision -%>
-    <% end -%>
-
-  end
+  <% definitions.each do |definition, data| %>
+  <%= data %>
+  <% end %>
 end

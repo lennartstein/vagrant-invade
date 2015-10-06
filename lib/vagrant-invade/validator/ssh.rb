@@ -4,8 +4,7 @@ module VagrantPlugins
 
       class SSH
 
-        attr_accessor :env
-        attr_accessor :ssh
+        attr_accessor :env, :ssh
 
         DEFAULT = {
           'enabled' => nil,
@@ -20,8 +19,15 @@ module VagrantPlugins
         def validate
           return DEFAULT unless @ssh
 
-          @ssh['enabled'] = Validator.validate(@ssh['enabled'], 'enabled', 'string', DEFAULT['enabled'])
-          @ssh['path'] = Validator.validate(@ssh['path'], 'path', 'string', DEFAULT['path'])
+          # ENABLED
+          @ssh['enabled'] = Validator.validate_boolean(
+            @ssh['enabled'], 'enabled', DEFAULT['enabled']
+          )
+
+          # PATH TO HOST SSH FOLDER
+          @ssh['path'] = Validator.validate_string(
+            @ssh['path'], 'path', DEFAULT['path']
+          )
 
           @ssh
         end

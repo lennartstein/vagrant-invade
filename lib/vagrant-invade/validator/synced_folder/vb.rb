@@ -40,7 +40,7 @@ module VagrantPlugins
 
             # FMODE (File Permission Mode)
             @vb['fmode'] = Validator.validate(
-              @vb['fmode'], 'fmode', 'integer', "#{DEFAULT['fmode']}"
+              @vb['fmode'], 'fmode', 'integer', DEFAULT['fmode']
             )
 
             @vb

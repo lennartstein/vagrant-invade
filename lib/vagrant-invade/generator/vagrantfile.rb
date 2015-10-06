@@ -2,40 +2,48 @@ module VagrantPlugins
   module Invade
     module Generator
 
-      require 'erb'
-
       class Vagrantfile
 
-        attr_reader :result
-        attr_accessor :machine_name, :sections
+        attr_accessor :env, :vagrantfile_data
 
-        def initialize(machine_name, sections, result: nil)
-          @machine_name = machine_name
-          @sections  = sections
-          @result   = result
+        def initialize(env, vagrantfile_data)
+          @env = env
+          @vagrantfile_data = vagrantfile_data
         end
 
-        def build
-          b = binding
-          template_file = "#{TEMPLATE_PATH}/v2.erb"
+        def generate
+          require 'digest'
 
-          begin
+          vagrantfile = Builder::Vagrantfile.new(@vagrantfile_data)
+          vagrantfile.build
 
-            # Get machine name
-            machine_name = @machine_name
+          # Get project root and default vagrantfile filename
+          ENV['VAGRANT_VAGRANTFILE'] ? vagrantfile_name = ENV['VAGRANT_VAGRANTFILE'] : vagrantfile_name = "Vagrantfile"
+          currentVagrantfile = "#{@env[:root_path]}/#{vagrantfile_name}"
 
-            # Sections for vagrantfile to generate
-            box       = @sections['box']
-            network   = @sections['network']
-            vm        = @sections['vm']
-            sf        = @sections['sf']
-            provision = @sections['provision']
+          # Compare md5 strings to replace Vagrantfile only if content changed
+          md5_new = Digest::MD5.hexdigest(vagrantfile.result)
+          md5_current = Digest::MD5.file(currentVagrantfile).hexdigest
 
-            ERB.new(File.read(template_file), 0, '-', '@result').result b
-          rescue TypeError, SyntaxError, SystemCallError => e
-            raise(e)
+          unless md5_new.equal? md5_current
+
+            open("#{currentVagrantfile}", 'w+') do |f|
+              f.puts vagrantfile.result
+            end
+
+            @env[:ui].warn '[Invade] Restarting Vagrant with new Vagrantfile...'
+            # sleep 2
+            #
+            # if !Vagrant.in_installer? && !Vagrant.very_quiet?
+            #   Kernel.exec('bundle exec vagrant up')
+            # else
+            #   Kernel.exec('vagrant up')
+            # end
+
           end
+
         end
+
       end
     end
   end

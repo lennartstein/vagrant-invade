@@ -6,9 +6,6 @@ module VagrantPlugins
         autoload :VB, 'vagrant-invade/validator/synced_folder/vb'
         autoload :NFS, 'vagrant-invade/validator/synced_folder/nfs'
 
-        attr_accessor :env
-        attr_accessor :shared_folder
-
         DEFAULT = {
           'enabled' => nil,
           'source' => '.',
@@ -16,21 +13,21 @@ module VagrantPlugins
         }
 
         def self.validate_base(env, shared_folder)
-          return nil unless @shared_folder
+          return nil unless shared_folder
 
-          @shared_folder['enabled'] = Validator.validate(
-            @shared_folder['enabled'], 'enabled', 'string', DEFAULT['enabled']
+          shared_folder['enabled'] = Validator.validate_boolean(
+            shared_folder['enabled'], 'enabled', DEFAULT['enabled']
           )
 
-          @shared_folder['source'] = Validator.validate(
-            @shared_folder['source'], 'source', 'string', DEFAULT['source']
+          shared_folder['source'] = Validator.validate_string(
+            shared_folder['source'], 'source', DEFAULT['source']
           )
 
-          @shared_folder['path'] = Validator.validate(
-            @shared_folder['path'], 'path', 'string', DEFAULT['path']
+          shared_folder['path'] = Validator.validate_string(
+            shared_folder['path'], 'path', DEFAULT['path']
           )
 
-          @shared_folder
+          shared_folder
         end
 
       end

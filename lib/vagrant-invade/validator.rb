@@ -33,9 +33,9 @@ module VagrantPlugins
         invade = @env[:invade]['invade']
 
         if [true, false].include? value
-          @env[:ui].success("\t#{name} => #{value}") if invade['debug']
+          @env[:ui].success("\t#{name} => #{value}") if @env[:invade]['debug']
         elsif value === nil
-          @env[:ui].info("\tOption is not set. Set '#{name}' => #{default.to_s.upcase}.") if invade['debug']
+          @env[:ui].info("\tOption is not set. Set '#{name}' => #{default.to_s.upcase}.") if @env[:invade]['debug']
           return default
         else
           @env[:ui].warn("\tWarning: #{name} => #{value} is not a boolean. Set '#{name}' to default value #{default.to_s.upcase}.")
@@ -54,10 +54,10 @@ module VagrantPlugins
         if value.is_a? String
           @env[:ui].success("\t#{name} => '#{value}'") if @env[:invade]['debug']
         elsif value === nil
-          @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.") if invade['debug']
+          @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.") if @env[:invade]['debug']
           return default
         elsif value === ''
-          @env[:ui].warn("\tEmpty string is not valid. Set '#{name}' => '#{default}'.") if invade['debug']
+          @env[:ui].warn("\tEmpty string is not valid. Set '#{name}' => '#{default}'.") if @env[:invade]['debug']
           return default
         else
           @env[:ui].warn("\tWarning: '#{value}' is not a string. Set to '#{name}' to default value '#{default}'.")
@@ -74,9 +74,9 @@ module VagrantPlugins
         invade = @env[:invade]['invade']
 
         if value.is_a? Integer or is_number(value)
-          @env[:ui].success("\t#{name} => #{value}") if invade['debug']
+          @env[:ui].success("\t#{name} => #{value}") if @env[:invade]['debug']
         elsif value === nil
-          @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.") if invade['debug']
+          @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.") if @env[:invade]['debug']
           return default
         else
           @env[:ui].warn("\tWarning: '#{value}' is not an integer. Set '#{name}' to default value #{default}.")
@@ -91,9 +91,9 @@ module VagrantPlugins
       def self.validate_array(value, name, default)
 
         if value.is_a? Array
-          @env[:ui].success("\t#{name} => #{value}") if invade['debug']
+          @env[:ui].success("\t#{name} => #{value}") if @env[:invade]['debug']
         elsif value === nil
-          @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.")  if invade['debug']
+          @env[:ui].info("\tOption is not set. Set '#{name}' => '#{default}'.")  if @env[:invade]['debug']
           return default
         else
           @env[:ui].warn("\tWarning: '#{value}' is not an array. Set '#{name}' to default value #{default}.")

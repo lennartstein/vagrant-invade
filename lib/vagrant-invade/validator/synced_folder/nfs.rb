@@ -9,8 +9,8 @@ module VagrantPlugins
           attr_accessor :nfs
 
           DEFAULT = {
-            'uid' => Process.uid,
-            'gid' => Process.gid,
+            'uid' => nil,
+            'gid' => nil,
             'options' => ['nolock']
           }
 
@@ -23,18 +23,18 @@ module VagrantPlugins
             return nil unless @nfs
 
             # USER ID
-            @nfs['uid'] = Validator.validate(
-              @nfs['uid'], 'uid', 'array', DEFAULT['uid']
+            @nfs['uid'] = Validator.validate_integer(
+              @nfs['uid'], 'uid', DEFAULT['uid']
             )
 
             # GROUP ID
-            @nfs['gid'] = Validator.validate(
-              @nfs['gid'], 'gid', 'array', DEFAULT['gid']
+            @nfs['gid'] = Validator.validate_integer(
+              @nfs['gid'], 'gid', DEFAULT['gid']
             )
 
             # NFS OPTIONS
-            @nfs['options'] = Validator.validate(
-              @nfs['options'], 'options', 'array', DEFAULT['options']
+            @nfs['options'] = Validator.validate_array(
+              @nfs['options'], 'options', DEFAULT['options']
             )
 
             @nfs

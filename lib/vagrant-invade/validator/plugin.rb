@@ -3,8 +3,8 @@ module VagrantPlugins
     module Validator
       module Plugin
 
-        autoload :HostManager, 'vagrant-invade/validator/provider/hostmanager'
-        autoload :WinNFSd, 'vagrant-invade/validator/provider/winnfsd'
+        autoload :HostManager, 'vagrant-invade/validator/plugin/hostmanager'
+        autoload :WinNFSd, 'vagrant-invade/validator/plugin/winnfsd'
 
       end
     end

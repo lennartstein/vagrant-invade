@@ -25,28 +25,28 @@ module VagrantPlugins
             return nil unless @shell
 
             # NAME
-            @shell['name'] = Validator.validate(
-              @shell['name'], 'name', 'string', DEFAULT['name']
+            @shell['name'] = Validator.validate_string(
+              @shell['name'], 'name', DEFAULT['name']
             )
 
             # INLINE SCRIPT
-            @shell['inline'] = Validator.validate(
-              @shell['inline'], 'inline', 'string', DEFAULT['inline']
+            @shell['inline'] = Validator.validate_string(
+              @shell['inline'], 'inline', DEFAULT['inline']
             )
 
             # PATH (path to shell script or remote address to script file)
-            @shell['path'] = Validator.validate(
-              @shell['path'], 'path', 'string', DEFAULT['path']
+            @shell['path'] = Validator.validate_string(
+              @shell['path'], 'path', DEFAULT['path']
             )
 
             # BINARY (replace windows newline endings with unix line endings)
-            @shell['binary'] = Validator.validate(
-              @shell['binary'], 'binary', 'boolean', DEFAULT['binary']
+            @shell['binary'] = Validator.validate_boolean(
+              @shell['binary'], 'binary', DEFAULT['binary']
             )
 
             # PRIVILEGED (run with sudo)
-            @shell['privileged'] = Validator.validate(
-              @shell['privileged'], 'privileged', 'boolean', DEFAULT['privileged']
+            @shell['privileged'] = Validator.validate_boolean(
+              @shell['privileged'], 'privileged', DEFAULT['privileged']
             )
 
             @shell

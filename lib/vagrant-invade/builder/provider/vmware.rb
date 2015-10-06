@@ -1,11 +1,11 @@
 module VagrantPlugins
   module Invade
-    module Generator
+    module Builder
       module Provider
 
-        require 'erb'
+        require 'erubis'
 
-        class VMWare
+        class VMware
 
           attr_reader :result
           attr_accessor :machine_name, :options
@@ -28,10 +28,11 @@ module VagrantPlugins
               # Values for provider section
               name    = @options['name']
               type    = @options['type']
-              cores   = @options['cores']
+              cpus   = @options['cores']
               memory  = @options['memory']
 
-              ERB.new(File.read(template_file), 0, "-", "@result").result b
+              eruby = Erubis::Eruby.new(File.read(template_file))
+              @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)
             end

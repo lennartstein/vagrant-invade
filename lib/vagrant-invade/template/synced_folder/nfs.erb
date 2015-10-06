@@ -1,0 +1,13 @@
+  # Shared Folder - NFS
+    <% if uid %>
+    <%= machine_name %>.nfs.map_uid = <%= uid %>
+    <% else %>
+    <%= machine_name %>.nfs.map_uid = Process.uid
+    <% end %>
+    <% if gid %>
+    <%= machine_name %>.nfs.map_gid = <%= gid %>
+    <% else %>
+    <%= machine_name %>.nfs.map_gid = Process.gid
+    <% end %>
+    <%= machine_name %>.vm.synced_folder '<%= source %>', '<%= path %>',
+      type: 'nfs', mount_options: '<%= options %>', disabled: <%= enabled %>

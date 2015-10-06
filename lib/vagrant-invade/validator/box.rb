@@ -20,8 +20,15 @@ module VagrantPlugins
         def validate
           return DEFAULT unless @box
 
-          @box['name'] = Validator.validate(@box['name'], 'name', 'string', DEFAULT['name'])
-          @box['url'] = Validator.validate(@box['url'], 'url', 'string', DEFAULT['url'])
+          # BOX NAME (usually repository name of box on Atlas (http://atlas.hashicorp.com))
+          @box['name'] = Validator.validate_string(
+            @box['name'], 'name', DEFAULT['name']
+          )
+
+          # BOX URL
+          @box['url'] = Validator.validate_string(
+            @box['url'], 'url', DEFAULT['url']
+          )
 
           @box
         end

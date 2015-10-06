@@ -11,7 +11,7 @@ module VagrantPlugins
 
           builder.use Config
           builder.use Validate
-          #builder.use Generate
+          builder.use Generate
         end
       end
     end

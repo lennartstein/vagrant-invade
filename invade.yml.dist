@@ -10,17 +10,17 @@ machines:
 
     # Box related settings
     box:
-      name: invade/default
+      name: innogames/debian-jessie-8.1.0
 
     # Network settings
     network:
-      type: 'private'
+      type: 'private_network'
       ip: '10.42.133.7'
       hostname: 'invaded.vm'
 
     # Provider related settings. Performance, naming
     provider:
-      virtualbox:
+      vmware:
         name: 'my-1337-project'
         cores: 4
         memory: 512
@@ -28,6 +28,7 @@ machines:
     # Synced Folder settings
     synced_folder:
       nfs:
+        name: 'www'
         enable: true
         source: '../..'
         nfs_options:
@@ -51,7 +52,7 @@ machines:
           - manifests
           - modules
 
-    plugins:
+    plugin:
       hostmanager:
         enabled: true
         manage_host: true

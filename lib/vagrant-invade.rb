@@ -12,8 +12,9 @@ require 'vagrant-invade/command'
 module VagrantPlugins
   module Invade
 
-    autoload :Generator, 'vagrant-invade/generator'
     autoload :Validator, 'vagrant-invade/validator'
+    autoload :Builder, 'vagrant-invade/builder'
+    autoload :Generator, 'vagrant-invade/generator'
 
     def self.get_invade_config
       #Loading Invade configuration settings from file

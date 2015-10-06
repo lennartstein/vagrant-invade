@@ -20,8 +20,15 @@ module VagrantPlugins
         def validate
           return DEFAULT unless @invade
 
-          @invade['enabled']  = Validator.validate(@invade['enabled'], 'enabled', 'bool', DEFAULT['enabled'])
-          @invade['debug']    = Validator.validate(@invade['debug'], 'debug', 'bool', DEFAULT['debug'])
+          # INVADE ON/OFF
+          @invade['enabled']  = Validator.validate_boolean(
+            @invade['enabled'], 'enabled', DEFAULT['enabled']
+          )
+
+          # DEBUG MODE ON/OFF
+          @invade['debug']    = Validator.validate_boolean(
+            @invade['debug'], 'debug', DEFAULT['debug']
+          )
 
           @invade
         end

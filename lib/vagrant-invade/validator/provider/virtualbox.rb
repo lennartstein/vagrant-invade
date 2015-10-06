@@ -23,18 +23,18 @@ module VagrantPlugins
             return nil unless @virtualbox
 
             # GUI
-            @virtualbox['gui'] = Validator.validate(
-              @virtualbox['gui'], 'gui', 'boolean', DEFAULT['gui']
+            @virtualbox['gui'] = Validator.validate_boolean(
+              @virtualbox['gui'], 'gui', DEFAULT['gui']
             )
 
             # HOSTRESOLVER
-            @virtualbox['natdns'] = Validator.validate(
-              @virtualbox['natdns'], 'natdns', 'boolean', "#{DEFAULT['natdns']}"
+            @virtualbox['natdns'] = Validator.validate_boolean(
+              @virtualbox['natdns'], 'natdns', DEFAULT['natdns']
             )
 
             # NICSPEED
-            @virtualbox['nicspeed'] = Validator.validate(
-              @virtualbox['nicspeed'], 'nicspeed', 'integer', "#{DEFAULT['nicspeed']}"
+            @virtualbox['nicspeed'] = Validator.validate_integer(
+              @virtualbox['nicspeed'], 'nicspeed', DEFAULT['nicspeed']
             )
 
             @virtualbox

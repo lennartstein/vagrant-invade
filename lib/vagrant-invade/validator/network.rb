@@ -24,18 +24,18 @@ module VagrantPlugins
           return nil unless @network
 
           # NETWORK TYPE
-          @network['type'] = Validator.validate(
-            @network['type'], 'type', 'string', DEFAULT['type']
+          @network['type'] = Validator.validate_string(
+            @network['type'], 'type', DEFAULT['type']
           )
 
           # IP ADDRESS
-          @network['ip'] = Validator.validate(
-            @network['ip'], 'ip', 'string', "#{DEFAULT['ip']}#{7 + index if @index}"
+          @network['ip'] = Validator.validate_string(
+            @network['ip'], 'ip', "#{DEFAULT['ip']}#{7 + index if @index}"
           )
 
           # HOSTNAME
-          @network['hostname'] = Validator.validate(
-            @network['hostname'], 'hostname', 'string', "#{DEFAULT['hostname']}#{7 + index if @index}"
+          @network['hostname'] = Validator.validate_string(
+            @network['hostname'], 'hostname', "#{DEFAULT['hostname']}#{7 + index if @index}"
           )
 
           @network

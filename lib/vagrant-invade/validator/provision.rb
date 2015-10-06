@@ -8,15 +8,12 @@ module VagrantPlugins
         #autoload :Chef, 'vagrant-invade/validator/provision/chef'
         #autoload :Docker, 'vagrant-invade/validator/provision/docker'
 
-        attr_accessor :env
-        attr_accessor :provision
-
         DEFAULT = {}
 
         def self.validate_base(env, provision)
-          return nil unless @provision
+          return nil unless provision
 
-          @provision
+          provision
         end
       end
     end
