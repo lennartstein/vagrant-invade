@@ -50,7 +50,7 @@ module VagrantPlugins
 
                 section['provider'].each do |type, data|
                   parts = Generator::Section::Provider.new(machine, type, data).generate
-                  part['provider'].concat(parts + "\n")
+                  part['provider'].concat(parts)
                 end
               end
 
@@ -60,7 +60,7 @@ module VagrantPlugins
 
                 section['synced_folder'].each do |type, data|
                   parts = Generator::Section::SyncedFolder.new(machine, type, data).generate
-                  part['synced_folder'].concat(parts + "\n")
+                  part['synced_folder'].concat(parts)
                 end
               end
 
@@ -69,7 +69,7 @@ module VagrantPlugins
 
                 section['provision'].each do |type, data|
                   parts = Generator::Section::Provision.new(machine, type, data).generate
-                  part['provision'].concat(parts + "\n")
+                  part['provision'].concat(parts)
                 end
               end
 
