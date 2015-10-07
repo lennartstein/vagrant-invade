@@ -35,18 +35,12 @@ module VagrantPlugins
                 part['vm'] = Generator::Section::VM.new(machine, section['vm']).generate
               end
 
-              # # NETWORK
-              # unless section['network'] == nil
-              #   puts section[]
-              #   part['network'] = Generator::Section::Network.new(machine, section['network'].keys[0], section['network'].first).generate
-              # end
-
               # NETWORK
               unless section['network'] == nil
                 part['network'] = ''
 
                 section['network'].each do |type, data|
-                  part['network'].concat(Generator::Section::Network.new(machine, type, data).generate + "\n")
+                  part['network'].concat(Generator::Section::Network.new(machine, type, data).generate)
                 end
               end
 
