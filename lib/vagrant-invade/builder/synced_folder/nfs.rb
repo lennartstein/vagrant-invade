@@ -13,7 +13,7 @@ module VagrantPlugins
           def initialize(machine_name, nfs_data, result: nil)
             @machine_name = machine_name
             @nfs_data  = nfs_data
-            @result   = result
+            @result = result
           end
 
           def build
@@ -26,12 +26,12 @@ module VagrantPlugins
               machine_name = @machine_name
 
               # Values for provider sections
-              enabled = !@nfs_data['enabled']
+              enabled = !@nfs_data['enabled'] # negated because Vagrant asks if it is disabled
               uid = @nfs_data['uid']
               gid = @nfs_data['gid']
               source = @nfs_data['source']
               path = @nfs_data['path']
-              options = @nfs_data['options']
+              mount_options = @nfs_data['mount_options']
 
               eruby = Erubis::Eruby.new(File.read(template_file))
               @result = eruby.result b

@@ -11,7 +11,7 @@ module VagrantPlugins
           DEFAULT = {
             'uid' => nil,
             'gid' => nil,
-            'options' => ['nolock']
+            'mount_options' => ['nolock']
           }
 
           def initialize(env, nfs)
@@ -33,8 +33,8 @@ module VagrantPlugins
             )
 
             # NFS OPTIONS
-            @nfs['options'] = Validator.validate_array(
-              @nfs['options'], 'options', DEFAULT['options']
+            @nfs['mount_options'] = Validator.validate_array(
+              @nfs['mount_options'], 'mount_options', DEFAULT['mount_options']
             )
 
             @nfs
