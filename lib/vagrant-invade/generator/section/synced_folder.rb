@@ -15,7 +15,7 @@ module VagrantPlugins
 
           def generate
             case @type
-            when 'vb'
+            when 'vb', 'virtualbox'
               synced_folder = Builder::SyncedFolder::VirtualBox.new(@machine_name, @synced_folder_data)
             when 'nfs'
               synced_folder = Builder::SyncedFolder::NFS.new(@machine_name, @synced_folder_data)

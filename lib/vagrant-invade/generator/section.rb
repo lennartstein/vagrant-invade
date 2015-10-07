@@ -3,7 +3,7 @@ module VagrantPlugins
     module Generator
       module Section
 
-        autoload :Box, 'vagrant-invade/generator/section/box'
+        autoload :VM, 'vagrant-invade/generator/section/vm'
         autoload :Network, 'vagrant-invade/generator/section/network'
         autoload :Provider, 'vagrant-invade/generator/section/provider'
         autoload :SyncedFolder, 'vagrant-invade/generator/section/synced_folder'

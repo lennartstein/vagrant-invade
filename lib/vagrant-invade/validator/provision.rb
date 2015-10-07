@@ -4,6 +4,7 @@ module VagrantPlugins
       module Provision
 
         autoload :Shell, 'vagrant-invade/validator/provision/shell'
+        autoload :ShellInline, 'vagrant-invade/validator/provision/shell_inline'
         autoload :Puppet, 'vagrant-invade/validator/provision/puppet'
         #autoload :Chef, 'vagrant-invade/validator/provision/chef'
         #autoload :Docker, 'vagrant-invade/validator/provision/docker'

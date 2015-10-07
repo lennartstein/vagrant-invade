@@ -14,9 +14,7 @@ module VagrantPlugins
             'manifests' => 'manifests',
             'manifest_file' => 'init.pp',
             'hiera_config_path' => nil,
-            'facter' => [
-
-            ]
+            'facter' => []
           }
 
           def initialize(env, puppet)

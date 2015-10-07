@@ -30,11 +30,25 @@ module VagrantPlugins
 
             machines.each_with_index do |(machine, section), index|
 
-              # BOX
-              part['box'] = Generator::Section::Box.new(machine, section['box']).generate
+              # VM
+              unless section['vm'] == nil
+                part['vm'] = Generator::Section::VM.new(machine, section['vm']).generate
+              end
+
+              # # NETWORK
+              # unless section['network'] == nil
+              #   puts section[]
+              #   part['network'] = Generator::Section::Network.new(machine, section['network'].keys[0], section['network'].first).generate
+              # end
 
               # NETWORK
-              part['network'] = Generator::Section::Network.new(machine, section['network']).generate
+              unless section['network'] == nil
+                part['network'] = ''
+
+                section['network'].each do |type, data|
+                  part['network'].concat(Generator::Section::Network.new(machine, type, data).generate + "\n")
+                end
+              end
 
               # PROVIDER
               unless section['provider'] == nil
@@ -42,7 +56,7 @@ module VagrantPlugins
 
                 section['provider'].each do |type, data|
                   parts = Generator::Section::Provider.new(machine, type, data).generate
-                  part['provider'].concat(parts)
+                  part['provider'].concat(parts + "\n")
                 end
               end
 
@@ -52,20 +66,19 @@ module VagrantPlugins
 
                 section['synced_folder'].each do |type, data|
                   parts = Generator::Section::SyncedFolder.new(machine, type, data).generate
-                  part['synced_folder'].concat(parts)
+                  part['synced_folder'].concat(parts + "\n")
                 end
               end
 
-              # # PROVISION
-              # unless section['provision'] == nil
-              #   part['provision'] = ''
-              #
-              #   section['provision'].each do |type, data|
-              #     parts = Generator::Section::Provision.new(machine, type, data).generate
-              #     part['provision'].concat(parts)
-              #   end
-              # end
-              #
+              unless section['provision'] == nil
+                part['provision'] = ''
+
+                section['provision'].each do |type, data|
+                  parts = Generator::Section::Provision.new(machine, type, data).generate
+                  part['provision'].concat(parts + "\n")
+                end
+              end
+
               # # SSH
               # unless section['ssh'] == nil
               #   part['ssh'] = Generator::Section::SSH.new(machine, section['ssh']).generate

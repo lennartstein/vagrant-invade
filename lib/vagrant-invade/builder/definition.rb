@@ -25,7 +25,7 @@ module VagrantPlugins
             machine_name = @machine_name
 
             # Data to build definition entry
-            box = @definition_data['box']
+            vm = @definition_data['vm']
             network = @definition_data['network']
             provider = @definition_data['provider']
             synced_folder = @definition_data['synced_folder']

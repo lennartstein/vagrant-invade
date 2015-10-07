@@ -1,0 +1,2 @@
+<%= machine_name %>.vm.provision "shell",
+  path: <%= path %><% unless name %>, name: <%= name %><% end %><% unless binary %>, binary: <%= binary %><% end %><% unless privileged %>, privileged: <%= privileged %><% end %>

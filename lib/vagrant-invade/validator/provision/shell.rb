@@ -9,11 +9,10 @@ module VagrantPlugins
           attr_accessor :shell
 
           DEFAULT = {
-            'name' => 'invade_shell_provision',
-            'inline' => nil,
+            'name' => 'invade_shell',
             'path' => nil,
-            'binary' => nil,
-            'privileged' => nil
+            'binary' => nil, # Vagrant default is true
+            'privileged' => nil # Vagrant default is true
           }
 
           def initialize(env, shell)
@@ -27,11 +26,6 @@ module VagrantPlugins
             # NAME
             @shell['name'] = Validator.validate_string(
               @shell['name'], 'name', DEFAULT['name']
-            )
-
-            # INLINE SCRIPT
-            @shell['inline'] = Validator.validate_string(
-              @shell['inline'], 'inline', DEFAULT['inline']
             )
 
             # PATH (path to shell script or remote address to script file)

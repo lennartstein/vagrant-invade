@@ -1,0 +1,1 @@
+  <%= machine_name %>.vm.network "private_network"<% if ip %>, ip: "<%= ip %>"<% end %><% if dhcp %>, type: "<%= dhcp %>"<% end %><% if auto_config %>, auto_config: <%= auto_config %><% end %>

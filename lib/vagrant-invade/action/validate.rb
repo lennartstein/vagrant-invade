@@ -31,11 +31,26 @@ module VagrantPlugins
           unless machines == nil
             machines.each_with_index do |(machine, sections), index|
 
-              # BOX
-              sections['box'] = Validator::Box.new(env, sections['box']).validate
+              # VM
+              unless sections['vm'] == nil
+                sections['vm'] = Validator::VM.new(env, sections['vm']).validate
+              end
 
               # NETWORK
-              sections['network'] = Validator::Network.new(env, sections['network'], index).validate
+              unless sections['network'] == nil
+                sections['network'].each do |type, network|
+                  case type
+                  when 'private', 'private_network', 'privatenetwork', 'private-network'
+                    network = Validator::Network::PrivateNetwork.new(env, network).validate
+                  when 'forwarded', 'forwarded_port', 'forwarded-port', 'forwardedport', 'port'
+                    network = Validator::Network::ForwardedPort.new(@machine_name, network).validate
+                  when 'public', 'puplic_network', 'publicnetwork', 'public-network'
+                    network = Validator::Network::PublicNetwork.new(@machine_name, network).validate
+                  else
+                    raise StandardError, "Network type unknown or not set. Please check the network configuration."
+                  end
+                end
+              end
 
               # PROVIDER
               unless sections['provider'] == nil

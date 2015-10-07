@@ -2,9 +2,10 @@ module VagrantPlugins
   module Invade
     module Builder
 
-      autoload :Box, 'vagrant-invade/builder/box'
+      autoload :VM, 'vagrant-invade/builder/vm'
       autoload :Network, 'vagrant-invade/builder/network'
       autoload :Provider, 'vagrant-invade/builder/provider'
+      autoload :Provision, 'vagrant-invade/builder/provision'
       autoload :SyncedFolder, 'vagrant-invade/builder/synced_folder'
       autoload :Definition, 'vagrant-invade/builder/definition'
       autoload :Vagrantfile, 'vagrant-invade/builder/vagrantfile'

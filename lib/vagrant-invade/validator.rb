@@ -3,7 +3,7 @@ module VagrantPlugins
     module Validator
 
       autoload :Invade, 'vagrant-invade/validator/invade'
-      autoload :Box, 'vagrant-invade/validator/box'
+      autoload :VM, 'vagrant-invade/validator/vm'
       autoload :Network, 'vagrant-invade/validator/network'
       autoload :Provider, 'vagrant-invade/validator/provider'
       autoload :Provision, 'vagrant-invade/validator/provision'

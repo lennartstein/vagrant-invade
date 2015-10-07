@@ -32,12 +32,12 @@ module VagrantPlugins
             end
 
             @env[:ui].warn '[Invade] Restarting Vagrant with new Vagrantfile...'
-            # sleep 2
-            #
+            sleep 2
+
             # if !Vagrant.in_installer? && !Vagrant.very_quiet?
-            #   Kernel.exec('bundle exec vagrant up')
+            #   Kernel.exec('bundle exec vagrant reload')
             # else
-            #   Kernel.exec('vagrant up')
+            #   Kernel.exec('vagrant reload')
             # end
 
           end

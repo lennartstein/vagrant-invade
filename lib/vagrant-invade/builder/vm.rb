@@ -4,29 +4,30 @@ module VagrantPlugins
 
       require 'erubis'
 
-      class Box
+      class VM
 
         attr_reader :result
-        attr_accessor :machine_name, :options
+        attr_accessor :machine_name, :vm_data
 
-        def initialize(machine_name, options, result: nil)
+        def initialize(machine_name, vm_data, result: nil)
           @machine_name = machine_name
-          @options  = options
+          @vm_data  = vm_data
           @result   = result
         end
 
         def build
           b = binding
-          template_file = "#{TEMPLATE_PATH}/box/box.erb"
+          template_file = "#{TEMPLATE_PATH}/vm/vm.erb"
 
           begin
 
             # Get machine name
             machine_name = @machine_name
 
-            # Values for box section
-            name  = @options['name']
-            url   = @options['url']
+            # Values for vm section
+            box  = @vm_data['box']
+            url   = @vm_data['url']
+            hostname = @vm_data['hostname']
 
             eruby = Erubis::Eruby.new(File.read(template_file))
             @result = eruby.result b

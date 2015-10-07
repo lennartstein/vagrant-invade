@@ -1,5 +1,5 @@
 invade:
-  enabled: true
+  auto: true
   debug: false
 
 # Machine settings. Each entry is one box
@@ -8,20 +8,24 @@ machines:
   # Machine LPS
   lps:
 
-    # Box related settings
-    box:
-      name: innogames/debian-jessie-8.1.0
+    # VM related settings
+    vm:
+      box: innogames/debian-jessie-8.1.0
+      hostname: 'lps.local'
 
     # Network settings
     network:
-      type: 'private_network'
-      ip: '10.42.133.7'
-      hostname: 'invaded.vm'
+      private:
+        ip: '10.42.133.7'
 
     # Provider related settings. Performance, naming
     provider:
       vmware:
-        name: 'my-1337-project'
+        name: 'lps-vmware'
+        cores: 4
+        memory: 512
+      virtualbox:
+        name: 'lps-virtualbox'
         cores: 4
         memory: 512
 
@@ -29,15 +33,7 @@ machines:
     synced_folder:
       nfs:
         name: 'www'
-        enable: true
         source: '../..'
-        nfs_options:
-          - nolock
-          - udp
-          - v3
-
-    ssh:
-      path: '~/.ssh/'
 
     provision:
       shell:
@@ -46,20 +42,11 @@ machines:
       shell:
         name: 'run-composer'
         path: '/home/vagrant/provision/shell/run-composer.sh'
-      puppet:
-        folder: '../puppet'
-        options:
-          - manifests
-          - modules
 
     plugin:
       hostmanager:
         enabled: true
-        manage_host: true
-        ignore_private_ip: false
-        include_offline: true
         aliases:
           - my-1337-project.local
       winnfsd:
         enabled: true
-        logging: false
