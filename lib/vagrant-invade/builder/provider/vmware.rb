@@ -8,11 +8,11 @@ module VagrantPlugins
         class VMware
 
           attr_reader :result
-          attr_accessor :machine_name, :options
+          attr_accessor :machine_name, :vmware_data
 
-          def initialize(machine_name, options, result: nil)
+          def initialize(machine_name, vmware_data, result: nil)
             @machine_name = machine_name
-            @options  = options
+            @vmware_data  = vmware_data
             @result   = result
           end
 
@@ -26,10 +26,9 @@ module VagrantPlugins
               machine_name = @machine_name
 
               # Values for provider section
-              name    = @options['name']
-              type    = @options['type']
-              cpus   = @options['cores']
-              memory  = @options['memory']
+              @vmware_data['name'] ? name = @vmware_data['name'] : name = @machine_name
+              cpus = @vmware_data['cores']
+              memory  = @vmware_data['memory']
 
               eruby = Erubis::Eruby.new(File.read(template_file))
               @result = eruby.result b

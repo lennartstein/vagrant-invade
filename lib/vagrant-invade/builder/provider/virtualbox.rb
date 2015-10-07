@@ -26,7 +26,7 @@ module VagrantPlugins
               machine_name = @machine_name
 
               # Values for provider section
-              name = @virtualbox_data['name']
+              @virtualbox_data['name'] ? name = @virtualbox_data['name'] : name = @machine_name
               type = @virtualbox_data['type']
               cpus = @virtualbox_data['cores']
               memory = @virtualbox_data['memory']
