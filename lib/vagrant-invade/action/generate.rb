@@ -14,9 +14,6 @@ module VagrantPlugins
 
         def call(env)
 
-          @env[:ui].warn '[Invade] Generating Vagrantfile...'
-          sleep 1
-
           # Define invade config
           config = @env[:invade]
 
@@ -78,11 +75,17 @@ module VagrantPlugins
               #   part['ssh'] = Generator::Section::SSH.new(machine, section['ssh']).generate
               # end
 
+              # Add as definition
               definition[machine] = Generator::Definition.new(machine, part).generate
             end
 
-            # Finally generate Vagrantfile from generated definitions
-            Generator::Vagrantfile.new(env, definition).generate
+            # Finally generate Vagrantfile from generated definitions and add it to Vagrant environment
+            @env[:invade]['vagrantfile'] = Generator::Vagrantfile.new(env, definition).generate
+
+            # Finally done with generating. Delete machines from Vagrant environment
+            @env[:invade].delete("machines")
+
+            @app.call(env)
           end
         end
 
