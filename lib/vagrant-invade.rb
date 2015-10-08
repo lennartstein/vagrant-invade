@@ -11,6 +11,8 @@ require 'vagrant-invade/plugin'
 module VagrantPlugins
   module Invade
 
+    require 'vagrant-invade/version'
+
     autoload :Validator, 'vagrant-invade/validator'
     autoload :Builder, 'vagrant-invade/builder'
     autoload :Generator, 'vagrant-invade/generator'
