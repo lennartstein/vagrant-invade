@@ -27,10 +27,10 @@ module VagrantPlugins
             @env[:ui].info "[Invade] Using Plugin vagrant-invade-#{VERSION} to setup Vagrant!"
 
             # Add invade configuration as global environment variable since we know configuration file exists
-            env[:invade] = Invade.get_invade_config()
-
-            # Its necessary to invoke a call with the environment for not loosing the invade data
-            @app.call(env)
+            env[:invade] = Invade.get_invade_config
+            unless env[:invade]
+              raise "Something went wront. Configuration file could not be loaded."
+            end
           else
             @env[:ui].info "[Invade] 'invade.yml' not exists. You forgot a 'vagrant invade init'?"
             exit

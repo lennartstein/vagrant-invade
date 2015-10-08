@@ -13,11 +13,10 @@ module VagrantPlugins
         end
 
         def call(env)
-
           config = env[:invade]
+          quiet = @env[:invade_validate_quiet]
 
           Validator.set_env(@env)
-          Validator.set_invade(@env)
 
           ###############################################################
           # Validate the settings and set default variables if needed
@@ -33,19 +32,19 @@ module VagrantPlugins
 
               # VM
               unless sections['vm'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating VM configuration...")
-                sleep 1 unless @env[:invade_command_quiet]
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating VM configuration...") unless quiet
+                sleep 1 unless quiet
 
                 sections['vm'] = Validator::VM.new(env, sections['vm']).validate
               end
 
               # NETWORK
               unless sections['network'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating network configuration...")
-                sleep 1 unless @env[:invade_command_quiet]
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating network configuration...") unless quiet
+                sleep 1 unless quiet
 
                 sections['network'].each do |type, network|
-                  @env[:ui].info("\tNetwork: #{type}")
+                  @env[:ui].info("\tNetwork: #{type}") unless quiet
                   case type
                   when 'private', 'private_network', 'privatenetwork', 'private-network'
                     network = Validator::Network::PrivateNetwork.new(env, network).validate
@@ -61,11 +60,11 @@ module VagrantPlugins
 
               # PROVIDER
               unless sections['provider'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating provider configuration...")
-                sleep 1 unless @env[:invade_command_quiet]
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating provider configuration...") unless quiet
+                sleep 1 unless quiet
 
                 sections['provider'].each do |type, provider|
-                  @env[:ui].info("\tProvider: #{type}")
+                  @env[:ui].info("\tProvider: #{type}") unless quiet
                   case type
                   when 'virtualbox'
                     provider = Validator::Provider::VirtualBox.new(env, provider).validate
@@ -79,11 +78,11 @@ module VagrantPlugins
 
               # SYNCED FOLDER
               unless sections['synced_folder'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating synced folder configuration...")
-                sleep 1 unless @env[:invade_command_quiet]
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating synced folder configuration...") unless quiet
+                sleep 1 unless quiet
 
                 sections['synced_folder'].each do |type, sf|
-                  @env[:ui].info("\tSynced Folder: #{type}")
+                  @env[:ui].info("\tSynced Folder: #{type}") unless quiet
                   case type
                   when 'nfs'
                     sf = Validator::SyncedFolder::NFS.new(env, sf).validate
@@ -97,11 +96,11 @@ module VagrantPlugins
 
               # PROVISION
               unless sections['provision'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating provision configuration...")
-                sleep 1 unless @env[:invade_command_quiet]
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating provision configuration...") unless quiet
+                sleep 1 unless quiet
 
                 sections['provision'].each do |type, provision|
-                  @env[:ui].info("\tProvision: #{type}")
+                  @env[:ui].info("\tProvision: #{type}") unless quiet
                   case type
                   when 'shell'
                     provision = Validator::Provision::Shell.new(env, provision).validate
@@ -115,18 +114,18 @@ module VagrantPlugins
 
               # SSH
               unless sections['ssh'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating SSH configuration...")
-                sleep 1 unless @env[:invade_command_quiet]
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating SSH configuration...") unless quiet
+                sleep 1 unless quiet
 
                 sections['ssh'] = Validator::SSH.new(env, sections['ssh']).validate
               end
 
               unless sections['plugin'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating plugin configuration...")
-                sleep 1 unless @env[:invade_command_quiet]
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating plugin configuration...") unless quiet
+                sleep 1 unless quiet
 
                 sections['plugin'].each do |type, plugin|
-                  @env[:ui].info("\tPlugin: #{type}")
+                  @env[:ui].info("\tPlugin: #{type}") unless quiet
                   case type
                   when 'hostmanager'
                     plugin = Validator::Plugin::HostManager.new(env, plugin).validate
@@ -142,7 +141,7 @@ module VagrantPlugins
           end
 
           if Validator::VALIDATION_ERRORS > 0
-            @env[:ui].warn('[Invade] Configuration has validation warnings. Use debug mode to see details.')
+            @env[:ui].warn('[Invade] Configuration has validation warnings. Use debug mode to see details.') unless quiet
           else
             @env[:ui].success('[Invade] Configuration validated successfully.')
           end

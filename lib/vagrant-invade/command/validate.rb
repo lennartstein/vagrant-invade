@@ -13,7 +13,7 @@ module VagrantPlugins
             o.on("-f", "--force", "Overwrite existing Vagrantfile") do |f|
               options[:force] = f
             end
-            o.on("-q", "--quiet", "No verbose output.") do |q|
+            o.on("-q", "--quiet", "Just make it whisper.") do |q|
               options[:quiet] = q
             end
           end
@@ -24,8 +24,8 @@ module VagrantPlugins
 
           # Validates InVaDE configuration
           action(Action.validate, {
-            :invade_command_force => options[:force],
-            :invade_command_quiet => options[:quiet]
+            :invade_validate_force => options[:force],
+            :invade_validate_quiet => options[:quiet]
           })
 
           # Success, exit status 0

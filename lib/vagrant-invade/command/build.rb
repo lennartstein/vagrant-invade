@@ -24,8 +24,9 @@ module VagrantPlugins
 
           # Validates InVaDE configuration
           action(Action.build, {
-            :invade_command_force => options[:force],
-            :invade_command_quiet => options[:quiet]
+            :invade_build_force => options[:force],
+            :invade_build_quiet => options[:quiet],
+            :invade_validate_quiet => true # set this to true. Just build without validate output
           })
 
           # Success, exit status 0

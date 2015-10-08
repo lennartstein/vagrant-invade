@@ -18,11 +18,11 @@ module VagrantPlugins
     autoload :Generator, 'vagrant-invade/generator'
 
     def self.get_invade_config
-      #Loading Invade configuration settings from file
-      @source_root = VagrantPlugins::Invade.source_root
-      invade_config_file = "#{@source_root}/invade.yml"
 
-      if File.exist?(invade_config_file)
+      #Loading Invade configuration settings from file
+      invade_config_file = Dir.pwd + '/invade.yml'
+
+      if File.exists?(invade_config_file)
         begin
           return YAML.load_file(invade_config_file)
         rescue SyntaxError => e
@@ -34,10 +34,6 @@ module VagrantPlugins
       end
 
       @config_values
-    end
-
-    def self.source_root
-      @source_root ||= Pathname.new(File.expand_path('../../', __FILE__))
     end
   end
 end

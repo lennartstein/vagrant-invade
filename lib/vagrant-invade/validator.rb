@@ -17,14 +17,9 @@ module VagrantPlugins
       attr_accessor :invade
 
       @env = nil
-      @invade = nil
 
       def self.set_env(env)
         @env = env
-      end
-
-      def self.set_invade(env)
-        @invade = env[:invade]['invade']
       end
 
       # Validates to BOOLEAN and returns the value at success or a default if not
@@ -33,9 +28,9 @@ module VagrantPlugins
         invade = @env[:invade]['invade']
 
         if [true, false].include? value
-          @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_command_quiet]
+          @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
         elsif value === nil
-          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_command_quiet]
+          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
           return default
         else
           @env[:ui].warn("\tWarning: #{name} => #{value} is not a boolean. Set '#{name}' to default value #{default.to_s.upcase}.")
@@ -52,12 +47,12 @@ module VagrantPlugins
         invade = @env[:invade]['invade']
 
         if value.is_a? String
-          @env[:ui].success("\t#{name} => '#{value}'") unless @env[:invade_command_quiet]
+          @env[:ui].success("\t#{name} => '#{value}'") unless @env[:invade_validate_quiet]
         elsif value === nil
-          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_command_quiet]
+          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
           return default
         elsif value === ''
-          @env[:ui].warn("\tEmpty string is not valid. Set '#{name}' => '#{default}'.") unless @env[:invade_command_quiet]
+          @env[:ui].warn("\tEmpty string is not valid. Set '#{name}' => '#{default}'.") unless @env[:invade_validate_quiet]
           return default
         else
           @env[:ui].warn("\tWarning: '#{value}' is not a string. Set to '#{name}' to default value '#{default}'.")
@@ -74,9 +69,9 @@ module VagrantPlugins
         invade = @env[:invade]['invade']
 
         if value.is_a? Integer or is_number(value)
-          @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_command_quiet]
+          @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
         elsif value === nil
-          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_command_quiet]
+          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
           return default
         else
           @env[:ui].warn("\tWarning: '#{value}' is not an integer. Set '#{name}' to default value #{default}.")
@@ -91,9 +86,9 @@ module VagrantPlugins
       def self.validate_array(value, name, default)
 
         if value.is_a? Array
-          @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_command_quiet]
+          @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
         elsif value === nil
-          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_command_quiet]
+          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
           return default
         else
           @env[:ui].warn("\tWarning: '#{value}' is not an array. Set '#{name}' to default value #{default}.")

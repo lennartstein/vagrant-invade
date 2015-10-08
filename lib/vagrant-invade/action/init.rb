@@ -46,7 +46,6 @@ module VagrantPlugins
         def write_invade_config
           current_root_path = Dir.pwd
           config_file_path = "#{@dir}/invade.yml"
-          puts config_file_path
 
           if invade_template_exists
             template_file_path = "#{@dir}/invade.yml.dist"
@@ -54,7 +53,7 @@ module VagrantPlugins
             @env[:ui].success "[Invade] Copy of template 'invade.yml.dist' created successfully. Please make your changes."
           else
             plugin_root_path = File.expand_path('../../../../', __FILE__)
-            default_config_file_path = "#{@plugin_root_path}/invade.yml.dist"
+            default_config_file_path = plugin_root_path + '/invade.yml.dist'
             FileUtils.cp(default_config_file_path, config_file_path)
             @env[:ui].success "[Invade] Copy of default 'invade.yml.dist' created successfully. Please make your changes."
           end
