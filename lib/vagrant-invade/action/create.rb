@@ -31,6 +31,8 @@ module VagrantPlugins
               write_vagrantfile(@env[:ui], root_path, generated_vagrantfile, vagrantfile_name, true) :
               write_vagrantfile(@env[:ui], root_path, generated_vagrantfile, vagrantfile_name, false)
           end
+
+          @app.call(env)
         end
 
         private
