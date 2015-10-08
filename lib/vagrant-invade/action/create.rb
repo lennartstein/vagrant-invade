@@ -22,7 +22,7 @@ module VagrantPlugins
           generated_vagrantfile = @env[:invade]['vagrantfile']
 
           # Get auto_mode from env
-          auto_mode = @env[:invade]['invade']['auto']
+          auto_mode = @env[:invade_auto]
 
           # Write new Vagrantfile if checksum is not equal and auto mode is enabled
           unless check_md5_checksum(@env[:ui], root_path, vagrantfile_name, generated_vagrantfile)

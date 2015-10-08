@@ -16,7 +16,7 @@ module VagrantPlugins
           root_path = @env[:root_path]
           config_file_path = "#{root_path}/invade.yml"
           template_file_path = config_file_path + '.dist'
-          default_config_file_path = Dir.pwd + '/invade.yml.dist'
+          default_config_file_path = File.expand_path('../../../../', __FILE__) + '/invade.yml.dist'
 
           # Returns with invade in environment if Invade Configuration file already exists
           if File.exist?(config_file_path)
@@ -41,9 +41,9 @@ module VagrantPlugins
               @env[:ui].warn '[Invade] Restarting vagrant...'
               sleep 3
               if !Vagrant.in_installer? && !Vagrant.very_quiet?
-                Kernel.exec('bundle exec vagrant up')
+                Kernel.exec('bundle exec vagrant up') if @env[:invade_command]
               else
-                Kernel.exec('vagrant up')
+                Kernel.exec('vagrant up') if @env[:invade_command]
               end
             rescue
               # If not found default invade configuration file will be copied.
@@ -57,9 +57,9 @@ module VagrantPlugins
               @env[:ui].warn '[Invade] Restarting vagrant...'
               sleep 3
               if !Vagrant.in_installer? && !Vagrant.very_quiet?
-                Kernel.exec('bundle exec vagrant up')
+                Kernel.exec('bundle exec vagrant up') if @env[:invade_command]
               else
-                Kernel.exec('vagrant up')
+                Kernel.exec('vagrant up') if @env[:invade_command]
               end
             end
           end

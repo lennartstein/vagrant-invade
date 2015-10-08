@@ -23,8 +23,16 @@ module VagrantPlugins
         end
       end
 
+      # This middleware sequence will init a InVaDE configuration file
+      def self.init
+        Vagrant::Action::Builder.new.tap do |builder|
+          builder.use Init
+        end
+      end
+
       # The autoload farm
       action_root = Pathname.new(File.expand_path("../action", __FILE__))
+      autoload :Init, action_root.join("init")
       autoload :Config, action_root.join("config")
       autoload :Validate, action_root.join("validate")
       autoload :Generate, action_root.join("generate")

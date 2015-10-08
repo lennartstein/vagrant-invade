@@ -14,6 +14,12 @@ module VagrantPlugins
           @main_args, @sub_command, @sub_args = split_main_and_subcommand(argv)
           @subcommands = Vagrant::Registry.new
 
+          # INIT COMMAND ("vagrant invade init")
+            @subcommands.register(:init) do
+            require_relative "init"
+            Init
+          end
+
           # VALIDATE COMMAND ("vagrant invade validate")
           @subcommands.register(:validate) do
             require_relative "validate"
