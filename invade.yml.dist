@@ -1,17 +1,18 @@
 invade:
-  auto: true
-  debug: false
+  # auto: true
+  # replace: true
+  # debug: true
 
 # Machine settings. Each entry is one box
 machines:
 
-  # Machine LPS
-  lps:
+  # Machine 1 (default)
+  default:
 
     # VM related settings
     vm:
       box: innogames/debian-jessie-8.1.0
-      hostname: 'lps.local'
+      hostname: 'invade.vm'
 
     # Network settings
     network:
@@ -21,27 +22,30 @@ machines:
     # Provider related settings. Performance, naming
     provider:
       vmware:
-        name: 'lps-vmware'
+        name: 'invade'
         cores: 4
         memory: 512
       virtualbox:
-        name: 'lps-virtualbox'
+        name: 'invade'
         cores: 4
         memory: 512
 
     # Synced Folder settings
-    synced_folder:
-      nfs:
-        name: 'www'
-        source: '../..'
+    # synced_folder:
+    #   nfs:
+    #     name: 'www'
+    #     source: '../..'
+    #     mount_options:
+    #       - nolock
+    #       - udp
 
-    provision:
-      shell:
-        name: 'set-permissions'
-        inline: 'chmod 777 /tmp'
-      shell:
-        name: 'run-composer'
-        path: '/home/vagrant/provision/shell/run-composer.sh'
+    # provision:
+    #   shell:
+    #     name: 'set-permissions'
+    #     inline: 'chmod 777 /tmp'
+    #   shell:
+    #     name: 'run-composer'
+    #     path: '/home/vagrant/provision/shell/run-composer.sh'
 
     plugin:
       hostmanager:

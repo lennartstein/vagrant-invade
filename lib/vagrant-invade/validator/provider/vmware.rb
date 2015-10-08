@@ -12,11 +12,11 @@ module VagrantPlugins
 
           def initialize(env, vmware)
             @env = env
-            @vmware = vmware
+            @vmware = Provider.validate_base(env, vmware)
           end
 
           def validate
-            return false unless @vmware
+            return nil unless @vmware
 
             @vmware
           end

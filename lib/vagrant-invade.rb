@@ -7,7 +7,6 @@ rescue LoadError
 end
 
 require 'vagrant-invade/plugin'
-require 'vagrant-invade/command'
 
 module VagrantPlugins
   module Invade

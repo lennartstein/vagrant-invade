@@ -9,8 +9,8 @@ module VagrantPlugins
           attr_accessor :virtualbox
 
           DEFAULT = {
-            'gui' => false,
-            'natdns' => false,
+            'gui' => nil,
+            'natdns' => nil,
             'nicspeed' => 10485760
           }
 

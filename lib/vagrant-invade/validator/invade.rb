@@ -8,7 +8,7 @@ module VagrantPlugins
         attr_accessor :invade
 
         DEFAULT = {
-          'enabled' => true,
+          'auto' => false,
           'debug' => false
         }
 
@@ -18,15 +18,15 @@ module VagrantPlugins
         end
 
         def validate
-          return DEFAULT unless @invade
+          return nil unless @invade
 
           # INVADE ON/OFF
-          @invade['enabled']  = Validator.validate_boolean(
-            @invade['enabled'], 'enabled', DEFAULT['enabled']
+          @invade['auto'] = Validator.validate_boolean(
+            @invade['auto'], 'auto', DEFAULT['auto']
           )
 
           # DEBUG MODE ON/OFF
-          @invade['debug']    = Validator.validate_boolean(
+          @invade['debug'] = Validator.validate_boolean(
             @invade['debug'], 'debug', DEFAULT['debug']
           )
 
