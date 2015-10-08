@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.name            = 'vagrant-invade'
   s.version         = VagrantPlugins::Invade::VERSION
   s.date            = '2015-08-10'
-  s.summary         = "List all vms"
-  s.description     = "A simple vagrant plugin for listing all vms"
+  s.summary         = "Create a Vagrantfile with a single YAML configuration file"
+  s.description     = "InVaDE is a plugin that uses a YAML configuration file to build a Vagrantfile from it."
   s.authors         = ["Lennart Stein"]
   s.email           = 'frgmt@posteo.de'
   s.files           = `git ls-files`.split($\)
