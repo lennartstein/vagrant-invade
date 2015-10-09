@@ -11,7 +11,7 @@ machines:
 
     # VM related settings
     vm:
-      box: innogames/debian-jessie-8.1.0
+      box: boxcutter/debian82
       hostname: 'invade.vm'
 
     # Network settings
