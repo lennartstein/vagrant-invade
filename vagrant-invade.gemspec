@@ -3,7 +3,7 @@ require File.expand_path('../lib/vagrant-invade/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name            = 'vagrant-invade'
-  s.version         = Invade::VERSION
+  s.version         = VagrantPlugins::Invade::VERSION
   s.platform        = Gem::Platform::RUBY
   s.date            = Date.today.to_s
   s.summary         = "Create a Vagrantfile with a single YAML configuration file"
@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.0.0'
 
-  s.add_development_dependency "bundler", ">= 1.10.5"
-  s.add_development_dependency "rake"
+  s.add_development_dependency 'bundler', '~> 1.10', '>= 1.10.5'
+  s.add_development_dependency 'rake', '~> 0'
 end
