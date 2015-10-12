@@ -35,7 +35,6 @@ machines:
     #     source: '../..'
     #     mount_options:
     #       - nolock
-    #       - udp
 
     # provision:
     #   shell:
@@ -44,6 +43,11 @@ machines:
     #   shell:
     #     name: 'run-composer'
     #     path: '/home/vagrant/provision/shell/run-composer.sh'
+    #   puppet:
+    #     manifests_path: './puppet/manifests'
+    #     manifest_file: 'init.pp'
+    #     module_path: ['./puppet/modules', './puppet/vendor']
+    #     facter: []
 
     plugin:
       hostmanager:
