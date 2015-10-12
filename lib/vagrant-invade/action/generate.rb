@@ -70,6 +70,15 @@ module VagrantPlugins
                 end
               end
 
+              unless section['plugin'] == nil
+                part['plugin'] = ''
+
+                section['plugin'].each do |type, data|
+                  parts = Generator::Section::Plugin.new(machine, type, data).generate
+                  part['plugin'].concat(parts)
+                end
+              end
+
               # # SSH
               # unless section['ssh'] == nil
               #   part['ssh'] = Generator::Section::SSH.new(machine, section['ssh']).generate

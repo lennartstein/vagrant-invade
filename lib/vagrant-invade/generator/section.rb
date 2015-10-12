@@ -8,6 +8,7 @@ module VagrantPlugins
         autoload :Provider, 'vagrant-invade/generator/section/provider'
         autoload :SyncedFolder, 'vagrant-invade/generator/section/synced_folder'
         autoload :Provision, 'vagrant-invade/generator/section/provision'
+        autoload :Plugin, 'vagrant-invade/generator/section/plugin'
 
       end
     end

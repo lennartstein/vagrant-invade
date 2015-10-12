@@ -16,4 +16,8 @@ config.vm.define "<%= machine_name %>" do |<%= machine_name %>|
     # Synced folder configuration
   <%= synced_folder %>
   <% end %>
+  <% if plugin %>
+    # Plugin configuration
+  <%= plugin %>
+  <% end %>
   end

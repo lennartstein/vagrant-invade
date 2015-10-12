@@ -9,10 +9,9 @@ module VagrantPlugins
           attr_accessor :winnfsd
 
           DEFAULT = {
-            'enabled' => true,
             'logging' => false,
-            'uid' => Process.uid,
-            'guid' => Process.gid
+            'uid' => nil,
+            'guid' => nil
           }
 
           def initialize(env, winnfsd)
@@ -22,11 +21,6 @@ module VagrantPlugins
 
           def validate
             return nil unless @winnfsd
-
-            # ENABLED
-            @winnfsd['enabled'] = Validator.validate_boolean(
-              @winnfsd['enabled'], 'enabled', DEFAULT['enabled']
-            )
 
             # LOGGING (activate the logging of the NFS daemon which will show the daemon window in the foreground)
             @winnfsd['logging'] = Validator.validate_boolean(
@@ -39,8 +33,8 @@ module VagrantPlugins
             )
 
             # Group ID
-            @winnfsd['guid'] = Validator.validate_integer(
-              @winnfsd['guid'], 'guid', DEFAULT['guid']
+            @winnfsd['gid'] = Validator.validate_integer(
+              @winnfsd['gid'], 'gid', DEFAULT['gid']
             )
 
             @winnfsd
