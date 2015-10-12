@@ -14,22 +14,23 @@ module VagrantPlugins
 
         def call(env)
 
-          # Get project root and default vagrantfile filename
+          # Get project root where vagrant is running from
+          # Since it is possible to set it through the environment we need to validate it
           root_path = Dir.pwd
           ENV['VAGRANT_VAGRANTFILE'] ? vagrantfile_name = ENV['VAGRANT_VAGRANTFILE'] : vagrantfile_name = "Vagrantfile"
 
           # Get generated Vagrantfile from environment
           if @env[:invade]['vagrantfile']
-            generated_vagrantfile = @env[:invade]['vagrantfile']
+            generated_vagrantfile_data = @env[:invade]['vagrantfile']
           else
             raise "[Invade]: No generated data found. Can't build Vagrantfile."
           end
 
-          # Write new Vagrantfile if checksum is not equal and auto mode is enabled
-          unless check_md5_checksum(@env[:ui], root_path, vagrantfile_name, generated_vagrantfile)
+          # Write new Vagrantfile if checksum is not equal
+          unless check_md5_checksum(@env[:ui], root_path, vagrantfile_name, generated_vagrantfile_data)
               @env[:invade_build_force] ?
-              write_vagrantfile(@env[:ui], root_path, generated_vagrantfile, vagrantfile_name, true) :
-              write_vagrantfile(@env[:ui], root_path, generated_vagrantfile, vagrantfile_name, false)
+              write_vagrantfile(@env[:ui], root_path, generated_vagrantfile_data, vagrantfile_name, true) :
+              write_vagrantfile(@env[:ui], root_path, generated_vagrantfile_data, vagrantfile_name, false)
           end
 
           @app.call(env)
@@ -38,11 +39,11 @@ module VagrantPlugins
         private
 
         # Compare md5 strings to replace Vagrantfile
-        def check_md5_checksum(ui, root_path, vagrantfile_name, generated_vagrantfile)
+        def check_md5_checksum(ui, root_path, vagrantfile_name, generated_vagrantfile_data)
 
           require 'digest'
 
-          md5_new = Digest::MD5.hexdigest(generated_vagrantfile)
+          md5_new = Digest::MD5.hexdigest(generated_vagrantfile_data)
 
           if File.exists?("#{root_path}/#{vagrantfile_name}")
             md5_current = Digest::MD5.file("#{root_path}/#{vagrantfile_name}").hexdigest
@@ -56,10 +57,11 @@ module VagrantPlugins
             ui.warn "[Invade] Checksum not equal!"
             ui.warn "[Invade] Current    : '#{md5_current}'"
             ui.warn "[Invade] Generated  : '#{md5_new}'"
+
             return false
           end
 
-          ui.success "[Invade] Vagrantfile is still valid. No need to rebuild. Or use --force."
+          ui.success "[Invade] Vagrantfile is still valid. Use '--f' to force replacing it."
 
           true
         end

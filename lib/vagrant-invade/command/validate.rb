@@ -10,7 +10,7 @@ module VagrantPlugins
           opts = OptionParser.new do |o|
             o.banner = "Usage: vagrant invade validate [-f|--force] [-q|--quiet] [-h]"
             o.separator ""
-            o.on("-f", "--force", "Overwrite existing Vagrantfile") do |f|
+            o.on("-f", "--force", "Force replacing current Vagrantfile") do |f|
               options[:force] = f
             end
             o.on("-q", "--quiet", "Just make it whisper.") do |q|
