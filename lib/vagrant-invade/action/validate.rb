@@ -126,6 +126,8 @@ module VagrantPlugins
                     plugin = Validator::Plugin::HostManager.new(env, plugin).validate
                   when 'winnfsd'
                     plugin = Validator::Plugin::WinNFSd.new(env, plugin).validate
+                  when 'r10k'
+                    plugin = Validator::Plugin::R10k.new(env, plugin).validate
                   else
                     raise StandardError, "Plugin type unknown or not set. Please check configuration file."
                   end

@@ -19,6 +19,8 @@ module VagrantPlugins
               plugin = Builder::Plugin::HostManager.new(@machine_name, @plugin_data)
             when 'winnfsd'
               plugin = Builder::Plugin::WinNFSd.new(@machine_name, @plugin_data)
+            when 'r10k'
+              plugin = Builder::Plugin::R10k.new(@machine_name, @plugin_data)
             else
               raise StandardError, "Plugin unknown or not set. Please check the plugin configuration."
             end

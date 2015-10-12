@@ -54,5 +54,9 @@ machines:
         enabled: true
         aliases:
           - my-1337-project.local
-      winnfsd:
-        enabled: true
+      # winnfsd:
+      #   enabled: true
+      # r10k:
+      #   puppet_dir: './puppet'
+      #   puppetfile_path: './puppet/Puppetfile'
+      #   module_path: './puppet/vendor'
