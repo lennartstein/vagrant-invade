@@ -25,7 +25,7 @@ module VagrantPlugins
             begin
 
               # Only generate puppetfile if modules are given in configuration file
-              if @r10k_data['modules'].to_a.empty? || @r10k_data['modules'].to_a.nil?
+              if @r10k_data['enabled'] && @r10k_data['modules']
 
                 basic_modules = [
                   %w(https://github.com/puppetlabs/puppetlabs-stdlib.git),
