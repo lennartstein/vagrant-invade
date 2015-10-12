@@ -11,16 +11,18 @@ module VagrantPlugins
         Command::Root
       end
 
-      # Hook - Do all the invade magic before Vagrant itself comes alive
-      action_hook(:invade, :machine_action_up) do |hook|
-        require 'vagrant-invade/action'
+      # Disable hook for now. Use commands instead of auto mode
 
-        # 1. Checks config file
-        # 2. Validates config file
-        # 3. Generates Vagrantfile from invade config
-        # 4. Creates generated Vagrantfile
-        hook.prepend(Action.build)
-      end
+      # Hook - Do all the invade magic before Vagrant itself comes alive
+      # action_hook(:invade, :machine_action_up) do |hook|
+      #   require 'vagrant-invade/action'
+      #
+      #   # 1. Checks config file
+      #   # 2. Validates config file
+      #   # 3. Generates Vagrantfile from invade config
+      #   # 4. Creates generated Vagrantfile
+      #   hook.prepend(Action.build)
+      # end
     end
 
     autoload :Action, File.expand_path("../action/", __FILE__)
