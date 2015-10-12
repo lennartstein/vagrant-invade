@@ -112,9 +112,10 @@ module VagrantPlugins
             definition.concat("\n")
           end
 
+          # Gets module name from a repository URL
           def get_module_name_from_repo_url(repository_url)
 
-            # Path must include '/'
+            # URL must include '/'
             unless repository_url.include? '/'
               self.add_invade_text(
                   MESSAGE_EXIT,
@@ -125,13 +126,16 @@ module VagrantPlugins
               )
             end
 
+            # Get last part of the URI
             repository_name = URI(repository_url).path.split('/').last
+
+            # Removes .git from name
             repository_name = repository_name.partition('.').first
 
+            # Dashs in combination with lower dashs in a path are not allowed
             dash_count = repository_name.count('-')
             lower_dash_count = repository_name.count('_')
 
-            # Dashs in combination with lower dashs in a path are not allowed
             if dash_count > 0 && lower_dash_count > 0
               self.add_invade_text(MESSAGE_EXIT,
                   sprintf(
