@@ -1,6 +1,4 @@
 invade:
-  # auto: true
-  # replace: true
   # debug: true
 
 # Machine settings. Each entry is one box
