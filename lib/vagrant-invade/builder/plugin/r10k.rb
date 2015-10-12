@@ -10,49 +10,57 @@ module VagrantPlugins
         class R10k
 
           attr_reader :result
-          attr_accessor :machine_name, :r10k_data
+          attr_accessor :machine_name, :ui, :r10k_data
 
-          def initialize(machine_name, r10k_data, result: nil)
+          def initialize(machine_name, ui, r10k_data, result: nil)
             @machine_name = machine_name
+            @ui = ui
             @r10k_data = r10k_data
             @result = result
           end
 
           def build
+
+            unless Vagrant.has_plugin?('vagrant-r10k')
+              @ui.error("[Invade] Plugin 'vagrant-r10k' not installed but defined. Use 'vagrant plugin install vagrant-r10k' to install it.")
+              @result = ""
+            else
+
             b = binding
             template_file = "#{TEMPLATE_PATH}/plugin/r10k.erb"
 
-            begin
+              begin
 
-              # Only generate puppetfile if modules are given in configuration file
-              if @r10k_data['enabled'] && @r10k_data['modules']
+                # Only generate puppetfile if modules are given in configuration file
+                if @r10k_data['enabled'] && @r10k_data['modules']
 
-                basic_modules = [
-                  %w(https://github.com/puppetlabs/puppetlabs-stdlib.git),
-                  %w(https://github.com/puppetlabs/puppetlabs-apt.git),
-                  %w(https://github.com/example42/puppi.git)
-                ]
+                  basic_modules = [
+                    %w(https://github.com/puppetlabs/puppetlabs-stdlib.git),
+                    %w(https://github.com/puppetlabs/puppetlabs-apt.git),
+                    %w(https://github.com/example42/puppi.git)
+                  ]
 
-                puppetfile_path = File.expand_path(@r10k_data['puppetfile_path'])
+                  puppetfile_path = File.expand_path(@r10k_data['puppetfile_path'])
 
-                # Generate Puppetfile
-                merged_modules = concat_module_array(basic_modules, @r10k_data['modules'])
-                build_puppetfile(merged_modules, puppetfile_path)
+                  # Generate Puppetfile
+                  merged_modules = concat_module_array(basic_modules, @r10k_data['modules'])
+                  build_puppetfile(merged_modules, puppetfile_path)
+                end
+
+                # Get machine name
+                machine_name = @machine_name
+
+                # Values for r10k section
+                enabled = @r10k_data['enabled']
+                puppet_dir = @r10k_data['puppet_dir']
+                puppetfile_path = @r10k_data['puppetfile_path']
+                module_path = @r10k_data['module_path']
+
+                eruby = Erubis::Eruby.new(File.read(template_file))
+                @result = eruby.result b
+              rescue TypeError, SyntaxError, SystemCallError => e
+                raise(e)
               end
-
-              # Get machine name
-              machine_name = @machine_name
-
-              # Values for r10k section
-              enabled = @r10k_data['enabled']
-              puppet_dir = @r10k_data['puppet_dir']
-              puppetfile_path = @r10k_data['puppetfile_path']
-              module_path = @r10k_data['module_path']
-
-              eruby = Erubis::Eruby.new(File.read(template_file))
-              @result = eruby.result b
-            rescue TypeError, SyntaxError, SystemCallError => e
-              raise(e)
             end
           end
 

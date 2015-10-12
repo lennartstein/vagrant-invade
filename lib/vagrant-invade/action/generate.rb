@@ -75,7 +75,7 @@ module VagrantPlugins
                 part['plugin'] = ''
 
                 section['plugin'].each do |type, data|
-                  parts = Generator::Section::Plugin.new(machine, type, data).generate
+                  parts = Generator::Section::Plugin.new(machine, @env[:ui], type, data).generate
                   part['plugin'].concat(parts)
                 end
               end

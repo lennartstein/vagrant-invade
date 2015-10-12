@@ -8,32 +8,40 @@ module VagrantPlugins
         class WinNFSd
 
           attr_reader :result
-          attr_accessor :machine_name, :winnfsd_data
+          attr_accessor :machine_name, :ui, :winnfsd_data
 
-          def initialize(machine_name, winnfsd_data, result: nil)
+          def initialize(machine_name, ui, winnfsd_data, result: nil)
             @machine_name = machine_name
+            @ui = ui
             @winnfsd_data = winnfsd_data
             @result = result
           end
 
           def build
-            b = binding
-            template_file = "#{TEMPLATE_PATH}/plugin/winnfsd.erb"
 
-            begin
+            unless Vagrant.has_plugin?('vagrant-winnfsd')
+              @ui.error("[Invade] Plugin 'vagrant-winnfsd' not installed but defined. Use 'vagrant plugin install vagrant-winnfsd' to install it.")
+              @result = ""
+            else
 
-              # Get machine name
-              machine_name = @machine_name
+              b = binding
+              template_file = "#{TEMPLATE_PATH}/plugin/winnfsd.erb"
 
-              # Values for winnfsd section
-              logging = @winnfsd_data['logging']
-              uid = @winnfsd_data['uid']
-              gid = @winnfsd_data['gid']
+              begin
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
-              @result = eruby.result b
-            rescue TypeError, SyntaxError, SystemCallError => e
-              raise(e)
+                # Get machine name
+                machine_name = @machine_name
+
+                # Values for winnfsd section
+                logging = @winnfsd_data['logging']
+                uid = @winnfsd_data['uid']
+                gid = @winnfsd_data['gid']
+
+                eruby = Erubis::Eruby.new(File.read(template_file))
+                @result = eruby.result b
+              rescue TypeError, SyntaxError, SystemCallError => e
+                raise(e)
+              end
             end
           end
         end
