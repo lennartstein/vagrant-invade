@@ -12,8 +12,8 @@ module VagrantPlugins
 
           def initialize(machine_name, puppet_data, result: nil)
             @machine_name = machine_name
-            @puppet_data  = puppet_data
-            @result   = result
+            @puppet_data = puppet_data
+            @result = result
           end
 
           def build
@@ -25,13 +25,12 @@ module VagrantPlugins
               # Get machine name
               machine_name = @machine_name
 
-              # Values for provider section
-              name = @puppet_data['name']
-              type = @puppet_data['type']
-              cpus = @puppet_data['cores']
-              memory = @puppet_data['memory']
-              nicspeed = @puppet_data['nicspeed']
-              natdns = @puppet_data['natdns']
+              # Values for provider puppet section
+              module_path = @puppet_data['module_path']
+              manifests_path = @puppet_data['manifests_path']
+              manifest_file = @puppet_data['manifest_file']
+              hiera_config_path = @puppet_data['hiera_config_path']
+              facter = @puppet_data['facter']
 
               eruby = Erubis::Eruby.new(File.read(template_file))
               @result = eruby.result b

@@ -61,6 +61,7 @@ module VagrantPlugins
                 end
               end
 
+              # SYNCED FOLDER
               unless section['provision'] == nil
                 part['provision'] = ''
 

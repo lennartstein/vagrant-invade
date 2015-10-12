@@ -26,7 +26,7 @@ module VagrantPlugins
               machine_name = @machine_name
 
               # Values for provider sections
-              enabled = !@nfs_data['enabled'] # negated because Vagrant asks if it is disabled
+              enabled = @nfs_data['enabled']
               uid = @nfs_data['uid']
               gid = @nfs_data['gid']
               source = @nfs_data['source']

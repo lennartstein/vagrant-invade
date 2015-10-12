@@ -30,7 +30,7 @@ module VagrantPlugins
             provider = @definition_data['provider']
             synced_folder = @definition_data['synced_folder']
             plugin = @definition_data['plugin']
-            # provision = @definition_data['provision']
+            provision = @definition_data['provision']
 
             eruby = Erubis::Eruby.new(File.read(template_file))
             @result = eruby.result b

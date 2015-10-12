@@ -99,6 +99,8 @@ module VagrantPlugins
                   case type
                   when 'shell'
                     provision = Validator::Provision::Shell.new(env, provision).validate
+                  when 'shellinline', 'shell-inline'
+                    provision = Validator::Provision::ShellInline.new(env, provision).validate
                   when 'puppet'
                     provision = Validator::Provision::Puppet.new(env, provision).validate
                   else

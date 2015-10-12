@@ -1,3 +1,5 @@
+require 'rbconfig'
+
 module VagrantPlugins
   module Invade
     module Validator
@@ -9,29 +11,24 @@ module VagrantPlugins
           attr_accessor :puppet
 
           DEFAULT = {
-            'folder' => './puppet',
-            'modules' => 'modules',
-            'manifests' => 'manifests',
+            'modules_path' => '.puppet/modules',
+            'manifests_path' => './puppet/manifests',
             'manifest_file' => 'init.pp',
             'hiera_config_path' => nil,
-            'facter' => []
+            'facter' => {}
           }
 
           def initialize(env, puppet)
             @env = env
             @puppet = Provision.validate_base(env, puppet)
+            @invade = env[:invade]
           end
 
           def validate
             return nil unless @puppet
 
-            # FOLDER
-            @puppet['folder'] = Validator.validate_string(
-              @puppet['folder'], 'folder', DEFAULT['folder']
-            )
-
             # MODULES PATH
-            @puppet['modules_path'] = Validator.validate_string(
+            @puppet['modules_path'] = Validator.validate_array(
               @puppet['modules_path'], 'modules_path', DEFAULT['modules_path']
             )
 
@@ -56,12 +53,6 @@ module VagrantPlugins
             )
 
             @puppet
-          end
-
-          def self.default(params)
-            @folder = params[:folder]
-            @modules_path = params[:modules_path]
-            @manifests_path = params[:manifests_path]
           end
         end
       end
