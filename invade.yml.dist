@@ -19,10 +19,12 @@ machines:
 
     # Provider related settings. Performance, naming
     provider:
+
       vmware:
         name: 'invade'
         cores: 4
         memory: 512
+
       virtualbox:
         name: 'invade'
         cores: 4
@@ -40,23 +42,35 @@ machines:
     #   shell:
     #     name: 'set-permissions'
     #     inline: 'chmod 777 /tmp'
+
     #   shell:
     #     name: 'run-composer'
     #     path: '/home/vagrant/provision/shell/run-composer.sh'
+
     #   puppet:
     #     manifests_path: './puppet/manifests'
     #     manifest_file: 'init.pp'
-    #     module_path: ['./puppet/modules', './puppet/vendor']
-    #     facter: []
+    #     module_path:
+    #       - './puppet/modules'
+    #       - './puppet/vendor'
+    #     facter: {}
 
     plugin:
       hostmanager:
         enabled: true
         aliases:
           - my-1337-project.local
+
       # winnfsd:
       #   enabled: true
+
       # r10k:
       #   puppet_dir: './puppet'
       #   puppetfile_path: './puppet/Puppetfile'
       #   module_path: './puppet/vendor'
+      #   modules: {
+      #     'sql' => {
+      #       'url' => 'https://github.com/example42/puppet-mysql.git',
+      #       'version' => '2.1.5'
+      #     }
+      #   }
