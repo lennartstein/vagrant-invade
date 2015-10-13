@@ -1,0 +1,20 @@
+  <%= machine_name %>.vm.provision "puppet_server" do |puppet_agent|
+      <% if puppet_server %>
+      puppet_agent.puppet_server = '<%= puppet_server %>'
+      <% end %>
+      <% if puppet_node %>
+      puppet_agent.puppet_node = '<%= puppet_node %>'
+      <% end %>
+      <% if client_cert_path %>
+      puppet_agent.client_cert_path = '<%= client_cert_path %>'
+      <% end %>
+      <% if client_private_key_path %>
+      puppet_agent.client_private_key_path = '<%= client_private_key_path %>'
+      <% end %>
+      <% if facter %>
+      puppet_agent.facter = <%= facter %>
+      <% end %>
+      <% if options %>
+      puppet_agent.options = <%= options %>
+      <% end %>
+    end

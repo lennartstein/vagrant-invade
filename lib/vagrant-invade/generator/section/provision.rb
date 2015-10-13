@@ -19,8 +19,10 @@ module VagrantPlugins
               provision = Builder::Provision::Shell.new(@machine_name, @provision_data)
             when 'shell_inline', 'inline', 'shellinline'
               provision = Builder::Provision::ShellInline.new(@machine_name, @provision_data)
-            when 'puppet'
-              provision = Builder::Provision::Puppet.new(@machine_name, @provision_data)
+            when 'puppet', 'puppetappy', 'puppet-apply'
+              provision = Builder::Provision::PuppetApply.new(@machine_name, @provision_data)
+            when 'puppet-agent', 'puppetagent'
+              provision = Builder::Provision::PuppetAgent.new(@machine_name, @provision_data)
             else
               raise StandardError, "Provisioner unknown or not set. Please check the provision configuration."
             end

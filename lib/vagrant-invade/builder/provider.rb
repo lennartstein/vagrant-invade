@@ -3,8 +3,8 @@ module VagrantPlugins
     module Builder
       module Provider
 
-        autoload :VirtualBox, 'vagrant-invade/builder/provider/virtualbox.rb'
-        autoload :VMware, 'vagrant-invade/builder/provider/vmware.rb'
+        autoload :VirtualBox, 'vagrant-invade/builder/provider/virtualbox'
+        autoload :VMware, 'vagrant-invade/builder/provider/vmware'
 
       end
     end

@@ -3,6 +3,7 @@ module VagrantPlugins
     module Validator
       module Provision
 
+        # (see: https://docs.vagrantup.com/v2/provisioning/shell.html)
         class ShellInline
 
           attr_accessor :env
@@ -17,7 +18,7 @@ module VagrantPlugins
 
           def initialize(env, shell_inline)
             @env = env
-            @shell_inline = Provision.validate_base(env, shell_inline)
+            @shell_inline = shell_inline
           end
 
           def validate

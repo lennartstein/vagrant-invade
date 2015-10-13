@@ -101,8 +101,10 @@ module VagrantPlugins
                     provision = Validator::Provision::Shell.new(env, provision).validate
                   when 'shellinline', 'shell-inline'
                     provision = Validator::Provision::ShellInline.new(env, provision).validate
-                  when 'puppet'
-                    provision = Validator::Provision::Puppet.new(env, provision).validate
+                  when 'puppet', 'puppetapply', 'puppet-apply'
+                    provision = Validator::Provision::PuppetApply.new(env, provision).validate
+                  when 'puppet-agent', 'puppetagent', 'puppet-server', 'puppet-master'
+                    provision = Validator::Provision::PuppetAgent.new(env, provision).validate
                   else
                     raise StandardError, "Provision type unknown or not set. Please check configuration file."
                   end
