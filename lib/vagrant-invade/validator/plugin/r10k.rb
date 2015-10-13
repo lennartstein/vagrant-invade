@@ -40,7 +40,7 @@ module VagrantPlugins
               @r10k['module_path'], 'module_path', DEFAULT['module_path']
             )
 
-            @r10k['modules'] =  Validator.validate_array(
+            @r10k['modules'] =  Validator.validate_hash(
               @r10k['modules'], 'modules', DEFAULT['modules']
             )
 
