@@ -49,7 +49,7 @@ module VagrantPlugins
             )
 
             # FACTER
-            @puppet_apply['facter'] = Validator.validate_array(
+            @puppet_apply['facter'] = Validator.validate_hash(
               @puppet_apply['facter'], 'facter', DEFAULT['facter']
             )
 
