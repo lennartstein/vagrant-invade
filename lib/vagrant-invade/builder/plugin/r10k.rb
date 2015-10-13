@@ -35,7 +35,7 @@ module VagrantPlugins
                 if @r10k_data['enabled'] && @r10k_data['modules']
 
                   # Configured puppet dir must exists. Otherwise skip generating Puppetfile.
-                  unless Dir.exists?(@r10k['puppet_dir'])
+                  unless Dir.exists?(@r10k_data['puppet_dir'])
                     @ui.error("[Invade] Puppet dir '#{@r10k_data['puppet_dir']}' does not exists. Can't load specified modules.")
                   else
                     basic_modules = {

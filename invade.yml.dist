@@ -65,12 +65,13 @@ machines:
       #   enabled: true
 
       # r10k:
+      #   enabled: true
       #   puppet_dir: './puppet'
       #   puppetfile_path: './puppet/Puppetfile'
       #   module_path: './puppet/vendor'
-      #   modules: {
-      #     'sql' => {
-      #       'url' => 'https://github.com/example42/puppet-mysql.git',
-      #       'version' => '2.1.5'
-      #     }
-      #   }
+      #   modules:
+      #     ssh:
+      #       url: 'https://github.com/innogames/invade-puppet-ssh.git'
+      #     sql:
+      #       url: 'https://github.com/example42/puppet-mysql.git',
+      #       version: '2.1.5'
