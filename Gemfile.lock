@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    vagrant-invade (0.3.4)
+    vagrant-invade (0.4.0)
 
 GEM
   remote: https://rubygems.org/
@@ -103,4 +103,4 @@ DEPENDENCIES
   vagrant-invade!
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
