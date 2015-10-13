@@ -11,11 +11,9 @@ module VagrantPlugins
       autoload :SSH, 'vagrant-invade/validator/ssh'
       autoload :Plugin, 'vagrant-invade/validator/plugin'
 
-      VALIDATION_ERRORS = 0
+      attr_accessor :env, :invade, :validation_errors
 
-      attr_accessor :env
-      attr_accessor :invade
-
+      @validation_errors = 0
       @env = nil
 
       def self.set_env(env)
@@ -33,8 +31,8 @@ module VagrantPlugins
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
           return default
         else
-          @env[:ui].warn("\tWarning: #{name} => #{value} is not a boolean. Set '#{name}' to default value #{default.to_s.upcase}.")
-          self.VALIDATION_ERRORS = self.VALIDATION_ERRORS + 1
+          @env[:ui].error("\tError: #{name} => #{value} is not a boolean. Set '#{name}' to default value #{default.to_s.upcase}.") unless @env[:invade_validate_quiet]
+          @validation_errors = @validation_errors + 1
           return default
         end
 
@@ -55,8 +53,8 @@ module VagrantPlugins
           @env[:ui].warn("\tEmpty string is not valid. Set '#{name}' => '#{default}'.") unless @env[:invade_validate_quiet]
           return default
         else
-          @env[:ui].warn("\tWarning: '#{value}' is not a string. Set to '#{name}' to default value '#{default}'.")
-          self.VALIDATION_ERRORS = self.VALIDATION_ERRORS + 1
+          @env[:ui].error("\tError: '#{value}' is not a string. Set to '#{name}' to default value '#{default}'.") unless @env[:invade_validate_quiet]
+          @validation_errors = @validation_errors + 1
           return default
         end
 
@@ -74,8 +72,8 @@ module VagrantPlugins
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
           return default
         else
-          @env[:ui].warn("\tWarning: '#{value}' is not an integer. Set '#{name}' to default value #{default}.")
-          self.VALIDATION_ERRORS = self.VALIDATION_ERRORS + 1
+          @env[:ui].error("\tError: '#{value}' is not an integer. Set '#{name}' to default value #{default}.") unless @env[:invade_validate_quiet]
+          @validation_errors = @validation_errors + 1
           return default
         end
 
@@ -91,12 +89,33 @@ module VagrantPlugins
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
           return default
         else
-          @env[:ui].warn("\tWarning: '#{value}' is not an array. Set '#{name}' to default value #{default}.")
-          self.VALIDATION_ERRORS = self.VALIDATION_ERRORS + 1
+          @env[:ui].error("\tError: '#{value}' is not an array. Set '#{name}' to default value #{default}.") unless @env[:invade_validate_quiet]
+          @validation_errors = @validation_errors + 1
           return default
         end
 
         value
+      end
+
+      # Validates to HASH and returns the value at success or a default if not
+      def self.validate_hash(value, name, default)
+
+        if value.is_a? Hash
+          @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
+        elsif value === nil
+          @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
+          return default
+        else
+          @env[:ui].error("\tError: '#{value}' is not a Hash. Set '#{name}' to default value #{default}.") unless @env[:invade_validate_quiet]
+          @validation_errors = @validation_errors + 1
+          return default
+        end
+
+        value
+      end
+
+      def self.get_validation_errors
+        @validation_errors
       end
 
       def self.is_number(value)
