@@ -12,7 +12,7 @@ module VagrantPlugins
           attr_accessor :puppet_apply
 
           DEFAULT = {
-            'modules_path' => '.puppet/modules',
+            'module_path' => '.puppet/modules',
             'manifests_path' => './puppet/manifests',
             'manifest_file' => 'init.pp',
             'hiera_config_path' => nil,
@@ -29,8 +29,8 @@ module VagrantPlugins
             return nil unless @puppet_apply
 
             # MODULES PATH
-            @puppet_apply['modules_path'] = Validator.validate_array(
-              @puppet_apply['modules_path'], 'modules_path', DEFAULT['modules_path']
+            @puppet_apply['module_path'] = Validator.validate_array(
+              @puppet_apply['module_path'], 'module_path', DEFAULT['module_path']
             )
 
             # MANIFESTS PATH

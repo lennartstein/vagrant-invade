@@ -27,7 +27,7 @@ module VagrantPlugins
           end
 
           # Write new Vagrantfile if checksum is not equal
-          unless check_md5_checksum(@env[:ui], root_path, vagrantfile_name, generated_vagrantfile_data)
+          if !check_md5_checksum(@env[:ui], root_path, vagrantfile_name, generated_vagrantfile_data) || @env[:invade_build_force]
               @env[:invade_build_force] ?
               write_vagrantfile(@env[:ui], root_path, generated_vagrantfile_data, vagrantfile_name, true) :
               write_vagrantfile(@env[:ui], root_path, generated_vagrantfile_data, vagrantfile_name, false)
@@ -61,7 +61,7 @@ module VagrantPlugins
             return false
           end
 
-          ui.success "[Invade] Vagrantfile is still valid. Use '--f' to force replacing it."
+          ui.success "[Invade] Vagrantfile is still valid. Use '-f|--force' to force replacing it." unless @env[:invade_build_force]
 
           true
         end
@@ -93,8 +93,8 @@ module VagrantPlugins
           end
 
           overwrite ?
-          ui.warn('[Invade] Replaced old Vagrantfile.') :
-          ui.warn("[Invade] Saved new Vagrantfile at '#{root_path}/#{vagrantfile_name}.new'")
+          ui.warn("[Invade] Replaced Vagrantfile at '#{root_path}/#{vagrantfile_name}'.") :
+          ui.warn("[Invade] Saved new Vagrantfile at '#{root_path}/#{vagrantfile_name}.new'.")
         end
       end
 
