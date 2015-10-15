@@ -34,7 +34,8 @@ machines:
     # synced_folder:
     #   nfs:
     #     name: 'www'
-    #     source: '../..'
+    #     path: '/www'
+    #     source: '..'
     #     mount_options:
     #       - nolock
 
@@ -48,12 +49,17 @@ machines:
     #     path: '/home/vagrant/provision/shell/run-composer.sh'
 
     #   puppet:
-    #     manifests_path: './puppet/manifests'
+    #     manifests_path: 'puppet/manifests'
     #     manifest_file: 'init.pp'
     #     module_path:
-    #       - './puppet/modules'
-    #       - './puppet/vendor'
-    #     facter: {}
+    #       - 'puppet/modules'
+    #       - 'puppet/vendor'
+    #     facter:
+    #       composer: true
+    #       shared_folder_type: 'nfs'
+    #       shared_folder_path: '/www'
+    #       package_state: 'present'
+    #       apt_update: true
 
     plugin:
       hostmanager:
@@ -63,15 +69,16 @@ machines:
 
       # winnfsd:
       #   enabled: true
+      #   loggin: false
 
       # r10k:
       #   enabled: true
-      #   puppet_dir: './puppet'
-      #   puppetfile_path: './puppet/Puppetfile'
-      #   module_path: './puppet/vendor'
+      #   puppet_dir: 'puppet'
+      #   puppetfile_path: 'puppet/Puppetfile'
+      #   module_path: 'puppet/vendor'
       #   modules:
       #     ssh:
       #       url: 'https://github.com/innogames/invade-puppet-ssh.git'
-      #     sql:
+      #     mysql:
       #       url: 'https://github.com/example42/puppet-mysql.git',
       #       version: '2.1.5'
