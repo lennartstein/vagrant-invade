@@ -140,7 +140,8 @@ module VagrantPlugins
           end
 
           if Validator.get_validation_errors > 0
-            @env[:ui].warn('[Invade] Configuration has validation warnings. Run \'vagrant invade validate\' to see details.')
+            @env[:ui].warn('[Invade] Configuration has validation errors. Run \'vagrant invade validate\' to see details.')
+            exit
           else
             @env[:ui].success('[Invade] Configuration validated successfully.')
           end

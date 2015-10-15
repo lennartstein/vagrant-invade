@@ -29,7 +29,7 @@ module VagrantPlugins
             return nil unless @puppet_apply
 
             # MODULES PATH
-            @puppet_apply['module_path'] = Validator.validate_array(
+            @puppet_apply['module_path'] = Validator.validate_string_or_array(
               @puppet_apply['module_path'], 'module_path', DEFAULT['module_path']
             )
 
