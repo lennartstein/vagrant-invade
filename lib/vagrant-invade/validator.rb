@@ -23,7 +23,7 @@ module VagrantPlugins
       # Validates to BOOLEAN and returns the value at success or a default if not
       def self.validate_boolean(value, name, default)
 
-        if [true, false].include? value
+        if [true, false].include?(value)
           @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
         elsif value === nil
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
@@ -40,7 +40,7 @@ module VagrantPlugins
       # Validates to STRING and returns the value at success or a default if not
       def self.validate_string(value, name, default)
 
-        if value.is_a? String
+        if value.is_a?(String)
           @env[:ui].success("\t#{name} => '#{value}'") unless @env[:invade_validate_quiet]
         elsif value === nil
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
@@ -60,7 +60,7 @@ module VagrantPlugins
 
       def self.validate_string_or_array(value, name, default)
 
-        if value.is_a(String) || value.is_a(Array)
+        if value.is_a?(String) || value.is_a?(Array)
           @env[:ui].success("\t#{name} => '#{value}'") unless @env[:invade_validate_quiet]
         elsif value === nil
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
@@ -81,7 +81,7 @@ module VagrantPlugins
       # Validates to INT and returns the value at success or a default if not
       def self.validate_integer(value, name, default)
 
-        if value.is_a? Integer || is_number(value)
+        if value.is_a?(Integer) || is_number(value)
           @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
         elsif value === nil
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
@@ -98,7 +98,7 @@ module VagrantPlugins
       # Validates to ARRAY and returns the value at success or a default if not
       def self.validate_array(value, name, default)
 
-        if value.is_a? Array
+        if value.is_a?(Array)
           @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
         elsif value === nil
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
@@ -115,7 +115,7 @@ module VagrantPlugins
       # Validates to HASH and returns the value at success or a default if not
       def self.validate_hash(value, name, default)
 
-        if value.is_a? Hash
+        if value.is_a?(Hash)
           @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
         elsif value === nil
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
