@@ -80,5 +80,5 @@ machines:
       #     ssh:
       #       url: 'https://github.com/innogames/invade-puppet-ssh.git'
       #     mysql:
-      #       url: 'https://github.com/example42/puppet-mysql.git',
+      #       url: 'https://github.com/example42/puppet-mysql.git'
       #       version: '2.1.5'
