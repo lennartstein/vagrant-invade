@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    vagrant-invade (0.4.2)
+    vagrant-invade (0.4.3)
 
 GEM
   remote: https://rubygems.org/
