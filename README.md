@@ -22,3 +22,16 @@ There are new commands you can use to init, validate and build your Vagrantfile.
 
 ### Build
 `vagrant invade build` will **build a Vagrantfile** based on what you set in the 'invade.yml' configuration file and place it to the directory you did run the command.
+
+## Development
+You are able to collaborate to make this plugin even better. You just need a simple setup of ruby software to make it work. You could also use RVM to keep your ruby environment clean.
+
+### Requirements
+1. Vagrant v1.7+
+2. Ruby >= 2.0.0
+3. RubyGems
+4. Bundler
+
+### Setup
+1. ``gem install bundler``
+2. ``bundle install``
