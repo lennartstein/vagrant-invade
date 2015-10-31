@@ -1,4 +1,5 @@
-  <%= machine_name %>.vm.synced_folder '<%= source %>', '<%= path %>',
+
+    <%= machine_name %>.vm.synced_folder '<%= source %>', '<%= path %>',
       type: 'nfs'<% if mount_options %>, mount_options: <%= mount_options %><% end %><% if enabled %>, disabled: true<% end %>
     <% if uid %>
     <%= machine_name %>.nfs.map_uid = <%= uid %>

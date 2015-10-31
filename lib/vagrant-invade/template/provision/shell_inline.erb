@@ -1,2 +1,3 @@
-<%= machine_name %>.vm.provision "shell",
-  inline: <%= inline %><% unless name %>, name: <%= name %><% end %><% unless binary %>, binary: <%= binary %><% end %><% unless privileged %>, privileged: <%= privileged %><% end %>
+
+    <%= machine_name %>.vm.provision "shell",
+    inline: '<%= inline %>'<% if name %>, name: '<%= name %>'<% end %><% if binary %>, binary: <%= binary %><% end %><% if privileged %>, privileged: <%= privileged %><% end %>

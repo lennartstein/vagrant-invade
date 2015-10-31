@@ -1,27 +1,27 @@
 config.vm.define "<%= machine_name %>" do |<%= machine_name %>|
 
   <% if vm %>
-    # VM configuration
+    # --- VM Section ---
   <%= vm %>
   <% end %>
   <% if network %>
-    # Network configuration
+    # --- Network Section ---
   <%= network %>
   <% end %>
   <% if provider %>
-    # Provider configuration
+    # --- Provider Section ---
   <%= provider %>
   <% end %>
   <% if synced_folder %>
-    # Synced folder configuration
+    # --- Synced Folder Section ---
   <%= synced_folder %>
   <% end %>
   <% if provision %>
-    # Provision configuration
+    # --- Provision Section ---
   <%= provision %>
   <% end %>
   <% if plugin %>
-    # Plugin configuration
+    # --- Plugin Section
   <%= plugin %>
   <% end %>
   end

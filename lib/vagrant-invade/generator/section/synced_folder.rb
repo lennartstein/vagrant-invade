@@ -5,16 +5,15 @@ module VagrantPlugins
 
         class SyncedFolder
 
-          attr_accessor :machine_name, :type, :synced_folder_data
+          attr_accessor :machine_name, :synced_folder_data
 
-          def initialize(machine_name, type, synced_folder_data)
+          def initialize(machine_name, synced_folder_data)
             @machine_name = machine_name
-            @type = type
             @synced_folder_data = synced_folder_data
           end
 
           def generate
-            case @type
+            case @synced_folder_data['type']
             when 'vb', 'virtualbox'
               synced_folder = Builder::SyncedFolder::VirtualBox.new(@machine_name, @synced_folder_data)
             when 'nfs'

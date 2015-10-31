@@ -5,21 +5,21 @@ module VagrantPlugins
 
         class Provision
 
-          attr_accessor :machine_name, :type, :provision_data
+          attr_accessor :machine_name, :name, :provision_data
 
-          def initialize(machine_name, type, provision_data)
+          def initialize(machine_name, name, provision_data)
             @machine_name = machine_name
-            @type = type
+            @name = name
             @provision_data = provision_data
           end
 
           def generate
-            case @type
+            case @provision_data['type']
             when 'shell'
-              provision = Builder::Provision::Shell.new(@machine_name, @provision_data)
-            when 'shell_inline', 'inline', 'shellinline'
-              provision = Builder::Provision::ShellInline.new(@machine_name, @provision_data)
-            when 'puppet', 'puppetappy', 'puppet-apply'
+              provision = Builder::Provision::Shell.new(@machine_name, @name, @provision_data)
+            when 'shell-inline', 'inline', 'shellinline'
+              provision = Builder::Provision::ShellInline.new(@machine_name, @name, @provision_data)
+            when 'puppet', 'puppetapply', 'puppet-apply'
               provision = Builder::Provision::PuppetApply.new(@machine_name, @provision_data)
             when 'puppet-agent', 'puppetagent'
               provision = Builder::Provision::PuppetAgent.new(@machine_name, @provision_data)

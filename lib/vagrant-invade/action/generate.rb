@@ -55,22 +55,23 @@ module VagrantPlugins
               unless section['synced_folder'] == nil
                 part['synced_folder'] = ''
 
-                section['synced_folder'].each do |type, data|
-                  parts = Generator::Section::SyncedFolder.new(machine, type, data).generate
+                section['synced_folder'].each do |name, data|
+                  parts = Generator::Section::SyncedFolder.new(machine, data).generate
                   part['synced_folder'].concat(parts)
                 end
               end
 
-              # SYNCED FOLDER
+              # PROVISION
               unless section['provision'] == nil
                 part['provision'] = ''
 
-                section['provision'].each do |type, data|
-                  parts = Generator::Section::Provision.new(machine, type, data).generate
+                section['provision'].each do |name, data|
+                  parts = Generator::Section::Provision.new(machine, name, data).generate
                   part['provision'].concat(parts)
                 end
               end
 
+              # PLUGIN
               unless section['plugin'] == nil
                 part['plugin'] = ''
 

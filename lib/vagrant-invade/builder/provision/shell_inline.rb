@@ -5,15 +5,16 @@ module VagrantPlugins
 
         require 'erubis'
 
-        class Shell
+        class ShellInline
 
           attr_reader :result
-          attr_accessor :machine_name, :shell_inline_data
+          attr_accessor :machine_name, :name, :shell_inline_data
 
-          def initialize(machine_name, shell_inline_data, result: nil)
+          def initialize(machine_name, name, shell_inline_data, result: nil)
             @machine_name = machine_name
-            @shell_inline_data  = shell_inline_data
-            @result   = result
+            @shell_inline_name = name
+            @shell_inline_data = shell_inline_data
+            @result = result
           end
 
           def build
@@ -26,7 +27,7 @@ module VagrantPlugins
               machine_name = @machine_name
 
               # Values for shell provision section
-              name = @shell_inline_data['name']
+              name = @shell_inline_name
               inline = @shell_inline_data['inline']
               binary = @shell_inline_data['binary']
               privileged = @shell_inline_data['privileged']

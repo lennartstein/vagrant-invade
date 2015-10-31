@@ -32,14 +32,14 @@ module VagrantPlugins
 
               # VM
               unless sections['vm'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating VM configuration...") unless quiet
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating VM section...") unless quiet
 
                 sections['vm'] = Validator::VM.new(env, sections['vm']).validate
               end
 
               # NETWORK
               unless sections['network'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating network configuration...") unless quiet
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating NETWORK section...") unless quiet
 
                 sections['network'].each do |type, network|
                   @env[:ui].info("\tNetwork: #{type}") unless quiet
@@ -51,52 +51,52 @@ module VagrantPlugins
                   when 'public', 'puplic_network', 'publicnetwork', 'public-network'
                     network = Validator::Network::PublicNetwork.new(@machine_name, network).validate
                   else
-                    raise StandardError, "Network type unknown or not set. Please check the network configuration."
+                    raise StandardError, "Network type unknown or not set. Please check network section in configuration."
                   end
                 end
               end
 
               # PROVIDER
               unless sections['provider'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating provider configuration...") unless quiet
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating PROVIDER section...") unless quiet
 
                 sections['provider'].each do |type, provider|
-                  @env[:ui].info("\tProvider: #{type}") unless quiet
+                  @env[:ui].info("    Provider: #{type}") unless quiet
                   case type
                   when 'virtualbox'
                     provider = Validator::Provider::VirtualBox.new(env, provider).validate
                   when 'vmware'
                     provider = Validator::Provider::VMware.new(env, provider).validate
                   else
-                    raise StandardError, "Provider unknown or not set. Please check configuration file."
+                    raise StandardError, "Provider unknown or not set. Please check provider section in configuration."
                   end
                 end
               end
 
               # SYNCED FOLDER
               unless sections['synced_folder'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating synced folder configuration...") unless quiet
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating SYNCED FOLDER section...") unless quiet
 
-                sections['synced_folder'].each do |type, sf|
-                  @env[:ui].info("\tSynced Folder: #{type}") unless quiet
-                  case type
+                sections['synced_folder'].each do |name, sf|
+                  @env[:ui].info("    Synced Folder: #{name}") unless quiet
+                  case sf['type']
                   when 'nfs'
                     sf = Validator::SyncedFolder::NFS.new(env, sf).validate
                   when 'vb'
                     sf = Validator::SyncedFolder::VB.new(env, sf).validate
                   else
-                    raise StandardError, "Synced Folder type unknown or not set. Please check configuration file."
+                    raise StandardError, "Synced Folder type unknown or not set. Please check synced folder section in configuration."
                   end
                 end
               end
 
               # PROVISION
               unless sections['provision'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating provision configuration...") unless quiet
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating PROVISION section...") unless quiet
 
-                sections['provision'].each do |type, provision|
-                  @env[:ui].info("\tProvision: #{type}") unless quiet
-                  case type
+                sections['provision'].each do |name, provision|
+                  @env[:ui].info("    Provision: #{name}") unless quiet
+                  case provision['type']
                   when 'shell'
                     provision = Validator::Provision::Shell.new(env, provision).validate
                   when 'shellinline', 'shell-inline'
@@ -106,23 +106,23 @@ module VagrantPlugins
                   when 'puppet-agent', 'puppetagent', 'puppet-server', 'puppet-master'
                     provision = Validator::Provision::PuppetAgent.new(env, provision).validate
                   else
-                    raise StandardError, "Provision type unknown or not set. Please check configuration file."
+                    raise StandardError, "Provision type unknown or not set. Please check provision section in configuration."
                   end
                 end
               end
 
               # SSH
               unless sections['ssh'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating SSH configuration...") unless quiet
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating SSH section...") unless quiet
 
                 sections['ssh'] = Validator::SSH.new(env, sections['ssh']).validate
               end
 
               unless sections['plugin'] == nil
-                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating plugin configuration...") unless quiet
+                @env[:ui].info("\n[Invade] #{machine.upcase}: Validating PLUGIN section...") unless quiet
 
                 sections['plugin'].each do |type, plugin|
-                  @env[:ui].info("\tPlugin: #{type}") unless quiet
+                  @env[:ui].info("    Plugin: #{type}") unless quiet
                   case type
                   when 'hostmanager'
                     plugin = Validator::Plugin::HostManager.new(env, plugin).validate
@@ -131,7 +131,7 @@ module VagrantPlugins
                   when 'r10k'
                     plugin = Validator::Plugin::R10k.new(env, plugin).validate
                   else
-                    raise StandardError, "Plugin type unknown or not set. Please check configuration file."
+                    raise StandardError, "Plugin type unknown or not set. Please check plugin section in configuration."
                   end
                 end
               end

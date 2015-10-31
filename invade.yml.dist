@@ -32,23 +32,27 @@ machines:
 
     # Synced Folder settings
     # synced_folder:
-    #   nfs:
-    #     name: 'www'
+    #   www:
+    #     type: nfs
     #     path: '/www'
     #     source: '..'
     #     mount_options:
     #       - nolock
+    #
+    #   ssh:
+    #     type: nfs
+    #     path: '/home/vagrant/.ssh/'
+    #     source: '/Users/$USER/.ssh/'
 
     # provision:
-    #   shell:
-    #     name: 'set-permissions'
+    #   set-permissions:
     #     inline: 'chmod 777 /tmp'
 
-    #   shell:
-    #     name: 'run-composer'
+    #   run-composer:
     #     path: '/home/vagrant/provision/shell/run-composer.sh'
 
-    #   puppet:
+    #   puppet-agent:
+    #     type: 'puppet'
     #     manifests_path: 'puppet/manifests'
     #     manifest_file: 'init.pp'
     #     module_path:

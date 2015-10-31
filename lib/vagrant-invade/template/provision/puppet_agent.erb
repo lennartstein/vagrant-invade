@@ -1,4 +1,5 @@
-  <%= machine_name %>.vm.provision "puppet_server" do |puppet_agent|
+
+    <%= machine_name %>.vm.provision "puppet_server" do |puppet_agent|
       <% if puppet_server %>
       puppet_agent.puppet_server = '<%= puppet_server %>'
       <% end %>
