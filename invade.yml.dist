@@ -46,9 +46,11 @@ machines:
 
     # provision:
     #   set-permissions:
+    #     type: shell-inline
     #     inline: 'chmod 777 /tmp'
 
     #   run-composer:
+    #     type: shell
     #     path: '/home/vagrant/provision/shell/run-composer.sh'
 
     #   puppet-agent:
