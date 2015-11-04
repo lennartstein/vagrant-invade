@@ -12,6 +12,7 @@ module VagrantPlugins
   module Invade
 
     require 'vagrant-invade/version'
+    require 'yaml'
 
     autoload :Validator, 'vagrant-invade/validator'
     autoload :Builder, 'vagrant-invade/builder'
