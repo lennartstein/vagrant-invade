@@ -17,6 +17,10 @@ machines:
       private:
         ip: '10.42.133.7'
 
+    # SSH settings
+    ssh:
+      forward_agent: true
+
     # Provider related settings. Performance, naming
     provider:
 

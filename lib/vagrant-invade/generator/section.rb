@@ -5,6 +5,7 @@ module VagrantPlugins
 
         autoload :VM, 'vagrant-invade/generator/section/vm'
         autoload :Network, 'vagrant-invade/generator/section/network'
+        autoload :SSH, 'vagrant-invade/generator/section/ssh'
         autoload :Provider, 'vagrant-invade/generator/section/provider'
         autoload :SyncedFolder, 'vagrant-invade/generator/section/synced_folder'
         autoload :Provision, 'vagrant-invade/generator/section/provision'
