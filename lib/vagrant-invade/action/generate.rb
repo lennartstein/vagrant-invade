@@ -43,11 +43,7 @@ module VagrantPlugins
 
               # SSH
               unless section['ssh'] == nil
-                part['ssh'] = ''
-
-                section['ssh'].each do |type, data|
-                  part['ssh'].concat(Generator::Section::SSH.new(machine, type, data).generate)
-                end
+                part['ssh'] = (Generator::Section::SSH.new(machine, section['ssh']).generate)
               end
 
               # PROVIDER

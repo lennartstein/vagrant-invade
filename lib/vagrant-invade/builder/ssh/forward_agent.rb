@@ -18,7 +18,7 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/ssh/forward_agent.erb"
+            template_file = "#{TEMPLATE_PATH}/ssh/ssh.erb"
 
             begin
               # Get machine name

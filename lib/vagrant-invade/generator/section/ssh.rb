@@ -5,27 +5,22 @@ module VagrantPlugins
 
         class SSH
 
-          attr_accessor :machine_name, :type, :ssh_data
+          attr_accessor :machine_name, :ssh_data
 
-          def initialize(machine_name, type, ssh_data)
+          def initialize(machine_name, ssh_data)
             @machine_name = machine_name
-            @type = type
             @ssh_data = ssh_data
           end
 
           def generate
+            vm = Builder::SSH.new(@machine_name, @ssh_data)
+            vm.build
 
-            case @type
-              when 'forward_agent'
-                ssh = Builder::SSH::ForwardAgent.new(@machine_name, @ssh_data)
-            end
-
-            ssh.build
-
-            ssh.result
+            vm.result
           end
 
         end
+
       end
     end
   end
