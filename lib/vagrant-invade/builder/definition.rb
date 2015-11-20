@@ -25,6 +25,7 @@ module VagrantPlugins
             machine_name = @machine_name
 
             # Data to build definition entry
+            header = @definition_data['header']
             vm = @definition_data['vm']
             network = @definition_data['network']
             provider = @definition_data['provider']

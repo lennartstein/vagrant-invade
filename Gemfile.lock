@@ -20,10 +20,16 @@ GIT
       winrm (~> 1.3)
       winrm-fs (~> 0.2.2)
 
+GIT
+  remote: https://github.com/smdahlen/vagrant-hostmanager.git
+  revision: 2325313b4ea7d032f90d200a02cf1163d877019c
+  specs:
+    vagrant-hostmanager (1.6.1)
+
 PATH
   remote: .
   specs:
-    vagrant-invade (0.4.6)
+    vagrant-invade (0.4.7)
 
 GEM
   remote: https://rubygems.org/
@@ -100,6 +106,7 @@ PLATFORMS
 
 DEPENDENCIES
   vagrant!
+  vagrant-hostmanager!
   vagrant-invade!
 
 BUNDLED WITH

@@ -6,4 +6,5 @@ end
 
 group :plugins do
   gem "vagrant-invade", path: "."
+  gem "vagrant-hostmanager", git: "https://github.com/smdahlen/vagrant-hostmanager.git"
 end

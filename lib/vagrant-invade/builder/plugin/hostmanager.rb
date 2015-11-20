@@ -8,10 +8,9 @@ module VagrantPlugins
         class HostManager
 
           attr_reader :result
-          attr_accessor :machine_name, :ui, :hostmanager_data
+          attr_accessor :ui, :hostmanager_data
 
-          def initialize(machine_name, ui, hostmanager_data, result: nil)
-            @machine_name = machine_name
+          def initialize(ui, hostmanager_data, result: nil)
             @hostmanager_data = hostmanager_data
             @ui = ui
             @result = result
@@ -28,9 +27,6 @@ module VagrantPlugins
               template_file = "#{TEMPLATE_PATH}/plugin/hostmanager.erb"
 
               begin
-
-                # Get machine name
-                machine_name = @machine_name
 
                 # Values for hostmanager section
                 enabled = @hostmanager_data['enabled']
