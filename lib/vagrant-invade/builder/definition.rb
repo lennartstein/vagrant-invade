@@ -27,6 +27,7 @@ module VagrantPlugins
             # Data to build definition entry
             vm = @definition_data['vm']
             network = @definition_data['network']
+            ssh = @definition_data['ssh']
             provider = @definition_data['provider']
             synced_folder = @definition_data['synced_folder']
             plugin = @definition_data['plugin']

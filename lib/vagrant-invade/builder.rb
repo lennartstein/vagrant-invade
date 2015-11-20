@@ -4,6 +4,7 @@ module VagrantPlugins
 
       autoload :VM, 'vagrant-invade/builder/vm'
       autoload :Network, 'vagrant-invade/builder/network'
+      autoload :SSH, 'vagrant-invade/builder/ssh'
       autoload :Provider, 'vagrant-invade/builder/provider'
       autoload :Provision, 'vagrant-invade/builder/provision'
       autoload :SyncedFolder, 'vagrant-invade/builder/synced_folder'
