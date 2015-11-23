@@ -1,9 +1,10 @@
 GIT
   remote: https://github.com/mitchellh/vagrant.git
-  revision: e6bb09831bb47803c8b8e0ca50d0218717b4cd2d
+  revision: 78ea5e4a78ce644717ab16d8001ab77430168f0f
+  ref: v1.7.4
   specs:
-    vagrant (1.8.0.dev)
-      bundler (>= 1.5.2, <= 1.10.6)
+    vagrant (1.7.4)
+      bundler (>= 1.5.2, <= 1.10.5)
       childprocess (~> 0.5.0)
       erubis (~> 2.7.0)
       hashicorp-checkpoint (~> 0.1.1)
@@ -18,18 +19,18 @@ GIT
       rest-client (>= 1.6.0, < 2.0)
       wdm (~> 0.1.0)
       winrm (~> 1.3)
-      winrm-fs (~> 0.2.2)
+      winrm-fs (~> 0.2.0)
 
 PATH
   remote: .
   specs:
-    vagrant-invade (0.4.6)
+    vagrant-invade (0.4.8)
 
 GEM
   remote: https://rubygems.org/
   specs:
     builder (3.2.2)
-    childprocess (0.5.6)
+    childprocess (0.5.8)
       ffi (~> 1.0, >= 1.0.11)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
@@ -42,9 +43,9 @@ GEM
     hashicorp-checkpoint (0.1.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    httpclient (2.6.0.1)
+    httpclient (2.7.0.1)
     i18n (0.7.0)
-    listen (3.0.3)
+    listen (3.0.5)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     little-plugger (1.1.4)
@@ -52,7 +53,7 @@ GEM
     logging (1.8.2)
       little-plugger (>= 1.1.3)
       multi_json (>= 1.8.4)
-    mime-types (2.6.2)
+    mime-types (2.99)
     mini_portile (0.6.0)
     multi_json (1.11.2)
     net-scp (1.1.2)
@@ -60,7 +61,7 @@ GEM
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    netrc (0.10.3)
+    netrc (0.11.0)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     nori (2.6.0)
@@ -80,16 +81,16 @@ GEM
     unf_ext (0.0.7.1)
     uuidtools (2.1.5)
     wdm (0.1.1)
-    winrm (1.3.4)
+    winrm (1.3.5)
       builder (>= 2.1.2)
       gssapi (~> 1.2)
       gyoku (~> 1.0)
       httpclient (~> 2.2, >= 2.2.0.2)
-      logging (~> 1.6, >= 1.6.1)
+      logging (>= 1.6.1, < 3.0)
       nori (~> 2.0)
       rubyntlm (~> 0.4.0)
       uuidtools (~> 2.1.2)
-    winrm-fs (0.2.2)
+    winrm-fs (0.2.3)
       erubis (~> 2.7)
       logging (~> 1.6, >= 1.6.1)
       rubyzip (~> 1.1)
@@ -103,4 +104,4 @@ DEPENDENCIES
   vagrant-invade!
 
 BUNDLED WITH
-   1.10.6
+   1.10.5

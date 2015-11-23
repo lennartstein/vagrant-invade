@@ -18,6 +18,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.0.0'
 
-  s.add_development_dependency 'bundler', '~> 1.10', '>= 1.10.6'
+  s.add_development_dependency 'bundler', '~> 1.10', '>= 1.10.5'
   s.add_development_dependency 'rake', '~> 0'
 end
