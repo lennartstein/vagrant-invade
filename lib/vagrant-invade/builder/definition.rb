@@ -28,6 +28,7 @@ module VagrantPlugins
             header = @definition_data['header']
             vm = @definition_data['vm']
             network = @definition_data['network']
+            ssh = @definition_data['ssh']
             provider = @definition_data['provider']
             synced_folder = @definition_data['synced_folder']
             plugin = @definition_data['plugin']

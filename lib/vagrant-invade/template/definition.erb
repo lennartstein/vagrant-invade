@@ -11,6 +11,10 @@ config.vm.define "<%= machine_name %>" do |<%= machine_name %>|
     # --- Network Section ---
   <%= network %>
   <% end %>
+  <% if ssh %>
+    # --- SSH Section ---
+    <%= ssh %>
+  <% end %>
   <% if provider %>
     # --- Provider Section ---
   <%= provider %>

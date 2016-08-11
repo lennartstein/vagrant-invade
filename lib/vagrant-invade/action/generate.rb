@@ -42,6 +42,11 @@ module VagrantPlugins
                 end
               end
 
+              # SSH
+              unless section['ssh'] == nil
+                part['ssh'] = (Generator::Section::SSH.new(machine, section['ssh']).generate)
+              end
+
               # PROVIDER
               unless section['provider'] == nil
                 part['provider'] = ''
@@ -85,11 +90,6 @@ module VagrantPlugins
                   end
                 end
               end
-
-              # # SSH
-              # unless section['ssh'] == nil
-              #   part['ssh'] = Generator::Section::SSH.new(machine, section['ssh']).generate
-              # end
 
               # Add as definition
               definition[machine] = Generator::Definition.new(machine, part).generate
