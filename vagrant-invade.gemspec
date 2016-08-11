@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.homepage        = 'https://github.com/frgmt/vagrant-invade'
   s.license         = 'GNUv3'
 
-  s.required_ruby_version = '>= 2.0.0'
+  s.required_ruby_version = '>= 2.2.5'
 
   s.add_development_dependency 'bundler', '~> 1.10', '>= 1.10.5'
   s.add_development_dependency 'rake', '~> 0'
