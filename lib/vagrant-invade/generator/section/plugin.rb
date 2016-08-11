@@ -17,7 +17,7 @@ module VagrantPlugins
           def generate
             case @type
             when 'hostmanager'
-              plugin = Builder::Plugin::HostManager.new(@machine_name, @ui, @plugin_data)
+              plugin = Builder::Plugin::HostManager.new(@ui, @plugin_data)
             when 'winnfsd'
               plugin = Builder::Plugin::WinNFSd.new(@machine_name, @ui, @plugin_data)
             when 'r10k'

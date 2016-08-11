@@ -1,3 +1,6 @@
+<% if header %>
+<%= header %>
+<% end %>
 config.vm.define "<%= machine_name %>" do |<%= machine_name %>|
 
   <% if vm %>
@@ -25,7 +28,7 @@ config.vm.define "<%= machine_name %>" do |<%= machine_name %>|
   <%= provision %>
   <% end %>
   <% if plugin %>
-    # --- Plugin Section
+    # --- Plugin Section ---
   <%= plugin %>
   <% end %>
   end

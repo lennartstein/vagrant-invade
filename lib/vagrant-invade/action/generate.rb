@@ -23,6 +23,7 @@ module VagrantPlugins
           unless machines == nil
 
             part = Hash.new
+            part['header'] = ''
             definition = Hash.new
 
             machines.each_with_index do |(machine, section), index|
@@ -81,8 +82,12 @@ module VagrantPlugins
                 part['plugin'] = ''
 
                 section['plugin'].each do |type, data|
-                  parts = Generator::Section::Plugin.new(machine, @env[:ui], type, data).generate
-                  part['plugin'].concat(parts)
+                  if type == 'hostmanager'
+                    part['header'].concat(Generator::Section::Plugin.new(machine, @env[:ui], type, data).generate)
+                  else
+                    parts = Generator::Section::Plugin.new(machine, @env[:ui], type, data).generate
+                    part['plugin'].concat(parts)
+                  end
                 end
               end
 

@@ -1,15 +1,15 @@
-  <% if enabled %>
-  <%= machine_name %>.hostmanager.enabled = <%= enabled %>
-    <% end %>
-    <% if manage_host %>
-    <%= machine_name %>.hostmanager.manage_host = <%= manage_host %>
-    <% end %>
-    <% if ignore_private_ip %>
-    <%= machine_name %>.hostmanager.ignore_private_ip = <%= ignore_private_ip %>
-    <% end %>
-    <% if include_offline %>
-    <%= machine_name %>.hostmanager.include_offline = <%= include_offline %>
-    <% end %>
-    <% if aliases %>
-    <%= machine_name %>.hostmanager.aliases = <%= aliases %>
-    <% end %>
+<% if enabled %>
+config.hostmanager.enabled = <%= enabled %>
+<% end %>
+<% if manage_host %>
+config.hostmanager.manage_host = <%= manage_host %>
+<% end %>
+<% if ignore_private_ip %>
+config.hostmanager.ignore_private_ip = <%= ignore_private_ip %>
+<% end %>
+<% if include_offline %>
+config.hostmanager.include_offline = <%= include_offline %>
+<% end %>
+<% if aliases %>
+config.hostmanager.aliases = <%= aliases %>
+<% end %>
