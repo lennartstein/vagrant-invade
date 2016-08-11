@@ -3,6 +3,7 @@ module VagrantPlugins
     module Validator
 
       autoload :Invade, 'vagrant-invade/validator/invade'
+      autoload :HostManager, 'vagrant-invade/validator/hostmanager'
       autoload :VM, 'vagrant-invade/validator/vm'
       autoload :Network, 'vagrant-invade/validator/network'
       autoload :Provider, 'vagrant-invade/validator/provider'

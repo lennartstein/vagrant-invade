@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Invade
     module Generator
-      module Section
+      module MachinePart
 
         class Network
 

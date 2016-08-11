@@ -1,31 +1,29 @@
 config.vm.define "<%= machine_name %>" do |<%= machine_name %>|
 
   <% if vm %>
-    # --- VM Section ---
   <%= vm %>
   <% end %>
   <% if network %>
-    # --- Network Section ---
   <%= network %>
   <% end %>
   <% if ssh %>
-    # --- SSH Section ---
+    # --- SSH Part --- #
     <%= ssh %>
   <% end %>
   <% if provider %>
-    # --- Provider Section ---
-  <%= provider %>
+    # --- Provider Part --- #
+<%= provider %>
   <% end %>
   <% if synced_folder %>
-    # --- Synced Folder Section ---
-  <%= synced_folder %>
+    # --- Synced Folder Part --- #
+<%= synced_folder %>
   <% end %>
   <% if provision %>
-    # --- Provision Section ---
+    # --- Provision Part --- #
   <%= provision %>
   <% end %>
   <% if plugin %>
-    # --- Plugin Section
+    # --- Plugin Part --- #
   <%= plugin %>
   <% end %>
   end

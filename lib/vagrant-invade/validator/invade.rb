@@ -12,8 +12,7 @@ module VagrantPlugins
           'debug' => false
         }
 
-        def initialize(env, invade)
-          @env = env
+        def initialize(invade)
           @invade = invade
         end
 

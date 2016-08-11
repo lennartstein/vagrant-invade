@@ -17,87 +17,96 @@ module VagrantPlugins
           # Define invade config
           config = @env[:invade]
 
-          # Iterate over each machine configuration
-          machines = config['machines']
+          # Final vagrantfile hash
+          vagrantfile = Hash.new
 
-          unless machines == nil
+          # Machine hashes
+          machine = Hash.new
+          machine_part = Hash.new
 
-            part = Hash.new
-            definition = Hash.new
+          # Hostmanager plugin configuration
+          unless config['hostmanager'] == nil
+            vagrantfile['hostmanager'] = Generator::HostManager.new(config['hostmanager']).generate
+          end
 
-            machines.each_with_index do |(machine, section), index|
+          # Iterate over each machine defined in config
+          unless config['machines'] == nil
+            config['machines'].each_with_index do |(name, part), index|
 
-              # VM
-              unless section['vm'] == nil
-                part['vm'] = Generator::Section::VM.new(machine, section['vm']).generate
+                # VM
+              unless part['vm'] == nil
+                machine_part['vm'] = Generator::MachinePart::VM.new(name, part['vm']).generate
               end
 
               # NETWORK
-              unless section['network'] == nil
-                part['network'] = ''
+              unless part['network'] == nil
+                machine_part['network'] = ''
 
-                section['network'].each do |type, data|
-                  part['network'].concat(Generator::Section::Network.new(machine, type, data).generate)
+                part['network'].each do |type, data|
+                  machine_part['network'].concat(Generator::MachinePart::Network.new(name, type, data).generate)
                 end
               end
 
               # SSH
-              unless section['ssh'] == nil
-                part['ssh'] = (Generator::Section::SSH.new(machine, section['ssh']).generate)
+              unless part['ssh'] == nil
+                machine_part['ssh'] = (Generator::MachinePart::SSH.new(name, part['ssh']).generate)
               end
 
               # PROVIDER
-              unless section['provider'] == nil
-                part['provider'] = ''
+              unless part['provider'] == nil
+                machine_part['provider'] = ''
 
-                section['provider'].each do |type, data|
-                  parts = Generator::Section::Provider.new(machine, type, data).generate
-                  part['provider'].concat(parts)
+                part['provider'].each do |type, data|
+                  parts = Generator::MachinePart::Provider.new(name, type, data).generate
+                  machine_part['provider'].concat(parts)
                 end
               end
 
               # SYNCED FOLDER
-              unless section['synced_folder'] == nil
-                part['synced_folder'] = ''
+              unless part['synced_folder'] == nil
+                machine_part['synced_folder'] = ''
 
-                section['synced_folder'].each do |name, data|
-                  parts = Generator::Section::SyncedFolder.new(machine, data).generate
-                  part['synced_folder'].concat(parts)
+                part['synced_folder'].each do |folder_name, data|
+                  parts = Generator::MachinePart::SyncedFolder.new(folder_name, data).generate
+                  machine_part['synced_folder'].concat(parts)
                 end
               end
 
               # PROVISION
-              unless section['provision'] == nil
-                part['provision'] = ''
+              unless part['provision'] == nil
+                machine_part['provision'] = ''
 
-                section['provision'].each do |name, data|
-                  parts = Generator::Section::Provision.new(machine, name, data).generate
-                  part['provision'].concat(parts)
+                part['provision'].each do |provision_name, data|
+                  parts = Generator::MachinePart::Provision.new(name, provision_name, data).generate
+                  machine_part['provision'].concat(parts)
                 end
               end
 
               # PLUGIN
-              unless section['plugin'] == nil
-                part['plugin'] = ''
+              unless part['plugin'] == nil
+                machine_part['plugin'] = ''
 
-                section['plugin'].each do |type, data|
-                  parts = Generator::Section::Plugin.new(machine, @env[:ui], type, data).generate
-                  part['plugin'].concat(parts)
+                part['plugin'].each do |type, data|
+                  parts = Generator::MachinePart::Plugin.new(name, @env[:ui], type, data).generate
+                  machine_part['plugin'].concat(parts)
                 end
               end
 
-              # Add as definition
-              definition[machine] = Generator::Definition.new(machine, part).generate
+              # Generate machine from parts
+              machine[name] = Generator::Machine.new(name, machine_part).generate
+
             end
 
-            # Finally generate Vagrantfile from generated definitions and add it to Vagrant environment
-            @env[:invade]['vagrantfile'] = Generator::Vagrantfile.new(env, definition).generate
-
-            # Finally done with generating. Delete machines from Vagrant environment
-            @env[:invade].delete("machines")
-
-            @app.call(env)
+            vagrantfile['machine'] = machine
           end
+
+          # Finally generate Vagrantfile from machines and add it to Vagrant env
+          @env[:invade]['vagrantfile'] = Generator::Vagrantfile.new(vagrantfile).generate
+
+          # Finally done with generating. Delete machines from Vagrant env
+          @env[:invade].delete("machines")
+
+          @app.call(env)
         end
 
       end

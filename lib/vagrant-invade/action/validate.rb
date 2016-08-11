@@ -23,7 +23,12 @@ module VagrantPlugins
           ###############################################################
 
           # INVADE
-          config['invade'] = Validator::Invade.new(env, config['invade']).validate
+          config['invade'] = Validator::Invade.new(config['invade']).validate
+
+          # Hostmanager Plugin
+          unless config['hostmanager'] == nil
+            config['hostmanager'] = Validator::HostManager.new( config['hostmanager']).validate
+          end
 
           # Iterate over each machine configuration
           machines = config['machines']
@@ -33,7 +38,6 @@ module VagrantPlugins
               # VM
               unless sections['vm'] == nil
                 @env[:ui].info("\n[Invade] #{machine.upcase}: Validating VM section...") unless quiet
-
                 sections['vm'] = Validator::VM.new(env, sections['vm']).validate
               end
 
@@ -118,6 +122,7 @@ module VagrantPlugins
                 sections['ssh'] = Validator::SSH.new(env, sections['ssh']).validate
               end
 
+              # PLUGINS
               unless sections['plugin'] == nil
                 @env[:ui].info("\n[Invade] #{machine.upcase}: Validating PLUGIN section...") unless quiet
 

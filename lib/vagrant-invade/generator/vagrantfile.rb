@@ -4,10 +4,9 @@ module VagrantPlugins
 
       class Vagrantfile
 
-        attr_accessor :env, :vagrantfile_data
+        attr_accessor :vagrantfile_data
 
-        def initialize(env, vagrantfile_data)
-          @env = env
+        def initialize(vagrantfile_data)
           @vagrantfile_data = vagrantfile_data
         end
 

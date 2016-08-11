@@ -7,10 +7,10 @@ module VagrantPlugins
       class Vagrantfile
 
         attr_reader :result
-        attr_accessor :definitions
+        attr_accessor :vagrantfile_data
 
-        def initialize(definitions, result: nil)
-          @definitions  = definitions
+        def initialize(vagrantfile_data, result: nil)
+          @vagrantfile_data  = vagrantfile_data
           @result   = result
         end
 
@@ -20,8 +20,9 @@ module VagrantPlugins
 
           begin
 
-            # definitions for vagrantfile to build
-            definitions = @definitions
+            # Set variables for template files
+            hostmanager = @vagrantfile_data['hostmanager']
+            machines = @vagrantfile_data['machine']
 
             eruby = Erubis::Eruby.new(File.read(template_file))
             @result = eruby.result b
