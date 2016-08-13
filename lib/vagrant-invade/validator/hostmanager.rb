@@ -8,7 +8,7 @@ module VagrantPlugins
         attr_accessor :hostmanager
 
         DEFAULT = {
-          'enabled' => true,
+          'enabled' => false,
           'manage_host' => true,
           'manage_guest' => true,
           'ignore_private_ip' => false,

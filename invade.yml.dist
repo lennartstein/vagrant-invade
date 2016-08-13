@@ -1,6 +1,9 @@
 invade:
   # debug: true
 
+#hostmanager:
+#  enabled: true
+
 # Machine settings. Each entry is one box
 machines:
 
@@ -72,23 +75,22 @@ machines:
     #       apt_update: true
 
     plugin:
-      hostmanager:
-        enabled: true
-        aliases:
-          - my-1337-project.local
+      #hostmanager:
+      #  aliases:
+      #    - my-1337-project.local
 
-      # winnfsd:
-      #   enabled: true
-      #   loggin: false
+      #winnfsd:
+      #  enabled: true
+      #  loggin: false
 
-      # r10k:
-      #   enabled: true
-      #   puppet_dir: 'puppet'
-      #   puppetfile_path: 'puppet/Puppetfile'
-      #   module_path: 'puppet/vendor'
-      #   modules:
-      #     ssh:
-      #       url: 'https://github.com/innogames/invade-puppet-ssh.git'
-      #     mysql:
-      #       url: 'https://github.com/example42/puppet-mysql.git'
-      #       version: '2.1.5'
+      #r10k:
+      #  enabled: true
+      #  puppet_dir: 'puppet'
+      #  puppetfile_path: 'puppet/Puppetfile'
+      #  module_path: 'puppet/vendor'
+      #  modules:
+      #    ssh:
+      #      url: 'https://github.com/innogames/invade-puppet-ssh.git'
+      #    mysql:
+      #      url: 'https://github.com/example42/puppet-mysql.git'
+      #      version: '2.1.5'
