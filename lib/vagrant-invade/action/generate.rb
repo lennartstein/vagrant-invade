@@ -67,7 +67,7 @@ module VagrantPlugins
                 machine_part['synced_folder'] = ''
 
                 part['synced_folder'].each do |folder_name, data|
-                  parts = Generator::MachinePart::SyncedFolder.new(folder_name, data).generate
+                  parts = Generator::MachinePart::SyncedFolder.new(name, data).generate
                   machine_part['synced_folder'].concat(parts)
                 end
               end
