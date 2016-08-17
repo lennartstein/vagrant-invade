@@ -23,6 +23,31 @@ There are new commands you can use to init, validate and build your Vagrantfile.
 ### Build
 `vagrant invade build` will **build a Vagrantfile** based on what you set in the 'invade.yml' configuration file and place it to the directory you did run the command.
 
+## Feature Support
+* Box
+* Network
+* Provider
+	* VirtualBox
+	* VMWare
+* Provision
+	* shell
+	* inline
+	* puppet-agent
+	* puppet-apply
+* Synced Folder
+	* VB
+	* NFS (use *vagrant-winnfsd* plugin to support Windows)
+
+**Not all features are supported yet. See source code for available options.**
+
+With command `vagrant invade init` you can create an example invade.yml with all available options you can pick from.
+
+### 3rd party plugins
+* [vagrant-hostmanager](https://github.com/devopsgroup-io/vagrant-hostmanager)
+* [vagrant-r10k](https://github.com/jantman/vagrant-r10k)
+* [vagrant-winnfsd](https://github.com/winnfsd/vagrant-winnfsd)
+
+
 ## Development
 You are able to collaborate to make this plugin even better. You just need a simple setup of ruby software to make it work. You could also use RVM to keep your ruby environment clean.
 
@@ -32,6 +57,11 @@ You are able to collaborate to make this plugin even better. You just need a sim
 3. RubyGems
 4. Bundler
 
-### Setup
-1. ``gem install bundler``
-2. ``bundle install``
+### Setup with RVM
+1. `rvm gemset create vagrant-invade`
+2. `rvm gemset use vagrant-invade`
+1. `gem install bundler`
+2. `bundle install`
+
+### Execute vagrant while developing a plugin
+1. `bundle exec vagrant [command]`
