@@ -41,12 +41,14 @@ module VagrantPlugins
         def get_checksum_of_file(file)
 
           begin
-            checksum = Digest::MD5.file(file).hexdigest
+            if File.exist?(file)
+              return Digest::MD5.file(file).hexdigest
+            end
           rescue IOError => e
             fail e
           end
 
-          return checksum
+          0
         end
 
       end

@@ -35,7 +35,7 @@ module VagrantPlugins
             @env[:ui].success "[Invade][BUILD] #{vagrantfile_path}"
           else
             @ui.warn("[Invade][BUILD] Checksum: #{md5_current}")
-            @ui.warn("[Invade][BUILD] None changes found in invade.yml - Vagrantfile will remain untouched.")
+            @ui.warn("[Invade][BUILD] No changes found in invade.yml - Vagrantfile will remain untouched.")
           end
 
           @app.call(env)
@@ -49,7 +49,8 @@ module VagrantPlugins
 
           # Backup old Vagrantfile and safe it with checksum
           backup_file = vagrantfile + "-" + "#{checksum}"
-          unless File.exist?(backup_file)
+
+          unless (File.exist?(backup_file) || !File.exist?(vagrantfile))
             File.rename(
               vagrantfile,
               backup_file
