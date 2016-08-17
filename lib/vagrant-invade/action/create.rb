@@ -9,28 +9,33 @@ module VagrantPlugins
         def initialize(app, env)
           @app = app
           @env = env
+          @ui = env[:ui]
           @logger = Log4r::Logger.new('vagrant::invade::action::create')
+
+          ENV['VAGRANT_VAGRANTFILE'] ? @vagrantfile_name = ENV['VAGRANT_VAGRANTFILE'] : @vagrantfile_name = "Vagrantfile"
+          @root_path = Dir.pwd
         end
 
         def call(env)
 
-          # Get project root where vagrant is running from
-          # Since it is possible to set it through the environment we need to validate it
-          root_path = Dir.pwd
-          ENV['VAGRANT_VAGRANTFILE'] ? vagrantfile_name = ENV['VAGRANT_VAGRANTFILE'] : vagrantfile_name = "Vagrantfile"
+          data = @env[:invade]['vagrantfile']
 
-          # Get generated Vagrantfile from environment
-          if @env[:invade]['vagrantfile']
-            generated_vagrantfile_data = @env[:invade]['vagrantfile']
-          else
-            raise "[Invade]: No generated data found. Can't build Vagrantfile."
-          end
+          checksum_helper = Helper::Checksum.new @env
+          vagrantfile_path = "#{@root_path}/#{@vagrantfile_name}"
+          md5_current = checksum_helper.get_checksum_of_file(vagrantfile_path)
+          md5_generated = checksum_helper.get_checksum_of_data(data)
 
           # Write new Vagrantfile if checksum is not equal
-          if !check_md5_checksum(@env[:ui], root_path, vagrantfile_name, generated_vagrantfile_data) || @env[:invade_build_force]
-              @env[:invade_build_force] ?
-              write_vagrantfile(@env[:ui], root_path, generated_vagrantfile_data, vagrantfile_name, true) :
-              write_vagrantfile(@env[:ui], root_path, generated_vagrantfile_data, vagrantfile_name, false)
+          if !checksum_helper.check
+            write_vagrantfile(data, md5_current)
+
+            @env[:ui].success "[Invade][BUILD] Current    : '#{md5_current}'"
+            @env[:ui].success "[Invade][BUILD] Generated  : '#{md5_generated}'"
+            @env[:ui].success "[Invade][BUILD] Saved new Vagrantfile to:"
+            @env[:ui].success "[Invade][BUILD] #{vagrantfile_path}"
+          else
+            @ui.warn("[Invade][BUILD] Checksum: #{md5_current}")
+            @ui.warn("[Invade][BUILD] None changes found in invade.yml - Vagrantfile will remain untouched.")
           end
 
           @app.call(env)
@@ -38,63 +43,24 @@ module VagrantPlugins
 
         private
 
-        # Compare md5 strings to replace Vagrantfile
-        def check_md5_checksum(ui, root_path, vagrantfile_name, generated_vagrantfile_data)
+        def write_vagrantfile(data, checksum)
 
-          require 'digest'
+          vagrantfile = "#{@root_path}/#{@vagrantfile_name}"
 
-          md5_new = Digest::MD5.hexdigest(generated_vagrantfile_data)
-
-          if File.exists?("#{root_path}/#{vagrantfile_name}")
-            md5_current = Digest::MD5.file("#{root_path}/#{vagrantfile_name}").hexdigest
-          else
-            md5_current = 0
+          # Backup old Vagrantfile and safe it with checksum
+          backup_file = vagrantfile + "-" + "#{checksum}"
+          unless File.exist?(backup_file)
+            File.rename(
+              vagrantfile,
+              backup_file
+            )
           end
-
-          (md5_new.eql? md5_current) ? md5_check = true : md5_check = false
-
-          unless md5_check
-            ui.warn "[Invade] Checksum not equal!"
-            ui.warn "[Invade] Current    : '#{md5_current}'"
-            ui.warn "[Invade] Generated  : '#{md5_new}'"
-
-            return false
-          end
-
-          ui.success "[Invade] Vagrantfile is still valid. Use '-f|--force' to force replacing it." unless @env[:invade_build_force]
-
-          true
-        end
-
-        def reload(ui)
-
-          # Get corrent command whether in development mode or using Vagrant for real
-          unless Vagrant.in_installer? && Vagrant.very_quiet?
-            command = 'bundle exec vagrant reload'
-          else
-            command = 'vagrant reload'
-          end
-
-          ui.warn '[Invade] Auto reload Vagrant with new Vagrantfile...'
-          sleep 2
-
-          Kernel.exec(command)
-        end
-
-        def write_vagrantfile(ui, root_path, vagrantfile, vagrantfile_name, overwrite)
-
-          overwrite ?
-          vagrantfile_path = "#{root_path}/#{vagrantfile_name}" :
-          vagrantfile_path = "#{root_path}/#{vagrantfile_name}.new"
 
           # Write new Vagrantfile
-          open(vagrantfile_path, "w+") do |f|
-            f.puts vagrantfile
+          open(vagrantfile, "w+") do |f|
+            f.puts data
           end
 
-          overwrite ?
-          ui.warn("[Invade] Replaced Vagrantfile at '#{root_path}/#{vagrantfile_name}'.") :
-          ui.warn("[Invade] Saved new Vagrantfile at '#{root_path}/#{vagrantfile_name}.new'.")
         end
       end
 

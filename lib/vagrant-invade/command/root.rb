@@ -20,6 +20,12 @@ module VagrantPlugins
             Init
           end
 
+          # CHECK COMMAND ("vagrant invade check")
+            @subcommands.register(:check) do
+            require_relative "check"
+            Check
+          end
+
           # VALIDATE COMMAND ("vagrant invade validate")
           @subcommands.register(:validate) do
             require_relative "validate"

@@ -17,6 +17,7 @@ module VagrantPlugins
     autoload :Validator, 'vagrant-invade/validator'
     autoload :Builder, 'vagrant-invade/builder'
     autoload :Generator, 'vagrant-invade/generator'
+    autoload :Helper, 'vagrant-invade/helper'
 
     def self.get_invade_config
 

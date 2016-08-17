@@ -4,11 +4,11 @@ require_relative 'base'
 module VagrantPlugins
   module Invade
     module Command
-      class Build < Base
+      class Check < Base
         def execute
           options = {}
           opts = OptionParser.new do |o|
-            o.banner = "Usage: vagrant invade build [-q|--quiet] [-h|--help]"
+            o.banner = "Usage: vagrant invade check [-f|--force] [-q|--quiet] [-h|--help]"
             o.separator ""
             o.on("-q", "--quiet", "No verbose output.") do |q|
               options[:quiet] = q
@@ -20,8 +20,7 @@ module VagrantPlugins
           return if !argv
 
           # Validates InVaDE configuration
-          action(Action.build, {
-            :invade_build_quiet => options[:quiet],
+          action(Action.check, {
             :invade_validate_quiet => true # set this to true. Just build without validate output
           })
 

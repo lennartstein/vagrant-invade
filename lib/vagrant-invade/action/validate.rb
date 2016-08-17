@@ -149,7 +149,7 @@ module VagrantPlugins
             @env[:ui].warn('[Invade] Configuration has validation errors. Run \'vagrant invade validate\' to see details.')
             exit
           else
-            @env[:ui].success("\n[Invade] Configuration validated successfully.")
+            @env[:ui].success("\n[Invade] Configuration validated successfully.") unless @env[:invade_validate_quiet]
           end
 
           @app.call(env)

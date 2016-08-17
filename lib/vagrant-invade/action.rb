@@ -30,6 +30,15 @@ module VagrantPlugins
         end
       end
 
+      def self.check
+        Vagrant::Action::Builder.new.tap do |builder|
+          builder.use Config
+          builder.use Validate
+          builder.use Generate
+          builder.use Check
+        end
+      end
+
       # The autoload farm
       action_root = Pathname.new(File.expand_path("../action", __FILE__))
       autoload :Init, action_root.join("init")
@@ -37,6 +46,8 @@ module VagrantPlugins
       autoload :Validate, action_root.join("validate")
       autoload :Generate, action_root.join("generate")
       autoload :Create, action_root.join("create")
+      autoload :Check, action_root.join("check")
+
     end
   end
 end
