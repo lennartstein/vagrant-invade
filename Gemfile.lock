@@ -5,6 +5,13 @@ GIT
     vagrant-hostmanager (1.8.5)
 
 GIT
+  remote: https://github.com/jantman/vagrant-r10k
+  revision: aa33372532fc031d26da6b059bea3ff113a88947
+  specs:
+    vagrant-r10k (0.4.1)
+      r10k (~> 1.5.0)
+
+GIT
   remote: https://github.com/mitchellh/vagrant.git
   revision: 93f9528687b9a737585d22bc4db5d2ab5d9852d3
   ref: v1.8.5
@@ -38,10 +45,27 @@ GEM
     builder (3.2.2)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
+    colored (1.2)
+    cri (2.6.1)
+      colored (~> 1.2)
     domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
+    faraday (0.9.2)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.9.2)
+      faraday (>= 0.7.4, < 0.10)
+    faraday_middleware-multi_json (0.0.6)
+      faraday_middleware
+      multi_json
+    fast_gettext (1.1.0)
     ffi (1.9.14)
+    gettext (3.2.2)
+      locale (>= 2.0.5)
+      text (>= 1.3.0)
+    gettext-setup (0.6)
+      fast_gettext (~> 1.1.0)
+      gettext (>= 3.0.2)
     gssapi (1.2.0)
       ffi (>= 1.0.1)
     gyoku (1.3.1)
@@ -49,13 +73,15 @@ GEM
     hashicorp-checkpoint (0.1.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    httpclient (2.8.1)
+    httpclient (2.8.2.2)
     i18n (0.7.0)
+    json_pure (1.8.3)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     little-plugger (1.1.4)
+    locale (2.1.2)
     log4r (1.1.10)
     logging (2.1.0)
       little-plugger (~> 1.1)
@@ -65,6 +91,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.0.0)
     multi_json (1.12.1)
+    multipart-post (2.0.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -74,6 +101,16 @@ GEM
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     nori (2.6.0)
+    r10k (1.5.1)
+      colored (= 1.2)
+      cri (~> 2.6.1)
+      faraday (~> 0.9.0)
+      faraday_middleware (~> 0.9.0)
+      faraday_middleware-multi_json (~> 0.0.6)
+      json_pure (~> 1.8)
+      log4r (= 1.1.10)
+      multi_json (~> 1.10)
+      semantic_puppet (~> 0.1.0)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
@@ -86,6 +123,9 @@ GEM
     ruby_dep (1.4.0)
     rubyntlm (0.6.0)
     rubyzip (1.2.0)
+    semantic_puppet (0.1.4)
+      gettext-setup (>= 0.3)
+    text (1.3.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
@@ -111,6 +151,7 @@ DEPENDENCIES
   vagrant!
   vagrant-hostmanager!
   vagrant-invade!
+  vagrant-r10k!
 
 BUNDLED WITH
    1.12.5
