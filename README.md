@@ -17,11 +17,14 @@ There are new commands you can use to init, validate and build your Vagrantfile.
 ### Init
 `vagrant invade init` creates the default **invade.yml** configuration file for you.
 
+### Check
+`vagrant invade check` will check the checksum of Vagrantfile and invade.yml data. Helpful to check the files without using the build command.
+
 ### Validate
 `vagrant invade validate` will validate the **invade.yml** file and gives you a **detailed output of missing values, wrong parameters and defaults** for each option.
 
 ### Build
-`vagrant invade build` will **build a Vagrantfile** based on what you set in the 'invade.yml' configuration file and place it to the directory you did run the command.
+`vagrant invade build` will **build a Vagrantfile** based on what you configured in the 'invade.yml' file and place it to the directory you did run the command. The old Vagrantfile will be saved as backup. 
 
 ## Feature Support
 * Box
