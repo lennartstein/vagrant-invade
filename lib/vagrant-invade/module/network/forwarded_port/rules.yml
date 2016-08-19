@@ -1,0 +1,19 @@
+# https://www.vagrantup.com/docs/networking/forwarded_ports.html
+guest:
+  type: Integer
+  default: '80'
+guest_ip:
+  type: String
+  default: nil
+host:
+  type: Integer
+  default: '8080'
+host_ip:
+  type: String
+  default: nil
+protocol:
+  type: String
+  default: nil
+auto_correct:
+  type: Boolean
+  default: nil

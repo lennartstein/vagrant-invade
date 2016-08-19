@@ -1,0 +1,19 @@
+# https://www.vagrantup.com/docs/provisioning/puppet_agent.html
+puppet_server:
+  type: String
+  default: nil
+puppet_node:
+  type: String
+  default: nil
+client_cert_path:
+  type: String
+  default: nil
+client_private_key_path:
+  type: String
+  default: nil
+facter:
+  type: Hash
+  default: {}
+options:
+  type: StringOrArray
+  default: nil

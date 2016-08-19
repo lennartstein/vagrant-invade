@@ -1,0 +1,8 @@
+# --- Network Part --- #
+  <%= machine_name %>.vm.network "forwarded_port"
+  <% if guest %>, guest: <%= guest %><% end %>
+  <% if guest_ip %>, guest_ip: <%= guest_ip %><% end %>
+  <% if host %>, host: <%= host %><% end %>
+  <% if host_ip %>, host_ip: <%= host_ip %><% end %>
+  <% if protocol %>, protocol: <%= protocol %><% end %>
+  <% if auto_correct %>, auto_correct: <%= auto_correct %><% end %>

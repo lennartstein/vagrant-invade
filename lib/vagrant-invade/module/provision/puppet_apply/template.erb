@@ -18,14 +18,14 @@
       <% if facter %>
       puppet_apply.facter = <%= facter %>
       <% end %>
-      <% if binary_path %>
-      puppet_apply.binary_path = '<%= binary_path %>'
-      <% end %>
       <% if environment %>
       puppet_apply.environment = '<%= environment %>'
       <% end %>
       <% if environment_path %>
       puppet_apply.environment_path = '<%= environment_path %>'
+      <% end %>
+      <% if options %>
+      puppet_apply.options = <%= options %>
       <% end %>
       <% if synced_folder_type %>
       puppet_apply.synced_folder_type = '<%= synced_folder_type %>'
@@ -39,7 +39,5 @@
       <% if working_directory %>
       puppet_apply.working_directory = '<%= working_directory %>'
       <% end %>
-      <% if options %>
-      puppet_apply.options = <%= options %>
-      <% end %>
+
     end

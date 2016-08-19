@@ -1,0 +1,16 @@
+#https://www.vagrantup.com/docs/networking/private_network.html
+type:
+  type: String
+  default: 'dhcp'
+ip:
+  type: String
+  default: nil
+netmask:
+  type: String
+  default: nil
+auto_config:
+  type: Boolean
+  default: nil
+nic_type:
+  type: String
+  default: nil

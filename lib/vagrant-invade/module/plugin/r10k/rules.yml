@@ -1,0 +1,15 @@
+enabled:
+  type: Boolean
+  default: false
+puppet_dir:
+  type: String
+  default: nil
+puppetfile_path:
+  type: String
+  default: nil
+module_path:
+  type: String
+  default: nil
+modules:
+  type: Hash
+  default: nil

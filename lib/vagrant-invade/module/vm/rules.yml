@@ -1,0 +1,9 @@
+box:
+  type: String
+  default: 'invade/default'
+url:
+  type: String
+  default: nil
+hostname:
+  type: String
+  default: 'invade.vm'

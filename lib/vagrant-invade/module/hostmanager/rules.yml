@@ -1,0 +1,15 @@
+enabled:
+  type: Boolean
+  default: true
+manage_host:
+  type: Boolean
+  default: true
+manage_guest:
+  type: Boolean
+  default: true
+ignore_private_ip:
+  type: Boolean
+  default: false
+include_offline:
+  type: Boolean
+  default: true

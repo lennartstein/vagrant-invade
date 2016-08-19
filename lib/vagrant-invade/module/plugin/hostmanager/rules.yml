@@ -1,0 +1,4 @@
+aliases:
+  type: Array
+  default:
+    - my-1337-project.local

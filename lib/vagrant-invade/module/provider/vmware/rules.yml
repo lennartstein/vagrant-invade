@@ -1,0 +1,13 @@
+# https://www.vagrantup.com/docs/vmware/configuration.html
+name:
+  type: String
+  default: nil
+cores:
+  type: Integer
+  default: 1
+memory:
+  type: Integer
+  default: 1024
+gui:
+  type: Boolean
+  default: nil

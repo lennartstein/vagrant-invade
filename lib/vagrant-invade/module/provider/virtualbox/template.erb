@@ -1,0 +1,18 @@
+    <%= machine_name %>.vm.provider :virtualbox do |virtualbox|
+      virtualbox.gui = <%= gui %>
+      virtualbox.name = '<%= name %>'
+      virtualbox.cpus = <%= cpus %>
+      virtualbox.memory = <%= memory %>
+      <% if natdns =%>
+      virtualbox.customize ['modifyvm', :id, '--natdnshostresolver1', 'on']
+      <% end %>
+      <% if nicspeed =%>
+      virtualbox.customize ['modifyvm', :id, '--nicspeed1', '<%= nicspeed %>']
+      <% end %>
+      <% if cpu_cap =%>
+      v.customize ["modifyvm", :id, "--cpuexecutioncap", '<%= cpu_cap %>']
+      <% end %>
+      <% if linked_clone%>
+      virtualbox.linked_clone = true if Vagrant::VERSION =~ /^1.8/
+      <% end %>
+    end

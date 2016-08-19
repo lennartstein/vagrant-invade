@@ -1,0 +1,10 @@
+# https://github.com/winnfsd/vagrant-winnfsd
+logging:
+  type: Boolean
+  default: false
+uid:
+  type: Integer
+  default: nil
+gid:
+  type: Integer
+  default: nil

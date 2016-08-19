@@ -1,0 +1,41 @@
+# https://www.vagrantup.com/docs/provisioning/puppet_apply.html
+
+binary_path:
+  type: String
+  default: nil
+environment:
+  type: String
+  default: nil
+environment_path:
+  type: String
+  default: nil
+options:
+  type: Array
+  default: nil
+module_path:
+  type: StringOrArray
+  default: '.puppet/modules'
+manifests_path:
+  type: String
+  default: './puppet/manifests'
+manifest_file:
+  type: String
+  default: 'init.pp'
+hiera_config_path:
+  type: String
+  default: nil
+synced_folder_type:
+  type: String
+  default: nil
+synced_folder_args:
+  type: Array
+  default: nil
+temp_dir:
+  type: String
+  default: nil
+working_directory:
+  type: String
+  default: nil
+facter:
+  type: Hash
+  default: {}

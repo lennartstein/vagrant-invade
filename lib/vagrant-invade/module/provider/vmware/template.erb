@@ -1,0 +1,6 @@
+    <%= machine_name %>.vm.provider :vmware_desktop do |vmware|
+      vmware.gui = <%= gui %>
+      vmware.vmx['displayName'] = '<%= name %>'
+      vmware.vmx['memsize'] = <%= memory %>
+      vmware.vmx['numvcpus'] = <%= cpus %>
+    end

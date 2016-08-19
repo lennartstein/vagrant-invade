@@ -1,0 +1,2 @@
+# --- Network Part --- #
+  <%= machine_name %>.vm.network "private_network"<% if ip %>, ip: "<%= ip %>"<% end %><% if netmask %>, netmask: "<%= netmask %>"<% end %><% if dhcp %>, type: "<%= dhcp %>"<% end %><% if nic_type %>, nic_type: <%= nic_type %><% end %><% if auto_config %>, auto_config: <%= auto_config %><% end %>

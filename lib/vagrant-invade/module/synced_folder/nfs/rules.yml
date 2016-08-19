@@ -1,0 +1,22 @@
+enabled:
+  type: Boolean
+  default: nil
+type:
+  type: String
+  default: nil
+source:
+  type: String
+  default: '.'
+path:
+  type: String
+  default: '/www'
+uid:
+  type: Integer
+  default: nil
+gid:
+  type: Integer
+  default: nil
+mount_options:
+  type: Array
+  default:
+    - nolock

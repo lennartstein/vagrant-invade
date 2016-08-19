@@ -1,0 +1,21 @@
+enabled:
+  type: Boolean
+  default: nil
+source:
+  type: String
+  default: '.'
+path:
+  type: String
+  default: '/www'
+owner:
+  type: String
+  default: 'vagrant'
+group:
+  type: String
+  default: 'root'
+dmode:
+  type: Integer
+  default: 755
+fmode:
+  type: Integer
+  default: 664

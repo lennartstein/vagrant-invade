@@ -1,0 +1,13 @@
+#https://www.vagrantup.com/docs/networking/public_network.html
+ip:
+  type: String
+  default: nil
+bridge:
+  type: StringOrArray
+  default: nil
+auto_config:
+  type: Boolean
+  default: nil
+use_dhcp_assigned_default_route:
+  type: Boolean
+  default: nil
