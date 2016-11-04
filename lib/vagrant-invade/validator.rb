@@ -29,6 +29,9 @@ module VagrantPlugins
         elsif value === nil
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
           return default
+        elsif value === nil && default != nil?
+          @env[:ui].warn("\t#{name} not set. Use default value '#{default}'.") unless @env[:invade_validate_quiet]
+          return default
         else
           @env[:ui].error("\tError: #{name} => #{value} is not a boolean. Set '#{name}' to default value #{default.to_s.upcase}.") unless @env[:invade_validate_quiet]
           @validation_errors = @validation_errors + 1
@@ -43,17 +46,20 @@ module VagrantPlugins
 
         if value.is_a?(String)
           @env[:ui].success("\t#{name} => '#{value}'") unless @env[:invade_validate_quiet]
-        elsif value === nil
+        elsif value === nil && default.nil?
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
-          return default
+          value = default
+        elsif value === nil && !default.nil?
+          @env[:ui].warn("\t#{name} not set. Use default value '#{default}'.") unless @env[:invade_validate_quiet]
+          value = default
         elsif value === ''
           @env[:ui].warn("\tError: Empty string is not valid. Set '#{name}' => '#{default}'.") unless @env[:invade_validate_quiet]
           @validation_errors = @validation_errors + 1
-          return default
+          value = default
         else
           @env[:ui].error("\tError: '#{value}' is not a string. Set to '#{name}' to default value '#{default}'.") unless @env[:invade_validate_quiet]
           @validation_errors = @validation_errors + 1
-          return default
+          value = default
         end
 
         value
@@ -63,17 +69,20 @@ module VagrantPlugins
 
         if value.is_a?(String) || value.is_a?(Array)
           @env[:ui].success("\t#{name} => '#{value}'") unless @env[:invade_validate_quiet]
-        elsif value === nil
+        elsif value === nil && default.nil?
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
-          return default
+          value = default
+        elsif value === nil && default != nil?
+          @env[:ui].warn("\t#{name} not set. Use default value '#{default}'.") unless @env[:invade_validate_quiet]
+          value = default
         elsif value === ''
           @env[:ui].warn("\tError: Empty string is not valid. Set '#{name}' => '#{default}'.") unless @env[:invade_validate_quiet]
           @validation_errors = @validation_errors + 1
-          return default
+          value = default
         else
           @env[:ui].error("\tError: '#{value}' is not a string or array. Set to '#{name}' to default value '#{default}'.") unless @env[:invade_validate_quiet]
           @validation_errors = @validation_errors + 1
-          return default
+          value = default
         end
 
         value
@@ -84,13 +93,16 @@ module VagrantPlugins
 
         if value.is_a?(Integer) || is_number(value)
           @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
-        elsif value === nil
+        elsif value === nil && default.nil?
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
-          return default
+          value = default
+        elsif value === nil && default != nil?
+          @env[:ui].warn("\t#{name} not set. Use default value '#{default}'.") unless @env[:invade_validate_quiet]
+          value = default
         else
           @env[:ui].error("\tError: '#{value}' is not an integer. Set '#{name}' to default value #{default}.") unless @env[:invade_validate_quiet]
           @validation_errors = @validation_errors + 1
-          return default
+          value = default
         end
 
         value
@@ -101,13 +113,16 @@ module VagrantPlugins
 
         if value.is_a?(Array)
           @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
-        elsif value === nil
+        elsif value === nil && default.nil?
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
-          return default
+          value = default
+        elsif value === nil && default != nil?
+          @env[:ui].warn("\t#{name} not set. Use default value '#{default}'.") unless @env[:invade_validate_quiet]
+          value = default
         else
           @env[:ui].error("\tError: '#{value}' is not an array. Set '#{name}' to default value #{default}.") unless @env[:invade_validate_quiet]
           @validation_errors = @validation_errors + 1
-          return default
+          value = default
         end
 
         value
@@ -118,13 +133,16 @@ module VagrantPlugins
 
         if value.is_a?(Hash)
           @env[:ui].success("\t#{name} => #{value}") unless @env[:invade_validate_quiet]
-        elsif value === nil
+        elsif value === nil && default.nil?
           @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
-          return default
+          value = default
+        elsif value === nil && default != nil?
+          @env[:ui].warn("\t#{name} not set. Use default value '#{default}'.") unless @env[:invade_validate_quiet]
+          value = default
         else
           @env[:ui].error("\tError: '#{value}' is not a Hash. Set '#{name}' to default value #{default}.") unless @env[:invade_validate_quiet]
           @validation_errors = @validation_errors + 1
-          return default
+          value = default
         end
 
         value
