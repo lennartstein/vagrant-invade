@@ -3,3 +3,4 @@ Vagrantfile
 Vagrantfile-*
 Vagrantfile.new
 .vagrant
+.idea

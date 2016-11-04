@@ -1,0 +1,21 @@
+
+    <%= machine_name %>.vm.provision "puppet" do |salt|
+      <% if manifests_path %>
+      salt.manifests_path = '<%= manifests_path %>'
+      <% end %>
+      <% if manifest_file %>
+      salt.manifest_file = '<%= manifest_file %>'
+      <% end %>
+      <% if module_path && module_path.kind_of?(String) %>
+      salt.module_path = '<%= module_path %>'
+      <% end %>
+      <% if module_path && module_path.kind_of?(Array) %>
+      salt.module_path = <%= module_path %>
+      <% end %>
+      <% if hiera_config_path %>
+      salt.hiera_config_path = '<%= hiera_config_path %>'
+      <% end %>
+      <% if facter %>
+      salt.facter = <%= facter %>
+      <% end %>
+    end
