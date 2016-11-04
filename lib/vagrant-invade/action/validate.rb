@@ -39,7 +39,7 @@ module VagrantPlugins
               # VM
               unless part['vm'] == nil
                 @env[:ui].info("\n[Invade][#{machine.upcase}]: Validating VM part...") unless quiet
-                part['vm'] = Validator::VM.new(env, part['vm']).validate
+                part['vm'] = Validator::VM.new(part['vm']).validate
               end
 
               # NETWORK
@@ -50,7 +50,7 @@ module VagrantPlugins
                   @env[:ui].info("\tNetwork: #{type}") unless quiet
                   case type
                   when 'private', 'private_network', 'privatenetwork', 'private-network'
-                    network = Validator::Network::PrivateNetwork.new(env, network).validate
+                    network = Validator::Network::PrivateNetwork.new(network).validate
                   when 'forwarded', 'forwarded_port', 'forwarded-port', 'forwardedport', 'port'
                     network = Validator::Network::ForwardedPort.new(@machine_name, network).validate
                   when 'public', 'puplic_network', 'publicnetwork', 'public-network'
@@ -69,9 +69,9 @@ module VagrantPlugins
                   @env[:ui].info("    Provider: #{type}") unless quiet
                   case type
                   when 'virtualbox'
-                    provider = Validator::Provider::VirtualBox.new(env, provider).validate
+                    provider = Validator::Provider::VirtualBox.new(provider).validate
                   when 'vmware'
-                    provider = Validator::Provider::VMware.new(env, provider).validate
+                    provider = Validator::Provider::VMware.new(provider).validate
                   else
                     raise StandardError, "Provider unknown or not set. Please check provider section in configuration."
                   end
@@ -85,12 +85,12 @@ module VagrantPlugins
                 part['synced_folder'].each do |name, sf|
                   @env[:ui].info("    Synced Folder: #{name}") unless quiet
                   case sf['type']
-                  when 'nfs'
-                    sf = Validator::SyncedFolder::NFS.new(env, sf).validate
-                  when 'vb'
-                    sf = Validator::SyncedFolder::VB.new(env, sf).validate
-                  else
-                    raise StandardError, "Synced Folder type unknown or not set. Please check synced folder section in configuration."
+                    when 'nfs'
+                      sf = Validator::SyncedFolder::NFS.new(sf).validate
+                    when 'vb'
+                      sf = Validator::SyncedFolder::VB.new(sf).validate
+                    else
+                      raise StandardError, "Synced Folder type unknown or not set. Please check synced folder section in configuration."
                   end
                 end
               end
@@ -102,16 +102,18 @@ module VagrantPlugins
                 part['provision'].each do |name, provision|
                   @env[:ui].info("    Provision: #{name}") unless quiet
                   case provision['type']
-                  when 'shell'
-                    provision = Validator::Provision::Shell.new(env, provision).validate
-                  when 'shellinline', 'shell-inline'
-                    provision = Validator::Provision::ShellInline.new(env, provision).validate
-                  when 'puppet', 'puppetapply', 'puppet-apply'
-                    provision = Validator::Provision::PuppetApply.new(env, provision).validate
-                  when 'puppet-agent', 'puppetagent', 'puppet-server', 'puppet-master'
-                    provision = Validator::Provision::PuppetAgent.new(env, provision).validate
-                  else
-                    raise StandardError, "Provision type unknown or not set. Please check provision section in configuration."
+                    when 'shell'
+                      provision = Validator::Provision::Shell.new(env, provision).validate
+                    when 'shellinline', 'shell-inline'
+                      provision = Validator::Provision::ShellInline.new(env, provision).validate
+                    when 'puppet', 'puppetapply', 'puppet-apply'
+                      provision = Validator::Provision::PuppetApply.new(env, provision).validate
+                    when 'puppet-agent', 'puppetagent', 'puppet-server', 'puppet-master'
+                      provision = Validator::Provision::PuppetAgent.new(env, provision).validate
+                    when 'salt'
+                      provision = Validator::Provision::Salt.new(env, provision).validate
+                    else
+                      raise StandardError, "Provision type unknown or not set. Please check provision section in configuration."
                   end
                 end
               end
@@ -120,7 +122,7 @@ module VagrantPlugins
               unless part['ssh'] == nil
                 @env[:ui].info("\n[Invade][#{machine.upcase}]: Validating SSH section...") unless quiet
 
-                part['ssh'] = Validator::SSH.new(env, part['ssh']).validate
+                part['ssh'] = Validator::SSH.new(part['ssh']).validate
               end
 
               # PLUGINS

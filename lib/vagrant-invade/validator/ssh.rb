@@ -10,8 +10,7 @@ module VagrantPlugins
           'forward_agent' => true
         }
 
-        def initialize(env, ssh)
-          @env = env
+        def initialize(ssh)
           @ssh = ssh
         end
 

@@ -8,7 +8,6 @@ module VagrantPlugins
         # (see: https://docs.vagrantup.com/v2/provisioning/puppet_agent.html)
         class PuppetAgent
 
-          attr_accessor :env
           attr_accessor :puppet_agent
 
           DEFAULT = {
@@ -20,10 +19,8 @@ module VagrantPlugins
             'options' => nil
           }
 
-          def initialize(env, puppet_agent)
-            @env = env
+          def initialize(puppet_agent)
             @puppet_agent = puppet_agent
-            @invade = env[:invade]
           end
 
           def validate
@@ -31,35 +28,35 @@ module VagrantPlugins
 
             # PUPPET SERVER
             @puppet_agent['puppet_server'] = Validator.validate_string(
-              @puppet_agent['puppet_server'], 'puppet_server', DEFAULT['puppet_server']
+                @puppet_agent['puppet_server'], 'puppet_server', DEFAULT['puppet_server']
             )
 
             # PUPPET NODE
             @puppet_agent['puppet_node'] = Validator.validate_string(
-              @puppet_agent['puppet_node'], 'puppet_node', DEFAULT['puppet_node']
+                @puppet_agent['puppet_node'], 'puppet_node', DEFAULT['puppet_node']
             )
 
             # CLIENT CERT PATH
             @puppet_agent['client_cert_path'] = Validator.validate_array(
-              @puppet_agent['client_cert_path'], 'client_cert_path', DEFAULT['client_cert_path']
+                @puppet_agent['client_cert_path'], 'client_cert_path', DEFAULT['client_cert_path']
             )
 
             # CLIENT PRIVATE KEY PATH
             @puppet_agent['client_private_key_path'] = Validator.validate_array(
-              @puppet_agent['client_private_key_path'], 'client_private_key_path', DEFAULT['client_private_key_path']
+                @puppet_agent['client_private_key_path'], 'client_private_key_path', DEFAULT['client_private_key_path']
             )
 
             # FACTER
             @puppet_agent['facter'] = Validator.validate_array(
-              @puppet_agent['facter'], 'facter', DEFAULT['facter']
+                @puppet_agent['facter'], 'facter', DEFAULT['facter']
             )
 
             # OPTIONS
             @puppet_agent['options'] = Validator.validate_string(
-              @puppet_agent['options'], 'options', DEFAULT['options']
+                @puppet_agent['options'], 'options', DEFAULT['options']
             )
 
-            @puppet_agent
+            @salt
           end
         end
       end

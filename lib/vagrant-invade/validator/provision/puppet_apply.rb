@@ -8,7 +8,6 @@ module VagrantPlugins
         # (see: https://docs.vagrantup.com/v2/provisioning/puppet_apply.html)
         class PuppetApply
 
-          attr_accessor :env
           attr_accessor :puppet_apply
 
           DEFAULT = {

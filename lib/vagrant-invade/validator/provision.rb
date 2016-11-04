@@ -16,7 +16,7 @@ module VagrantPlugins
         #autoload :Docker, 'vagrant-invade/validator/provision/docker'
         autoload :PuppetApply, 'vagrant-invade/validator/provision/puppet_apply'
         autoload :PuppetAgent, 'vagrant-invade/validator/provision/puppet_agent'
-        #autoload :Salt, 'vagrant-invade/validator/provision/salt'
+        autoload :Salt, 'vagrant-invade/validator/provision/salt'
 
       end
     end

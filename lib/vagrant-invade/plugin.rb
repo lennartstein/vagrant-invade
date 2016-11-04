@@ -1,13 +1,11 @@
-require 'vagrant'
-
 module VagrantPlugins
   module Invade
     class Plugin < Vagrant.plugin('2')
       name 'invade command'
       description 'This plugin configures Vagrant for you'
 
-      command('invade') do
-        require File.expand_path("../command/root", __FILE__)
+      command(:invade) do
+        require File.expand_path('../command/root', __FILE__)
         Command::Root
       end
 
@@ -25,6 +23,6 @@ module VagrantPlugins
       # end
     end
 
-    autoload :Action, File.expand_path("../action/", __FILE__)
+    autoload :Action, File.expand_path('../action/', __FILE__)
   end
 end

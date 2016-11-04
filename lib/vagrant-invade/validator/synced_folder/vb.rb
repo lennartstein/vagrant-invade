@@ -3,9 +3,8 @@ module VagrantPlugins
     module Validator
       module SyncedFolder
 
-        class Vb
+        class VB
 
-          attr_accessor :env
           attr_accessor :vb
 
           DEFAULT = {
@@ -15,9 +14,8 @@ module VagrantPlugins
             'fmode' => 664
           }
 
-          def initialize(env, vb)
-            @env = env
-            @vb = SyncedFolder.validate_base(env, vb)
+          def initialize(vb)
+            @vb = SyncedFolder.validate_base(vb)
           end
 
           def validate
@@ -34,7 +32,7 @@ module VagrantPlugins
             )
 
             # DMODE (Directory Permission Mode)
-            @vb['dmode'] = Validator.validat(
+            @vb['dmode'] = Validator.validate(
               @vb['dmode'], 'dmode', 'integer', DEFAULT['dmode']
             )
 

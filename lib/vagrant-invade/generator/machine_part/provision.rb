@@ -23,6 +23,8 @@ module VagrantPlugins
               provision = Builder::Provision::PuppetApply.new(@machine_name, @provision_data)
             when 'puppet-agent', 'puppetagent'
               provision = Builder::Provision::PuppetAgent.new(@machine_name, @provision_data)
+            when 'salt'
+              provision = Builder::Provision::Salt.new(@machine_name, @provision_data)
             else
               raise StandardError, "Provisioner unknown or not set. Please check the provision configuration."
             end

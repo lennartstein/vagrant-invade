@@ -5,14 +5,12 @@ module VagrantPlugins
 
         class VMware
 
-          attr_accessor :env
           attr_accessor :vmware
 
           DEFAULT = {}
 
-          def initialize(env, vmware)
-            @env = env
-            @vmware = Provider.validate_base(env, vmware)
+          def initialize(vmware)
+            @vmware = Provider.validate_base(vmware)
           end
 
           def validate

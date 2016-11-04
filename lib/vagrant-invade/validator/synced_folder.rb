@@ -12,7 +12,7 @@ module VagrantPlugins
           'path' => '/www'
         }
 
-        def self.validate_base(env, shared_folder)
+        def self.validate_base(shared_folder)
           return nil unless shared_folder
 
           shared_folder['enabled'] = Validator.validate_boolean(

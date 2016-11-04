@@ -12,7 +12,7 @@ module VagrantPlugins
           'memory' => 1024
         }
 
-        def self.validate_base(env, provider)
+        def self.validate_base(provider)
           return nil unless provider
 
           # NAME

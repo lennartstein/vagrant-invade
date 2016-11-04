@@ -5,7 +5,6 @@ module VagrantPlugins
 
         class NFS
 
-          attr_accessor :env
           attr_accessor :nfs
 
           DEFAULT = {
@@ -14,9 +13,8 @@ module VagrantPlugins
             'mount_options' => ['nolock']
           }
 
-          def initialize(env, nfs)
-            @env = env
-            @nfs = SyncedFolder.validate_base(env, nfs)
+          def initialize(nfs)
+            @nfs = SyncedFolder.validate_base(nfs)
           end
 
           def validate

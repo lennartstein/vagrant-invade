@@ -5,7 +5,6 @@ module VagrantPlugins
 
         class VirtualBox
 
-          attr_accessor :env
           attr_accessor :virtualbox
 
           DEFAULT = {
@@ -14,9 +13,8 @@ module VagrantPlugins
             'nicspeed' => 10485760
           }
 
-          def initialize(env, virtualbox)
-            @env = env
-            @virtualbox = Provider.validate_base(env, virtualbox)
+          def initialize(virtualbox)
+            @virtualbox = Provider.validate_base(virtualbox)
           end
 
           def validate

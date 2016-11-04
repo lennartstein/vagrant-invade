@@ -4,7 +4,6 @@ module VagrantPlugins
 
       class VM
 
-        attr_accessor :env
         attr_accessor :vm
 
         DEFAULT = {
@@ -13,8 +12,7 @@ module VagrantPlugins
           'hostname' => 'invade.vm'
         }
 
-        def initialize(env, vm)
-          @env = env
+        def initialize(vm)
           @vm = vm
         end
 
