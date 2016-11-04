@@ -1,21 +1,69 @@
 
-    <%= machine_name %>.vm.provision "puppet" do |salt|
-      <% if manifests_path %>
-      salt.manifests_path = '<%= manifests_path %>'
+    <%= machine_name %>.vm.provision :salt do |salt|
+
+      <% if install_master %>
+      # -- INSTALL OPTIONS -- #
+      salt.install_master = <%= install_master %>
       <% end %>
-      <% if manifest_file %>
-      salt.manifest_file = '<%= manifest_file %>'
+      <% if no_minion %>
+      salt.no_minion = <%= no_minion %>
       <% end %>
-      <% if module_path && module_path.kind_of?(String) %>
-      salt.module_path = '<%= module_path %>'
+      <% if install_syndic %>
+      salt.install_syndic = <%= install_syndic %>
       <% end %>
-      <% if module_path && module_path.kind_of?(Array) %>
-      salt.module_path = <%= module_path %>
+      <% if install_type %>
+      salt.install_type = <%= install_type %>
       <% end %>
-      <% if hiera_config_path %>
-      salt.hiera_config_path = '<%= hiera_config_path %>'
+      <% if install_args %>
+      salt.install_args = '<%= install_args %>'
       <% end %>
-      <% if facter %>
-      salt.facter = <%= facter %>
+      <% if always_install %>
+      salt.always_install = <%= always_install %>
+      <% end %>
+      <% if bootstrap_script %>
+      salt.bootstrap_script = '<%= bootstrap_script %>'
+      <% end %>
+      <% if bootstrap_options %>
+      salt.bootstrap_options = '<%= bootstrap_options %>'
+      <% end %>
+      <% if version %>
+      salt.version = '<%= version %>'
+      <% end %>
+
+      <% if minion_config %>
+      # -- MINION OPTIONS -- #
+      salt.minion_config = '<%= minion_config %>'
+      <% end %>
+      <% if minion_key %>
+      salt.minion_key = '<%= minion_key %>'
+      <% end %>
+      <% if minion_id %>
+      salt.minion_id = '<%= minion_id %>'
+      <% end %>
+      <% if minion_pub %>
+      salt.minion_pub = '<%= minion_pub %>'
+      <% end %>
+      <% if grains_config %>
+      salt.grains_config = '<%= grains_config %>'
+      <% end %>
+      <% if masterless %>
+      salt.masterless = <%= masterless %>
+      <% end %>
+      <% if minion_pub %>
+      salt.minion_pub = '<%= minion_pub %>'
+      <% end %>
+
+      <% if master_config %>
+      # -- MASTER OPTIONS -- #
+      salt.master_config = '<%= master_config %>'
+      <% end %>
+      <% if master_key %>
+      salt.master_key = '<%= master_key %>'
+      <% end %>
+      <% if master_pub %>
+      salt.master_pub = '<%= master_pub %>'
+      <% end %>
+      <% if seed_master %>
+      salt.seed_master = '<%= seed_master %>'
       <% end %>
     end
