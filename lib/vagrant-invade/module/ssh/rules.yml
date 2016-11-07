@@ -1,3 +1,48 @@
+username:
+  type: String
+  default: nil
+password:
+  type: String
+  default: nil
+host:
+  type: String
+  default: nil
+port:
+  type: String
+  default: nil
+guest_port:
+  type: String
+  default: nil
+private_key_path:
+  type: String
+  default: nil
+keys_only:
+  type: Boolean
+  default: nil
+paranoid:
+  type: Boolean
+  default: nil
 forward_agent:
   type: Boolean
   default: true
+forward_x11:
+  type: Boolean
+  default: nil
+forward_env:
+  type: Array
+  default: nil
+insert_key:
+  type: Boolean
+  default: nil
+proxy_command:
+  type: String
+  default: nil
+pty:
+  type: Boolean
+  default: nil
+shell:
+  type: String
+  default: nil
+sudo_command:
+  type: String
+  default: nil
