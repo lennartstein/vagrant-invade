@@ -2,6 +2,8 @@ module VagrantPlugins
   module Invade
     module Builder
       module Network
+
+        require 'ipaddr'
         require 'erubis'
 
         class PrivateNetwork
@@ -19,14 +21,26 @@ module VagrantPlugins
             b = binding
             template_file = "#{TEMPLATE_PATH}/network/private_network.erb"
 
+            # Delete all nil keys
+            @private_network_data = self.delete_blank @private_network_data
+
+            ip = @private_network_data['ip']
+
+            # Handle IP address exceptions
+            if ip
+
+              @private_network_data.delete('type')
+
+              # Netmask only makes sense if IP is ipv6
+              if @private_network_data['netmask'] && !IPAddr.new(ip).ipv6?
+                @private_network_data.delete('netmask')
+              end
+            end
+
             begin
               # Get machine name
               machine_name = @machine_name
-
-              # Values for network section
-              ip = @private_network_data['ip']
-              ip ? dhcp = nil : dhcp = @private_network_data['dhcp']
-              auto_config = @private_network_data['auto_config']
+              network_data = @private_network_data
 
               eruby = Erubis::Eruby.new(File.read(template_file))
               @result = eruby.result b
@@ -34,6 +48,13 @@ module VagrantPlugins
               raise(e)
             end
           end
+
+          def delete_blank(hash)
+            hash.delete_if do |k, v|
+              (v.respond_to?(:empty?) ? v.empty? : !v) or v.instance_of?(Hash) && v.delete_blank.empty?
+            end
+          end
+
         end
       end
     end

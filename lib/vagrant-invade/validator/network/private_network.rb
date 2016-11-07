@@ -13,7 +13,9 @@ module VagrantPlugins
 
           DEFAULT = {
             :type => 'dhcp',
-            :ip => nil # Use default. Vagrant default is NIL if not set
+            :ip => nil,
+            :netmask => nil,
+            :auto_config => false
           }
 
           def initialize(private_network)
@@ -23,7 +25,7 @@ module VagrantPlugins
           def validate
             return nil unless @private_network
 
-            # NETWORK TYPE (DHCP, not used if IP is given)
+            # NETWORK TYPE
             @private_network['type'] = Validator.validate_string(
               @private_network['type'], 'type', DEFAULT[:type]
             )
@@ -31,6 +33,16 @@ module VagrantPlugins
             # IP ADDRESS
             @private_network['ip'] = Validator.validate_string(
               @private_network['ip'], 'ip', DEFAULT[:ip]
+            )
+
+            # NETMASK (IPv6 only)
+            @private_network['netmask'] = Validator.validate_string(
+              @private_network['netmask'], 'netmask', DEFAULT[:netmask]
+            )
+
+            # AUTO CONFIG
+            @private_network['auto_config'] = Validator.validate_boolean(
+              @private_network['auto_config'], 'auto_config', DEFAULT[:auto_config]
             )
 
             @private_network
