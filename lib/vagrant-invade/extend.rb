@@ -7,6 +7,12 @@ class Hash
       end
       d
   end
+
+  def delete_blank
+    delete_if do |k, v|
+      (v.respond_to?(:empty?) ? v.empty? : !v) or v.instance_of?(Hash) && v.delete_blank.empty?
+    end
+  end
 end
 
 class Array

@@ -1,0 +1,64 @@
+# https://www.vagrantup.com/docs/provisioning/salt.html
+
+# INSTALL OPTIONS
+install_master:
+  type: Boolean
+  default: nil
+no_minion:
+  type: Boolean
+  default: false
+install_syncdir:
+  type: Boolean
+  default: false
+install_type:
+  type: String
+  default: 'stable'
+install_args:
+  type: String
+  default: 'develop'
+always_install:
+  type: Boolean
+  default: false
+bootstrap_script:
+  type: String
+  default: nil
+bootstrap_options:
+  type: String
+  default: nil
+version:
+  type: String
+  default: nil
+
+# MINION OPTIONS
+minion_config:
+  type: String
+  default: nil
+minion_key:
+  type: String
+  default: nil
+minion_id:
+  type: String
+  default: nil
+minion_pub:
+  type: String
+  default: nil
+grains_config:
+  type: String
+  default: nil
+masterless:
+  type: Boolean
+  default: nil
+
+# MASTER OPTIONS
+master_config:
+  type: String
+  default: nil
+master_key:
+  type: String
+  default: nil
+master_pub:
+  type: String
+  default: nil
+seed_master:
+  type: String
+  default: nil

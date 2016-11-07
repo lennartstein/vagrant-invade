@@ -7,6 +7,7 @@ module VagrantPlugins
         autoload :ShellInline, 'vagrant-invade/builder/provision/shell_inline'
         autoload :PuppetApply, 'vagrant-invade/builder/provision/puppet_apply'
         autoload :PuppetAgent, 'vagrant-invade/builder/provision/puppet_agent'
+        autoload :Salt, 'vagrant-invade/builder/provision/salt'
 
       end
     end

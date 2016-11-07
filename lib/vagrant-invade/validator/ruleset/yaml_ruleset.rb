@@ -7,8 +7,9 @@ module VagrantPlugins
 
           attr_accessor :rules, :depth, :module_name
 
-          def initialize(ui)
-            @ui     = ui
+          def initialize(env)
+            @ui           = env[:ui]
+            @quite        = env[:invade_validate_quiet]
 
             @part_name    = nil
             @type_name    = nil
@@ -36,7 +37,7 @@ module VagrantPlugins
             if ruleset_file_exist?
               begin
                 @rules = YAML.load_file(@ruleset_file)
-                @ui.success("\tBuild rules with ruleset file.")
+                @ui.success("\tBuild rules with ruleset file.") unless @quite
               rescue IOError => e
                 @logger.error e
                 fail e
@@ -55,7 +56,7 @@ module VagrantPlugins
 
               # If rule of option does not exist return false
               unless @rules[option_name]
-                @ui.warn("\t#{option_name} => doensn't exist in ruleset of module #{@module_name}. - SKIP")
+                @ui.warn("\t#{option_name} => doesn't exist in ruleset of module #{@module_name}. - SKIP")
 
                 return false
               end
@@ -69,14 +70,15 @@ module VagrantPlugins
                   end
                 end
               end
+
             else
-              raise "Rules not yet build. Ruleset needs to build rules first. Running f|valid? before f|build?"
+              raise 'Rules not yet build. Ruleset needs to build rules first. Running f|valid? before f|build?'
             end
           end
 
           private
 
-          def ruleset_file_exist?()
+          def ruleset_file_exist?
             (File.exist?(@ruleset_file) && !File.zero?(@ruleset_file))
           end
 

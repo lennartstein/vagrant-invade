@@ -8,7 +8,7 @@ module VagrantPlugins
 
         def initialize(env)
           @env = env
-          @ruleset = Ruleset::YAMLRuleset.new(env[:ui])
+          @ruleset = Ruleset::YAMLRuleset.new(env)
           @depth = 0
           @logger = Log4r::Logger.new('vagrant::invade::validator::vagrant')
         end
@@ -43,7 +43,7 @@ module VagrantPlugins
           begin
 
             # Build validator class string
-            validator_type_class_name = @ruleset.rules[option_name]['type'] + "Validator"
+            validator_type_class_name = @ruleset.rules[option_name]['type'] + 'Validator'
 
             # Return class dynamically with class name string
             return Validator::Type.const_get(

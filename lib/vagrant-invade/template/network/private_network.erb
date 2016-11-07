@@ -1,2 +1,5 @@
   # --- Network Part --- #
-    <%= machine_name %>.vm.network "private_network"<% if ip %>, ip: "<%= ip %>"<% end %><% if dhcp %>, type: "<%= dhcp %>"<% end %><% if auto_config %>, auto_config: <%= auto_config %><% end %>
+    <%= machine_name %>.vm.network :private_network,
+    <% network_data.each_with_index do |(k, v), index| %>
+      <%= k %>: '<%= v %>'<% unless index == network_data.size - 1 %>,<% end %>
+    <% end %>

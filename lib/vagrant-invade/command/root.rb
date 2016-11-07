@@ -16,7 +16,7 @@ module VagrantPlugins
 
           # INIT COMMAND ("vagrant invade init")
             @subcommands.register(:init) do
-            require_relative "init"
+            require_relative 'init'
             Init
           end
 
@@ -28,19 +28,19 @@ module VagrantPlugins
 
           # VALIDATE COMMAND ("vagrant invade validate")
           @subcommands.register(:validate) do
-            require_relative "validate"
+            require_relative 'validate'
             Validate
           end
 
           # BUILD COMMAND ("vagrant invade build")
             @subcommands.register(:build) do
-            require_relative "build"
+            require_relative 'build'
             Build
           end
         end
 
         def execute
-          if @main_args.include?("-h") || @main_args.include?("--help")
+          if @main_args.include?('-h') || @main_args.include?('--help')
             # Print the help for all the sub-commands.
             return help
           end
@@ -58,9 +58,9 @@ module VagrantPlugins
         # Prints the help out for this command
         def help
           opts = OptionParser.new do |o|
-            o.banner = "Usage: vagrant invade <command> [<args>]"
-            o.separator ""
-            o.separator "Available subcommands:"
+            o.banner = 'Usage: vagrant invade <command> [<args>]'
+            o.separator ''
+            o.separator 'Available subcommands:'
 
             # Add the available subcommands as separators in order to print them
             # out as well.
@@ -71,8 +71,8 @@ module VagrantPlugins
               o.separator "     #{key}"
             end
 
-            o.separator ""
-            o.separator "For help on any individual command run `vagrant invade COMMAND -h`"
+            o.separator ''
+            o.separator 'For help on any individual command run `vagrant invade COMMAND -h`'
           end
 
           @env.ui.info(opts.help, prefix: false)

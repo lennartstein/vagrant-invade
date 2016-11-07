@@ -23,39 +23,36 @@ module VagrantPlugins
           # Validate the settings and set default variables if needed
           ###############################################################
 
+          # Delete empty Hashes
+          config.delete_blank
+
           config.each do |part_key, part_data|
 
-            unless part_data.nil?
+            depth = part_data.depth
+            if depth > 1
 
-              depth = part_data.depth
-              if depth > 1
+              part_data.each_with_index do |(machine, machine_part), index|
 
-                # Iterate over parts of each machine
-                part_data.each_with_index do |(machine, machine_part), index|
+                machine_part.each do |machine_part_name, machine_part_data|
+                  @env[:ui].info("\n[Invade][Machine: #{machine.upcase}]: Validating #{machine_part_name.upcase} part...") unless quiet
 
-                  machine_part.each do |machine_part_name, machine_part_data|
-                    @env[:ui].info("\n[Invade][Machine: #{machine.upcase}]: Validating #{machine_part_name.upcase} part...") unless quiet
-
-                    if machine_part_data.depth > 1
-                      machine_part_data.each do |value_name, value_data|
-                        value_data = validate(machine_part_name, value_name, value_data, machine_part_data.depth)
-                      end
-                    else
-                      machine_part_data = validate('General', machine_part_name, machine_part_data, machine_part_data.depth)
+                  if machine_part_data.depth > 1
+                    machine_part_data.each do |value_name, value_data|
+                      value_data = validate(machine_part_name, value_name, value_data, machine_part_data.depth)
                     end
+                  else
+                     machine_part_data = validate('General', machine_part_name, machine_part_data, machine_part_data.depth)
                   end
-
                 end
-
-                @env[:ui].success "\n[Invade]: Processed #{part_data.count} machine(s)."
-
-              else
-                @env[:ui].info("\n[Invade]: Validating #{part_key.upcase} part...") unless quiet
-
-                part_data = validate(part_key, part_key, part_data, depth)
               end
 
+              @env[:ui].success "\n[Invade]: Processed #{part_data.count} machine(s)."
+
+            else
+              @env[:ui].info("\n[Invade]: Validating #{part_key.upcase} part...") unless quiet
+              part_data = validate(part_key, part_key, part_data, depth)
             end
+
           end
 
           @app.call(env)
@@ -72,9 +69,7 @@ module VagrantPlugins
           @validator.depth = depth
 
           # Validate data
-          return @validator.validate(
-            part_name, value_name, value_data
-          )
+          @validator.validate(part_name, value_name, value_data)
         end
 
       end

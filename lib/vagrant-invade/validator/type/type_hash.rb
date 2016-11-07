@@ -11,7 +11,7 @@ module VagrantPlugins
             @value = value
             @name = name
             @default = default
-            @env
+            @env = env
           end
 
           def validate
