@@ -41,12 +41,23 @@ module VagrantPlugins
 
                   if machine_part_data.depth > 1
                     machine_part_data.each do |value_name, value_data|
+
+                      # Output info message
+                      info_message = "\t#{machine_part_name.split('_').collect(&:capitalize).join}: #{value_name}"
+                      @env[:ui].info(info_message) unless @env[:invade_validate_quiet]
+
+                      # Validation of machine parts configs (e.g: synced folder)
                       valid_data = validate(machine_part_name, value_name, value_data, machine_part_data.depth)
+
+                      # Generate the template for Vagrantfile
                       @generator.type = Invade::Generator::Type::MACHINE_PART
                       @generator.generate(machine, machine_part_name, value_name, valid_data)
                     end
                   else
+                    # Validation of general machine configs (e.g: vm)
                     valid_data = validate('Machine', machine_part_name, machine_part_data, machine_part_data.depth)
+
+                    # Generate the template for Vagrantfile
                     @generator.type = Invade::Generator::Type::MACHINE
                     @generator.generate(machine, 'Machine', machine_part_name, valid_data)
                   end
@@ -56,8 +67,13 @@ module VagrantPlugins
               @env[:ui].success "\n[Invade]: Processed #{part_data.count} machine(s)."
 
             else
+              # Info message
               @env[:ui].info("\n[Invade]: Validating #{part_key.upcase} part...") unless quiet
+
+              # Validation of general non-machine-config (e.g: debug, invade)
               valid_data = validate(part_key, part_key, part_data, depth)
+
+              # Generate the template for Vagrantfile
               @generator.type = Invade::Generator::Type::GENERAL
               @generator.generate(machine, 'General', part_key, valid_data)
             end
@@ -68,13 +84,6 @@ module VagrantPlugins
         end
 
         def validate(part_name, value_name, value_data, depth)
-
-          if depth > 1
-            info_message = "\t#{part_name.split('_').collect(&:capitalize).join}: #{value_name}"
-            @env[:ui].info(info_message) unless @env[:invade_validate_quiet]
-          end
-
-          # Validate
           @validator.depth = depth
           @validator.validate(part_name, value_name, value_data)
         end
