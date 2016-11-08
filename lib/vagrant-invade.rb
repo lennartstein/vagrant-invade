@@ -16,6 +16,7 @@ module VagrantPlugins
     require 'yaml'
 
     autoload :Validator, 'vagrant-invade/validator'
+    autoload :InvadeModule, 'vagrant-invade/module'
     autoload :Builder, 'vagrant-invade/builder'
     autoload :Generator, 'vagrant-invade/generator'
     autoload :Helper, 'vagrant-invade/helper'

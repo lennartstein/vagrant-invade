@@ -19,7 +19,7 @@ module VagrantPlugins
           builder.use Config
           builder.use Validate
           builder.use Generate
-          builder.use Create
+          # builder.use Create
         end
       end
 

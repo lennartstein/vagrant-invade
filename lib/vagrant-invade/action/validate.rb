@@ -10,6 +10,9 @@ module VagrantPlugins
           @app = app
           @env = env
 
+          @validator = Invade::Validator::Validator.new(env)
+          @generator = Invade::Generator::Generator.new(env)
+
           @logger = Log4r::Logger.new('vagrant::invade::action::validate')
         end
 
@@ -17,11 +20,11 @@ module VagrantPlugins
           config  = env[:invade]
           quiet   = @env[:invade_validate_quiet]
 
-          @validator = Validator::VagrantValidator.new(env)
-
           ###############################################################
           # Validate the settings and set default variables if needed
           ###############################################################
+
+          config[:vagrantfile] = Hash.new
 
           # Delete empty Hashes
           config.delete_blank
@@ -38,10 +41,14 @@ module VagrantPlugins
 
                   if machine_part_data.depth > 1
                     machine_part_data.each do |value_name, value_data|
-                      value_data = validate(machine_part_name, value_name, value_data, machine_part_data.depth)
+                      valid_data = validate(machine_part_name, value_name, value_data, machine_part_data.depth)
+                      @generator.type = Invade::Generator::Type::MACHINE_PART
+                      @generator.generate(machine, machine_part_name, value_name, valid_data)
                     end
                   else
-                     machine_part_data = validate('General', machine_part_name, machine_part_data, machine_part_data.depth)
+                    valid_data = validate('Machine', machine_part_name, machine_part_data, machine_part_data.depth)
+                    @generator.type = Invade::Generator::Type::MACHINE
+                    @generator.generate(machine, 'Machine', machine_part_name, valid_data)
                   end
                 end
               end
@@ -50,7 +57,9 @@ module VagrantPlugins
 
             else
               @env[:ui].info("\n[Invade]: Validating #{part_key.upcase} part...") unless quiet
-              part_data = validate(part_key, part_key, part_data, depth)
+              valid_data = validate(part_key, part_key, part_data, depth)
+              @generator.type = Invade::Generator::Type::GENERAL
+              @generator.generate(machine, 'General', part_key, valid_data)
             end
 
           end
@@ -65,10 +74,8 @@ module VagrantPlugins
             @env[:ui].info(info_message) unless @env[:invade_validate_quiet]
           end
 
-          # Set depth
+          # Validate
           @validator.depth = depth
-
-          # Validate data
           @validator.validate(part_name, value_name, value_data)
         end
 

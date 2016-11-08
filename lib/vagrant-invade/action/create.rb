@@ -12,7 +12,7 @@ module VagrantPlugins
           @ui = env[:ui]
           @logger = Log4r::Logger.new('vagrant::invade::action::create')
 
-          ENV['VAGRANT_VAGRANTFILE'] ? @vagrantfile_name = ENV['VAGRANT_VAGRANTFILE'] : @vagrantfile_name = "Vagrantfile"
+          ENV['VAGRANT_VAGRANTFILE'] ? @vagrantfile_name = ENV['VAGRANT_VAGRANTFILE'] : @vagrantfile_name = 'Vagrantfile'
           @root_path = Dir.pwd
         end
 
@@ -31,11 +31,11 @@ module VagrantPlugins
 
             @env[:ui].success "[Invade][BUILD] Current    : '#{md5_current}'"
             @env[:ui].success "[Invade][BUILD] Generated  : '#{md5_generated}'"
-            @env[:ui].success "[Invade][BUILD] Saved new Vagrantfile to:"
+            @env[:ui].success '[Invade][BUILD] Saved new Vagrantfile to:'
             @env[:ui].success "[Invade][BUILD] #{vagrantfile_path}"
           else
             @ui.warn("[Invade][BUILD] Checksum: #{md5_current}")
-            @ui.warn("[Invade][BUILD] No changes found in invade.yml - Vagrantfile will remain untouched.")
+            @ui.warn('[Invade][BUILD] No changes found in invade.yml - Vagrantfile will remain untouched.')
           end
 
           @app.call(env)
@@ -48,9 +48,9 @@ module VagrantPlugins
           vagrantfile = "#{@root_path}/#{@vagrantfile_name}"
 
           # Backup old Vagrantfile and safe it with checksum
-          backup_file = vagrantfile + "-" + "#{checksum}"
+          backup_file = vagrantfile + '-' + "#{checksum}"
 
-          unless (File.exist?(backup_file) || !File.exist?(vagrantfile))
+          unless File.exist?(backup_file) || !File.exist?(vagrantfile)
             File.rename(
               vagrantfile,
               backup_file
@@ -58,7 +58,7 @@ module VagrantPlugins
           end
 
           # Write new Vagrantfile
-          open(vagrantfile, "w+") do |f|
+          open(vagrantfile, 'w+') do |f|
             f.puts data
           end
 
