@@ -16,7 +16,6 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/network/public_network.erb"
 
             begin
 
@@ -29,7 +28,7 @@ module VagrantPlugins
               bridge = @public_network_data['bridge']
               auto_config = @public_network_data['auto_config']
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
+              eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue StandardError => e
               raise(e)

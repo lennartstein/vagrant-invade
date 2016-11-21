@@ -11,6 +11,7 @@ module VagrantPlugins
         def initialize(app, env)
           @app = app
           @env = env
+
           @logger = Log4r::Logger.new('vagrant::invade::action::config')
           @dir = Dir.pwd
         end
@@ -18,8 +19,8 @@ module VagrantPlugins
         def call(env)
 
           config_file_path = "#{@dir}/invade.yml"
-          template_file_path = "#{config_file_path}.dist"
-          default_config_file_path = "#{File.expand_path('../../../../', __FILE__)}/invade.yml.dist"
+          # template_file_path = "#{config_file_path}.dist"
+          # default_config_file_path = "#{File.expand_path('../../../../', __FILE__)}/invade.yml.dist"
 
           # Returns with invade in environment if Invade Configuration file already exists
           if File.exist?(config_file_path)
@@ -29,7 +30,7 @@ module VagrantPlugins
             # Add invade configuration as global environment variable since we know configuration file exists
             env[:invade] = Invade.get_invade_config
             unless env[:invade]
-              raise "Something went wront. Configuration file could not be loaded."
+              raise 'Something went wrong. Configuration file could not be loaded.'
             end
           else
             @env[:ui].info "[Invade] 'invade.yml' not exists. You forgot a 'vagrant invade init'?"

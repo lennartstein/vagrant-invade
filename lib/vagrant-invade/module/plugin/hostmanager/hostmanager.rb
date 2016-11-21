@@ -20,7 +20,6 @@ module VagrantPlugins
             if Vagrant.has_plugin?('vagrant-hostmanager')
 
               b = binding
-              template_file = "#{TEMPLATE_PATH}/plugin/hostmanager.erb"
 
               begin
 
@@ -34,7 +33,7 @@ module VagrantPlugins
                 include_offline =@hostmanager_data['include_offline']
                 aliases = @hostmanager_data['aliases']
 
-                eruby = Erubis::Eruby.new(File.read(template_file))
+                eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
                 @result = eruby.result b
               rescue TypeError, SyntaxError, SystemCallError => e
                 raise(e)

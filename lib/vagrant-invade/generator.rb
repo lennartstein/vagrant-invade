@@ -10,35 +10,45 @@ module VagrantPlugins
 
         def initialize(env)
           @env = env
-          @type = Type::GENERAL
+          @type = Type::VAGRANT_PART
 
           @logger = Log4r::Logger.new('vagrant::invade::generator::vagrant')
         end
-
-        def generate(machine, part, type, data)
+        
+        def generate(machine: nil, part: nil, type: nil, data: nil)
 
           begin
 
-            type_formatted = type.split('_').collect(&:capitalize).join
-            part_formatted = part.split('_').collect(&:capitalize).join
+            # Generates the templates with validated data
+            case @type
+              when Invade::Generator::Type::VAGRANTFILE
+                generated_data = InvadeModule::Invade::Vagrantfile.new(data).build
 
-            # Return class dynamically with class name string
-            if @type == VagrantPlugins::Invade::Generator::Type::GENERAL
-              generator_class_name = type_formatted
-            elsif @type == VagrantPlugins::Invade::Generator::Type::MACHINE
-              generator_class_name = type_formatted
-            else
-              generator_class_name = part_formatted + '::' + type_formatted
+              when Invade::Generator::Type::VAGRANT_PART
+                generator_class_name = type.split('_').collect(&:capitalize).join
+                generated_data = InvadeModule.const_get(generator_class_name).new(data).build
+
+              when Invade::Generator::Type::MACHINE
+                generated_data = InvadeModule::Invade::Machine.new(machine, data).build
+
+              when Invade::Generator::Type::MACHINE_NESTED_PART
+                type_formatted = type.split('_').collect(&:capitalize).join
+                part_formatted = part.split('_').collect(&:capitalize).join
+                generator_class_name = part_formatted + '::' + type_formatted
+                generated_data = InvadeModule.const_get(generator_class_name).new(machine, data).build
+
+              else
+                generator_class_name = type.split('_').collect(&:capitalize).join
+                generated_data = InvadeModule.const_get(generator_class_name).new(machine, data).build
             end
 
-            test = InvadeModule.const_get(generator_class_name).new(machine, data)
-            puts test.build
-
+            return generated_data
           rescue StandardError => e
             @logger.error e
             fail e
           end
         end
+
       end
 
     end

@@ -16,7 +16,6 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/synced_folder/nfs.erb"
 
             begin
 
@@ -31,7 +30,7 @@ module VagrantPlugins
               path = @nfs_data['path']
               mount_options = @nfs_data['mount_options']
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
+              eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)

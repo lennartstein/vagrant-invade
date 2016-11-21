@@ -16,7 +16,6 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/provider/vmware.erb"
 
             begin
 
@@ -25,10 +24,11 @@ module VagrantPlugins
 
               # Values for provider section
               @vmware_data['name'] ? name = @vmware_data['name'] : name = @machine_name
+              gui = @vmware_data['gui']
               cpus = @vmware_data['cores']
               memory  = @vmware_data['memory']
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
+              eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)

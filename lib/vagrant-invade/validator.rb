@@ -25,7 +25,14 @@ module VagrantPlugins
 
           unless @ruleset.rules.nil?
 
-            # Finally build type validator and validate the option
+            # Fill with defaults
+            @ruleset.rules.each do |rule_key, rule_value|
+              unless rule_value['default'] == 'nil'
+                value_data[rule_key] = rule_value['default'] if value_data[rule_key].nil?
+              end
+            end
+
+            # Finally build type validator and validate the options
             value_data.each do |option_name, option_value|
               if @ruleset.valid?(option_name)
                 type_validator = init_type_validator(option_name, option_value)

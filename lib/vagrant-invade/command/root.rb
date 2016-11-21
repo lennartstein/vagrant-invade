@@ -22,7 +22,7 @@ module VagrantPlugins
 
           # CHECK COMMAND ("vagrant invade check")
             @subcommands.register(:check) do
-            require_relative "check"
+            require_relative 'check'
             Check
           end
 

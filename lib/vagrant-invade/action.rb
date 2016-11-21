@@ -5,21 +5,19 @@ module VagrantPlugins
   module Invade
     module Action
 
-      # This middleware sequence will only validate the invade configuration file
-      def self.validate
-        Vagrant::Action::Builder.new.tap do |builder|
-          builder.use Config
-          builder.use Validate
-        end
-      end
-
-      # This middleware sequence will validate and build the Vagrantfile
       def self.build
         Vagrant::Action::Builder.new.tap do |builder|
           builder.use Config
-          builder.use Validate
-          builder.use Generate
-          # builder.use Create
+          builder.use Process
+          builder.use Create
+        end
+      end
+
+      # This middleware sequence will validate and build the invade configuration file
+      def self.process
+        Vagrant::Action::Builder.new.tap do |builder|
+          builder.use Config
+          builder.use Process
         end
       end
 
@@ -33,20 +31,18 @@ module VagrantPlugins
       def self.check
         Vagrant::Action::Builder.new.tap do |builder|
           builder.use Config
-          builder.use Validate
-          builder.use Generate
+          builder.use Process
           builder.use Check
         end
       end
 
       # The autoload farm
-      action_root = Pathname.new(File.expand_path("../action", __FILE__))
-      autoload :Init, action_root.join("init")
-      autoload :Config, action_root.join("config")
-      autoload :Validate, action_root.join("validate")
-      autoload :Generate, action_root.join("generate")
-      autoload :Create, action_root.join("create")
-      autoload :Check, action_root.join("check")
+      action_root = Pathname.new(File.expand_path('../action', __FILE__))
+      autoload :Init, action_root.join('init')
+      autoload :Config, action_root.join('config')
+      autoload :Process, action_root.join('process')
+      autoload :Create, action_root.join('create')
+      autoload :Check, action_root.join('check')
 
     end
   end

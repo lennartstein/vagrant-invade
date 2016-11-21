@@ -16,7 +16,6 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/provision/puppet_agent.erb"
 
             begin
 
@@ -31,7 +30,7 @@ module VagrantPlugins
               facter = @puppet_agent_data['facter']
               options = @puppet_agent_data['options']
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
+              eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)

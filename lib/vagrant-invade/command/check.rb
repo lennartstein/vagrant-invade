@@ -8,16 +8,16 @@ module VagrantPlugins
         def execute
           options = {}
           opts = OptionParser.new do |o|
-            o.banner = "Usage: vagrant invade check [-f|--force] [-q|--quiet] [-h|--help]"
-            o.separator ""
-            o.on("-q", "--quiet", "No verbose output.") do |q|
+            o.banner = 'Usage: vagrant invade check [-f|--force] [-q|--quiet] [-h|--help]'
+            o.separator ''
+            o.on('-q', '--quiet', 'No verbose output.') do |q|
               options[:quiet] = q
             end
           end
 
           # Parse the options
           argv = parse_options(opts)
-          return if !argv
+          return unless argv
 
           # Validates InVaDE configuration
           action(Action.check, {

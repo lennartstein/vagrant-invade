@@ -8,9 +8,9 @@ module VagrantPlugins
         def execute
           options = {}
           opts = OptionParser.new do |o|
-            o.banner = "Usage: vagrant invade init [-f|--force] [-h]"
-            o.separator ""
-            o.on("-f", "--force", "Force creating configuration file.") do |f|
+            o.banner = 'Usage: vagrant invade init [-f|--force] [-h]'
+            o.separator ''
+            o.on('-f', '--force', 'Force creating configuration file.') do |f|
               options[:force] = f
             end
           end

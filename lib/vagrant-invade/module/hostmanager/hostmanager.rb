@@ -14,7 +14,6 @@ module VagrantPlugins
 
         def build
           b = binding
-          template_file = "#{TEMPLATE_PATH}/hostmanager.erb"
 
           begin
 
@@ -25,7 +24,7 @@ module VagrantPlugins
             ignore_private_ip = @hostmanager_data['ignore_private_ip']
             include_offline = @hostmanager_data['include_offline']
 
-            eruby = Erubis::Eruby.new(File.read(template_file))
+            eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
             @result = eruby.result b
           rescue TypeError, SyntaxError, SystemCallError => e
             raise(e)

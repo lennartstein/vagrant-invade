@@ -16,7 +16,6 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/network/forwarded_port.erb"
 
             begin
 
@@ -33,7 +32,7 @@ module VagrantPlugins
               protocol = @forwarded_port_data['protocol']
               auto_correct = @forwarded_port_data['auto_correct']
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
+              eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)

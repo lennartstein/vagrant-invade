@@ -23,7 +23,6 @@ module VagrantPlugins
             else
 
               b = binding
-              template_file = "#{TEMPLATE_PATH}/plugin/winnfsd.erb"
 
               begin
 
@@ -35,7 +34,7 @@ module VagrantPlugins
                 uid = @winnfsd_data['uid']
                 gid = @winnfsd_data['gid']
 
-                eruby = Erubis::Eruby.new(File.read(template_file))
+                eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
                 @result = eruby.result b
               rescue TypeError, SyntaxError, SystemCallError => e
                 raise(e)

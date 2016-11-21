@@ -18,10 +18,9 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/network/private_network.erb"
 
             # Delete all nil keys
-            @private_network_data = self.delete_blank @private_network_data
+            @private_network_data.delete_blank
 
             ip = @private_network_data['ip']
 
@@ -41,16 +40,10 @@ module VagrantPlugins
               machine_name = @machine_name
               network_data = @private_network_data
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
+              eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)
-            end
-          end
-
-          def delete_blank(hash)
-            hash.delete_if do |k, v|
-              (v.respond_to?(:empty?) ? v.empty? : !v) or v.instance_of?(Hash) && v.delete_blank.empty?
             end
           end
 

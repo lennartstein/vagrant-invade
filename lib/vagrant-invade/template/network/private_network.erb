@@ -1,5 +1,0 @@
-  # --- Network Part --- #
-    <%= machine_name %>.vm.network :private_network,
-    <% network_data.each_with_index do |(k, v), index| %>
-      <%= k %>: '<%= v %>'<% unless index == network_data.size - 1 %>,<% end %>
-    <% end %>

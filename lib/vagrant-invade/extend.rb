@@ -9,7 +9,7 @@ class Hash
   end
 
   def delete_blank
-    delete_if do |k, v|
+    delete_if do |_, v|
       (v.respond_to?(:empty?) ? v.empty? : !v) or v.instance_of?(Hash) && v.delete_blank.empty?
     end
   end

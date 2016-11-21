@@ -16,7 +16,6 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/provider/virtualbox.erb"
 
             begin
 
@@ -25,13 +24,16 @@ module VagrantPlugins
 
               # Values for provider section
               @virtualbox_data['name'] ? name = @virtualbox_data['name'] : name = @machine_name
+              gui = @virtualbox_data['gui']
               type = @virtualbox_data['type']
               cpus = @virtualbox_data['cores']
+              cpu_cap = @virtualbox_data['cpu_gap']
               memory = @virtualbox_data['memory']
               nicspeed = @virtualbox_data['nicspeed']
               natdns = @virtualbox_data['natdns']
+              linked_clone = @virtualbox_data['linked_clone']
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
+              eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)

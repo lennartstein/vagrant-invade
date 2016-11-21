@@ -29,7 +29,11 @@ module VagrantPlugins
             @type_name = type_name
 
             # Set module name string
-            (@depth > 1) ? @module_name = "#{part_name}/#{type_name}" : @module_name = type_name
+            if @depth > 1
+              @module_name = "#{part_name}/#{type_name}"
+            else
+              @module_name = type_name
+            end
 
             # Set module path
             @ruleset_file = "#{RULESET_ROOT_DIR}/#{@module_name}/rules.yml"
@@ -52,7 +56,9 @@ module VagrantPlugins
           end
 
           def valid?(option_name)
-            unless @rules.nil?
+            if @rules.nil?
+              raise 'Rules not yet build. Ruleset needs to build rules first. Running f|valid? before f|build?'
+            else
 
               # If rule of option does not exist return false
               unless @rules[option_name]
@@ -62,7 +68,7 @@ module VagrantPlugins
               end
 
               @rules.each do |option_key, option_value|
-                option_value.each do |option_type_key, option_type_value|
+                option_value.each do |option_type_key, _|
                   unless valid_option?(option_type_key)
                     @ui.warn("\tWarning: Ruleset of module '#{@module_name}'\n\tRule '#{option_type_key}' defined for option '#{option_key}' is not a valid rule.\n\tSKIP VALIDATION.")
 
@@ -71,8 +77,6 @@ module VagrantPlugins
                 end
               end
 
-            else
-              raise 'Rules not yet build. Ruleset needs to build rules first. Running f|valid? before f|build?'
             end
           end
 

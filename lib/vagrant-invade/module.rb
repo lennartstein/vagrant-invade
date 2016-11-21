@@ -3,6 +3,7 @@ module VagrantPlugins
     module InvadeModule
 
       autoload :Hostmanager, 'vagrant-invade/module/hostmanager/hostmanager'
+      autoload :Invade, 'vagrant-invade/module/invade/invade'
       autoload :Network, 'vagrant-invade/module/network/network'
       autoload :Plugin, 'vagrant-invade/module/plugin/plugin'
       autoload :Provider, 'vagrant-invade/module/provider/provider'
@@ -14,8 +15,9 @@ module VagrantPlugins
       class InvadeModule
         require 'erubis'
 
-        TEMPLATE_PATH = File.join(File.dirname(__FILE__), 'template')
-
+        def get_template_path(module_file_path)
+          File.join(File.dirname(module_file_path), 'template.erb')
+        end
       end
 
     end

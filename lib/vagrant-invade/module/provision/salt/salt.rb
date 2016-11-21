@@ -16,7 +16,6 @@ module VagrantPlugins
 
           def build
             b = binding
-            template_file = "#{TEMPLATE_PATH}/provision/salt.erb"
 
             begin
 
@@ -48,7 +47,7 @@ module VagrantPlugins
               master_pub = @salt_data['master_pub']
               seed_master = @salt_data['seed_master']
 
-              eruby = Erubis::Eruby.new(File.read(template_file))
+              eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
               raise(e)

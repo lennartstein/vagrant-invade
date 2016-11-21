@@ -25,7 +25,6 @@ module VagrantPlugins
             else
 
               b = binding
-              template_file = "#{TEMPLATE_PATH}/plugin/r10k.erb"
 
               begin
 
@@ -65,7 +64,7 @@ module VagrantPlugins
                 puppetfile_path = @r10k_data['puppetfile_path']
                 module_path = @r10k_data['module_path']
 
-                eruby = Erubis::Eruby.new(File.read(template_file))
+                eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
                 @result = eruby.result b
               rescue TypeError, SyntaxError, SystemCallError => e
                 raise(e)

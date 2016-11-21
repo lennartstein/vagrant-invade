@@ -8,21 +8,22 @@ module VagrantPlugins
         def execute
           options = {}
           opts = OptionParser.new do |o|
-            o.banner = "Usage: vagrant invade build [-q|--quiet] [-h|--help]"
-            o.separator ""
-            o.on("-q", "--quiet", "No verbose output.") do |q|
+            o.banner = 'Usage: vagrant invade build [-q|--quiet] [-h|--help]'
+            o.separator ''
+            o.on('-q', '--quiet', 'No verbose output.') do |q|
               options[:quiet] = q
             end
           end
 
           # Parse the options
           argv = parse_options(opts)
-          return if !argv
+          return unless argv
 
           # Validates InVaDE configuration
           action(Action.build, {
             :invade_build_quiet => options[:quiet],
-            :invade_validate_quiet => true # set this to true. Just build without validate output
+            :invade_validate_quiet => true,
+            :invade_generate => true
           })
 
           # Success, exit status 0
