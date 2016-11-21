@@ -1,9 +1,9 @@
 module VagrantPlugins
   module Invade
-    module Module
+    module InvadeModule
       module Provision
 
-        class ShellInline < Module
+        class ShellInline < InvadeModule
 
           attr_reader :result
           attr_accessor :machine_name, :name, :shell_inline_data

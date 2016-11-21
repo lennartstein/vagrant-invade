@@ -1,6 +1,6 @@
 module VagrantPlugins
   module Invade
-    module Module
+    module InvadeModule
       module Provision
 
         autoload :Shell, 'vagrant-invade/module/provision/shell/shell'

@@ -1,9 +1,9 @@
 module VagrantPlugins
   module Invade
-    module Module
+    module InvadeModule
       module Provision
 
-        class Salt < Module
+        class Salt < InvadeModule
 
           attr_reader :result
           attr_accessor :machine_name, :salt_data

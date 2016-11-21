@@ -21,7 +21,7 @@ module VagrantPlugins
           @ruleset.depth = @depth
 
           # Build rules
-          !(part_name == 'synced_folder') ? @ruleset.build(part_name, value_name) : @ruleset.build(part_name, value_data['type'])
+          @ruleset.build(part_name, value_name)
 
           unless @ruleset.rules.nil?
 

@@ -53,6 +53,12 @@ module VagrantPlugins
                       info_message = "\t#{machine_part_name.split('_').collect(&:capitalize).join}: #{value_name}"
                       @env[:ui].info(info_message) unless @env[:invade_validate_quiet]
 
+                      # Exception handling for synced_folder and provision types
+                      if machine_part_name == 'synced_folder' or machine_part_name == 'provision'
+                        value_name = value_data['type']
+                        value_data.delete('type')
+                      end
+
                       validated_data = validate(machine_part_name, value_name, value_data, machine_part_data.depth)
                       invade_machine_part[machine_part_name].concat(
                           generate(

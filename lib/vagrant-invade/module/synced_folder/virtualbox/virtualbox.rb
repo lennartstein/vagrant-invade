@@ -1,9 +1,9 @@
 module VagrantPlugins
   module Invade
-    module Module
+    module InvadeModule
       module SyncedFolder
 
-        class Virtualbox < Module
+        class Virtualbox < InvadeModule
 
           attr_reader :result
           attr_accessor :machine_name, :virtualbox_data

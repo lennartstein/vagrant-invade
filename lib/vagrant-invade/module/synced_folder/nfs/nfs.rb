@@ -1,9 +1,9 @@
 module VagrantPlugins
   module Invade
-    module Module
+    module InvadeModule
       module SyncedFolder
 
-        class NFS < Module
+        class Nfs < InvadeModule
 
           attr_reader :result
           attr_accessor :machine_name, :nfs_data

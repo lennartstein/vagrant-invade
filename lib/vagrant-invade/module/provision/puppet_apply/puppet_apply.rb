@@ -1,9 +1,9 @@
 module VagrantPlugins
   module Invade
-    module Module
+    module InvadeModule
       module Provision
 
-        class PuppetApply < Module
+        class PuppetApply < InvadeModule
 
           attr_reader :result
           attr_accessor :machine_name, :puppet_apply_data
