@@ -22,14 +22,14 @@ module VagrantPlugins
             # Generates the templates with validated data
             case @type
               when Invade::Generator::Type::VAGRANTFILE
-                generated_data = InvadeModule::Invade::Vagrantfile.new(data).build
+                generated_data = InvadeModule::Vagrant::Vagrantfile.new(data).build
 
               when Invade::Generator::Type::VAGRANT_PART
                 generator_class_name = type.split('_').collect(&:capitalize).join
                 generated_data = InvadeModule.const_get(generator_class_name).new(data).build
 
               when Invade::Generator::Type::MACHINE
-                generated_data = InvadeModule::Invade::Machine.new(machine, data).build
+                generated_data = InvadeModule::Vagrant::Machine.new(machine, data).build
 
               when Invade::Generator::Type::MACHINE_NESTED_PART
                 type_formatted = type.split('_').collect(&:capitalize).join
