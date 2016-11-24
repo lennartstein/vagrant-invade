@@ -16,20 +16,19 @@ module VagrantPlugins
 
           def validate
 
-            if @value.is_a?(String) || @value.is_a?(Array)
-              @env[:ui].success("\t#{name} => '#{@value}'") unless @env[:invade_validate_quiet]
-            elsif @value === nil
-              @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
+            case @value
+              when is_a?(String), is_a?(Array)
+                @env[:ui].success("\t#{name} => '#{@value}'") unless @env[:invade_validate_quiet]
 
-              return default
-            elsif @value === ''
-              @env[:ui].warn("\tError: Empty string is not valid. Set '#{name}' => '#{default}'.") unless @env[:invade_validate_quiet]
-
-              return default
-            else
-              @env[:ui].error("\tError: '#{@value}' is not a string or array. Set to '#{name}' to default value '#{default}'.") unless @env[:invade_validate_quiet]
-
-              return default
+              when nil?
+                @env[:ui].warn("\t#{name} not set. Use Vagrant default.") unless @env[:invade_validate_quiet]
+                return default
+              when ''
+                @env[:ui].warn("\tError: Empty string is not valid. Set '#{name}' => '#{default}'.") unless @env[:invade_validate_quiet]
+                return default
+              else
+                @env[:ui].error("\tError: '#{@value}' is not a string or array. Set to '#{name}' to default value '#{default}'.") unless @env[:invade_validate_quiet]
+                return default
             end
 
             @value
