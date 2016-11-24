@@ -1,4 +1,3 @@
-
     <%= machine_name %>.vm.provision :puppet do |puppet_apply|
       <% if manifests_path %>
       puppet_apply.manifests_path = '<%= manifests_path %>'
@@ -39,5 +38,4 @@
       <% if working_directory %>
       puppet_apply.working_directory = '<%= working_directory %>'
       <% end %>
-
     end
