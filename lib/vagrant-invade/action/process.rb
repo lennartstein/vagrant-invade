@@ -13,109 +13,122 @@ module VagrantPlugins
           @validator = VagrantPlugins::Invade::Validator::Validator.new(env)
           @generator = VagrantPlugins::Invade::Generator::Generator.new(env)
 
+          @invade_machine = Hash.new
+          @invade_machine_part = Hash.new
+          @invade_vagrantfile = Hash.new
+
+          @generate = @env[:invade_generate]
+          @quiet = @env[:invade_validate_quiet]
+
           @logger = Log4r::Logger.new('vagrant::invade::action::validate')
         end
 
         def call(env)
-          config  = env[:invade]
-          quiet   = @env[:invade_validate_quiet]
-          generate = @env[:invade_generate]
 
-          invade_machine = Hash.new
-          invade_machine_part = Hash.new
-          invade_vagrantfile = Hash.new
-
-          ###############################################################
-          # Validate the settings and set default variables if needed
-          ###############################################################
+          @config = env[:invade]
 
           # Remove empty Hashes
-          config.delete_blank
+          @config.delete_blank
 
-          config.each do |config_key, config_data|
-
+          @config.each do |config_key, config_data|
             if config_key == 'machines'
-
-              # Iterate over machine configurations
-              config_data.each_with_index do |(machine, machine_part), _|
-
-                # Iterate over each machine part configuration
-                machine_part.each do |machine_part_name, machine_part_data|
-                  @env[:ui].info("\n[Invade][Machine: #{machine.upcase}]: Validating #{machine_part_name.upcase} part...") unless quiet
-
-                  # Is nested synced_folder, network, provision, or plugin part hash
-                  if machine_part_data.depth > 1
-
-                    invade_machine_part[machine_part_name] = ''
-                    machine_part_data.each do |value_name, value_data|
-
-                      # Output info message
-                      info_message = "\t#{machine_part_name.split('_').collect(&:capitalize).join}: #{value_name}"
-                      @env[:ui].info(info_message) unless @env[:invade_validate_quiet]
-
-                      # Exception handling for synced_folder and provision types
-                      if machine_part_name == 'synced_folder' or machine_part_name == 'provision'
-                        value_name = value_data['type']
-                        value_data.delete('type')
-                      end
-
-                      validated_data = validate(machine_part_name, value_name, value_data, machine_part_data.depth)
-                      invade_machine_part[machine_part_name].concat(
-                          generate(
-                              machine_name: machine,
-                              part: machine_part_name,
-                              part_type: value_name,
-                              data: validated_data,
-                              generator_type: Invade::Generator::Type::MACHINE_NESTED_PART
-                        )
-                      ) if generate
-                    end
-                  else # Is VM, or SSH part
-                    validated_data = validate('Machine', machine_part_name, machine_part_data, machine_part_data.depth)
-                    invade_machine_part[machine_part_name] = generate(
-                        machine_name: machine,
-                        part_type: machine_part_name,
-                        data: validated_data,
-                        generator_type: Invade::Generator::Type::MACHINE_PART
-                    ) if generate
-                  end
-                end
-
-                invade_machine[machine] = generate(
-                    machine_name: machine,
-                    data: invade_machine_part,
-                    generator_type: Invade::Generator::Type::MACHINE
-                )
-
-              end
-
-              invade_vagrantfile['machines'] = invade_machine
-              @env[:ui].success "\n[Invade]: Processed #{config_data.count} machine(s)."
-
+              process_machines(config_data)
             else
-
-              # Info message
-              @env[:ui].info("\n[Invade]: Validating #{config_key.upcase} part...") unless quiet
-
-              validated_data = validate(config_key, config_key, config_data, config_data.depth)
-              invade_vagrantfile[config_key] = generate(
-                  part_type: config_key,
-                  data: validated_data,
-                  generator_type: Invade::Generator::Type::VAGRANT_PART
-              ) if generate
-
+              process_vagrant_part(config_key, config_data)
             end
-
           end
 
           @env[:invade]['vagrantfile'] = generate(
-              data: invade_vagrantfile,
+              data: @invade_vagrantfile,
               generator_type: Invade::Generator::Type::VAGRANTFILE
-          ) if generate
+          ) if @generate
 
           @env[:invade].delete('machines')
 
           @app.call(env)
+        end
+
+        private
+
+        def process_machines(machines)
+        
+          # Iterate over machine configurations
+          machines.each_with_index do |(machine, machine_data), _|
+            process_machine(machine, machine_data)
+          end
+
+          @invade_vagrantfile['machines'] = @invade_machine
+          @env[:ui].success "\n[Invade]: Processed #{machines.count} machine(s)."
+
+        end
+
+        def process_machine(machine_name, machine_data)
+          # Iterate over each machine part configuration
+          machine_data.each do |machine_part_name, machine_part_data|
+            @env[:ui].info("\n[Invade][Machine: #{machine_name.upcase}]: Validating #{machine_part_name.upcase} part...") unless @quiet
+
+            if machine_part_data.depth > 1
+              process_machine_nested_part(machine_name, machine_part_name, machine_part_data)
+            else
+              process_machine_part(machine_name, machine_part_name, machine_part_data)
+            end
+
+            @invade_machine[machine_name] = generate(
+                machine_name: machine_name,
+                data: @invade_machine_part,
+                generator_type: Invade::Generator::Type::MACHINE
+            )
+          end
+        end
+
+        def process_machine_part(machine, machine_part_name, machine_part_data)
+          validated_data = validate('Machine', machine_part_name, machine_part_data, machine_part_data.depth)
+          @invade_machine_part[machine_part_name] = generate(
+              machine_name: machine,
+              part_type: machine_part_name,
+              data: validated_data,
+              generator_type: Invade::Generator::Type::MACHINE_PART
+          ) if @generate
+        end
+
+        def process_machine_nested_part(machine, machine_part_name, machine_part_data)
+
+          @invade_machine_part[machine_part_name] = ''
+          machine_part_data.each do |value_name, value_data|
+
+            # Output info message
+            info_message = "\t#{machine_part_name.split('_').collect(&:capitalize).join}: #{value_name}"
+            @env[:ui].info(info_message) unless @env[:invade_validate_quiet]
+
+            # Exception handling for synced_folder and provision types
+            if machine_part_name == 'synced_folder' or machine_part_name == 'provision'
+              value_name = value_data['type']
+              value_data.delete('type')
+            end
+
+            validated_data = validate(machine_part_name, value_name, value_data, machine_part_data.depth)
+            @invade_machine_part[machine_part_name].concat(
+                generate(
+                    machine_name: machine,
+                    part: machine_part_name,
+                    part_type: value_name,
+                    data: validated_data,
+                    generator_type: Invade::Generator::Type::MACHINE_NESTED_PART
+              )
+            ) if @generate
+          end
+          
+        end
+
+        def process_vagrant_part(config_key, config_data)
+          @env[:ui].info("\n[Invade]: Validating #{config_key.upcase} part...") unless @quiet
+
+          validated_data = validate(config_key, config_key, config_data, config_data.depth)
+          @invade_vagrantfile[config_key] = generate(
+            part_type: config_key,
+            data: validated_data,
+            generator_type: Invade::Generator::Type::VAGRANT_PART
+          ) if @generate
         end
 
         def validate(part_name, value_name, value_data, depth)
