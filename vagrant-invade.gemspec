@@ -14,10 +14,10 @@ Gem::Specification.new do |s|
   s.executables     = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   s.require_paths   = ['lib']
   s.homepage        = 'https://github.com/frgmt/vagrant-invade'
-  s.license         = 'GNUv3'
+  s.license         = 'CC-BY-NC-SA-4.0'
 
   s.required_ruby_version = '>= 2.0.0'
 
-  s.add_development_dependency 'bundler', '~> 1.10', '>= 1.10.5'
-  s.add_development_dependency 'rake', '~> 0'
+  s.add_development_dependency 'bundler', '~> 1.12', '>= 1.12.5'
+  s.add_development_dependency 'rake', '~> 10.0'
 end
