@@ -1,7 +1,7 @@
 module VagrantPlugins
   module Invade
     module InvadeModule
-      module Invade
+      module Vagrant
 
         class Machine < InvadeModule
 
