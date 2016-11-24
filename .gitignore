@@ -1,4 +1,5 @@
 invade.yml
+!vagrantfile.rb
 Vagrantfile
 Vagrantfile-*
 Vagrantfile.new
