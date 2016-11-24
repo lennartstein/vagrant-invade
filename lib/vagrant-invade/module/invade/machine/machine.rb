@@ -30,6 +30,7 @@ module VagrantPlugins
               synced_folder = @machine_data['synced_folder']
               plugin = @machine_data['plugin']
               provision = @machine_data['provision']
+              nfs = @machine_data['nfs']
 
               eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b

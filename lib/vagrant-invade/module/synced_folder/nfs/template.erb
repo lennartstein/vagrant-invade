@@ -1,12 +1,2 @@
     <%= machine_name %>.vm.synced_folder '<%= source %>', '<%= path %>',
       type: 'nfs'<% if mount_options %>, mount_options: <%= mount_options %><% end %><% if enabled %>, disabled: true<% end %>
-    <% if uid %>
-    <%= machine_name %>.nfs.map_uid = <%= uid %>
-    <% else %>
-    <%= machine_name %>.nfs.map_uid = Process.uid
-    <% end %>
-    <% if gid %>
-    <%= machine_name %>.nfs.map_gid = <%= gid %>
-    <% else %>
-    <%= machine_name %>.nfs.map_gid = Process.gid
-    <% end %>

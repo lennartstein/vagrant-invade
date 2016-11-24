@@ -11,6 +11,7 @@ module VagrantPlugins
       autoload :Ssh, 'vagrant-invade/module/ssh/ssh'
       autoload :SyncedFolder, 'vagrant-invade/module/synced_folder/synced_folder'
       autoload :Vm, 'vagrant-invade/module/vm/vm'
+      autoload :Nfs, 'vagrant-invade/module/nfs/nfs'
 
       class InvadeModule
         require 'erubis'
