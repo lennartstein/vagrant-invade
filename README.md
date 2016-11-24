@@ -37,6 +37,7 @@ There are new commands you can use to init, validate and build your Vagrantfile.
 	* inline
 	* puppet-agent
 	* puppet-apply
+	* salt
 * Synced Folder
 	* VB
 	* NFS (use *vagrant-winnfsd* plugin to support Windows)
