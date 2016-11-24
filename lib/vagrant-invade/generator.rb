@@ -35,9 +35,6 @@ module VagrantPlugins
                 type_formatted = type.split('_').collect(&:capitalize).join
                 part_formatted = part.split('_').collect(&:capitalize).join
                 generator_class_name = part_formatted + '::' + type_formatted
-
-                puts generator_class_name
-
                 generated_data = InvadeModule.const_get(generator_class_name).new(machine, data).build
 
               else
