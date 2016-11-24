@@ -25,12 +25,12 @@ module VagrantPlugins
 
         def call(env)
 
-          @config = env[:invade]
+          config = env[:invade]
 
           # Remove empty Hashes
-          @config.delete_blank
+          config.delete_blank
 
-          @config.each do |config_key, config_data|
+          config.each do |config_key, config_data|
             if config_key == 'machines'
               process_machines(config_data)
             else
