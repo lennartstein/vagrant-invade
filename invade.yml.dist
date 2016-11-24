@@ -74,6 +74,12 @@ machines:
     #       package_state: 'present'
     #       apt_update: true
 
+    nfs:
+      map_uid: Process.uid
+      map_gid: Process.gid
+      #functional: true
+      #verify_installed: false
+
     plugin:
       #hostmanager:
       #  aliases:

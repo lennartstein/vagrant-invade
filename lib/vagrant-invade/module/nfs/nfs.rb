@@ -5,10 +5,11 @@ module VagrantPlugins
       class Nfs < InvadeModule
 
         attr_reader :result
-        attr_accessor :nfs
+        attr_accessor :machine_name, :nfs_data
 
-        def initialize(nfs, result: nil)
-          @nfs = nfs
+        def initialize(machine_name, nfs_data, result: nil)
+          @machine_name = machine_name
+          @nfs_data = nfs_data
           @result = result
         end
 
@@ -18,13 +19,10 @@ module VagrantPlugins
           begin
 
             # Values for nfs part
-            functional = @nfs['functional']
-            map_uid = @nfs['map_uid']
-            map_gid = @nfs['map_gid']
-            verify_installed = @nfs['verify_installed']
-
-            map_uid ||= Process.uid
-            map_gid ||= Process.gid
+            functional = @nfs_data['functional']
+            map_uid = @nfs_data['map_uid']
+            map_gid = @nfs_data['map_gid']
+            verify_installed = @nfs_data['verify_installed']
 
             eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
             @result = eruby.result b
