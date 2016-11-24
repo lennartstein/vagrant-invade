@@ -1,0 +1,12 @@
+functional:
+  type: Boolean
+  default: nil
+map_uid:
+  type: Integer
+  default: Process.uid
+map_gid:
+  type: Integer
+  default: Process.gid
+verify_installed:
+  type: Boolean
+  default: nil
