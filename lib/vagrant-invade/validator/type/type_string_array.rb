@@ -17,7 +17,7 @@ module VagrantPlugins
           def validate
 
             case @value
-              when is_a?(String), is_a?(Array)
+              when String, Array
                 @env[:ui].success("\t#{name} => '#{@value}'") unless @env[:invade_validate_quiet]
 
               when nil?
