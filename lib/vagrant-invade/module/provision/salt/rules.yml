@@ -62,3 +62,29 @@ master_pub:
 seed_master:
   type: String
   default: nil
+
+# EXECUTE STATS
+run_highstate:
+  type: Boolean
+  default: nil
+
+# EXCECUTE RUNNERS
+run_overstate:
+  type: Boolean
+  default: nil
+orchestration:
+  type: Array
+  default: nil
+
+# OUTPUT CONTROL
+colorize:
+  type: Boolean
+  default: true
+log_level:
+  type: String
+  default: 'debug'
+
+# PILLAR DATA
+pillar:
+  type: Hash
+  default: nil

@@ -1,14 +1,12 @@
-
     <%= machine_name %>.vm.provision :salt do |salt|
       <% if install_master %>
-      # -- INSTALL OPTIONS -- #
       salt.install_master = <%= install_master %>
       <% end %>
       <% if no_minion %>
       salt.no_minion = <%= no_minion %>
       <% end %>
-      <% if install_syndic %>
-      salt.install_syndic = <%= install_syndic %>
+      <% if install_syncdir %>
+      salt.install_syncdir = <%= install_syncdir %>
       <% end %>
       <% if install_type %>
       salt.install_type = <%= install_type %>
@@ -29,7 +27,6 @@
       salt.version = '<%= version %>'
       <% end %>
       <% if minion_config %>
-      # -- MINION OPTIONS -- #
       salt.minion_config = '<%= minion_config %>'
       <% end %>
       <% if minion_key %>
@@ -51,7 +48,6 @@
       salt.minion_pub = '<%= minion_pub %>'
       <% end %>
       <% if master_config %>
-      # -- MASTER OPTIONS -- #
       salt.master_config = '<%= master_config %>'
       <% end %>
       <% if master_key %>
@@ -63,5 +59,22 @@
       <% if seed_master %>
       salt.seed_master = '<%= seed_master %>'
       <% end %>
-
+      <% if run_highstate %>
+      salt.run_highstate = <%= run_highstate %>
+      <% end %>
+      <% if run_overstate %>
+      salt.run_overstate = <%= run_overstate %>
+      <% end %>
+      <% if orchestration %>
+      salt.orchestration = <%= orchestration %>
+      <% end %>
+      <% if colorize %>
+      salt.colorize = <%= colorize %>
+      <% end %>
+      <% if log_level %>
+      salt.log_level = '<%= log_level %>'
+      <% end %>
+      <% if pillar %>
+      salt.pillar = <%= pillar %>
+      <% end %>
     end

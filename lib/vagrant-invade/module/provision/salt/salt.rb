@@ -47,6 +47,20 @@ module VagrantPlugins
               master_pub = @salt_data['master_pub']
               seed_master = @salt_data['seed_master']
 
+              # EXECUTE STATS
+              run_highstate = @salt_data['run_highstate']
+              
+              # EXCECUTE RUNNERS
+              run_overstate = @salt_data['run_overstate']
+              orchestration = @salt_data['orchestration']
+              
+              # OUTPUT CONTROL
+              colorize = @salt_data['colorize']
+              log_level = @salt_data['log_level']
+              
+              # PILLAR DATA
+              pillar = @salt_data['pillar']
+
               eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
             rescue TypeError, SyntaxError, SystemCallError => e
