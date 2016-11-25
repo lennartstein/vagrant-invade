@@ -4,9 +4,30 @@ name:
 path:
   type: String
   default: nil
+inline:
+  type: String
+  default: nil
+args:
+  type: StringOrArray
+  default: nil
+env:
+  type: Hash
+  default: nil
 binary:
   type: Boolean
   default: nil
 privileged:
+  type: Boolean
+  default: nil
+upload_path:
+  type: String
+  default: nil
+keep_color:
+  type: Boolean
+  default: nil
+powershell_args:
+  type: String
+  default: nil
+powershell_elevated_interactive:
   type: Boolean
   default: nil

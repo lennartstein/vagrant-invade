@@ -21,12 +21,7 @@ module VagrantPlugins
 
               # Get machine name
               machine_name = @machine_name
-
-              # Values for shell provision section
-              name = @shell_data['name']
-              path = @shell_data['path']
-              binary = @shell_data['binary']
-              privileged = @shell_data['privileged']
+              data = @shell_data
 
               eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b
