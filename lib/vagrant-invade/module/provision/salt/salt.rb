@@ -25,7 +25,7 @@ module VagrantPlugins
               # salt install options
               install_master = @salt_data['install_master']
               no_minion = @salt_data['no_minion']
-              install_syncdir = @salt_data['install_syncdir']
+              install_syndic = @salt_data['install_syndic']
               install_type = @salt_data['install_type']
               install_args = @salt_data['install_args']
               always_install = @salt_data['always_install']
@@ -60,6 +60,9 @@ module VagrantPlugins
               
               # PILLAR DATA
               pillar = @salt_data['pillar']
+
+              # MISC
+              verbose = @salt_data['verbose']
 
               eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b

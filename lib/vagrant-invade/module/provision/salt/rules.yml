@@ -12,10 +12,10 @@ install_syncdir:
   default: false
 install_type:
   type: String
-  default: 'stable'
+  default: :stable
 install_args:
   type: String
-  default: 'develop'
+  default: nil
 always_install:
   type: Boolean
   default: false
@@ -88,3 +88,8 @@ log_level:
 pillar:
   type: Hash
   default: nil
+
+# MISC
+verbose:
+  type: Boolean
+  default: true

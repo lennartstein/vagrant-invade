@@ -5,11 +5,11 @@
       <% if no_minion %>
       salt.no_minion = <%= no_minion %>
       <% end %>
-      <% if install_syncdir %>
-      salt.install_syncdir = <%= install_syncdir %>
+      <% if install_syndic %>
+      salt.install_syndic = <%= install_syndic %>
       <% end %>
       <% if install_type %>
-      salt.install_type = '<%= install_type %>'
+      salt.install_type = :<%= install_type %>
       <% end %>
       <% if install_args %>
       salt.install_args = '<%= install_args %>'
@@ -74,7 +74,10 @@
       <% if log_level %>
       salt.log_level = '<%= log_level %>'
       <% end %>
+      <% if verbose %>
+      salt.verbose = <%= verbose %>
+      <% end %>
       <% if pillar %>
-      salt.pillar = <%= pillar %>
+      salt.pillar(<%= pillar %>)
       <% end %>
     end
