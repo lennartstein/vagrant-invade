@@ -6,4 +6,4 @@ Vagrantfile-*
 Vagrantfile.new
 !vagrantfile.rb
 .vagrant
-.idea
+.idea/
