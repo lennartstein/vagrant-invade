@@ -1,19 +1,10 @@
-require 'bundler'
-
-begin
-  require 'vagrant'
-rescue LoadError
-  Bundler.require(:default, :development)
-end
-
 require 'vagrant-invade/plugin'
+require 'vagrant-invade/version'
+require 'vagrant-invade/extend'
+require 'yaml'
 
 module VagrantPlugins
   module Invade
-
-    require 'vagrant-invade/version'
-    require 'vagrant-invade/extend'
-    require 'yaml'
 
     autoload :Validator, 'vagrant-invade/validator'
     autoload :InvadeModule, 'vagrant-invade/module'
