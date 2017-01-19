@@ -27,9 +27,6 @@ module VagrantPlugins
 
               # Values for hostmanager section
               enabled = @hostmanager_data['enabled']
-              manage_host = @hostmanager_data['manage_host']
-              ignore_private_ip = @hostmanager_data['ignore_private_ip']
-              include_offline =@hostmanager_data['include_offline']
               aliases = @hostmanager_data['aliases']
 
               eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))

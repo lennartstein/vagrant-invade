@@ -1,3 +1,6 @@
+enabled:
+  type: Boolean
+  default: true
 aliases:
   type: Array
   default:
