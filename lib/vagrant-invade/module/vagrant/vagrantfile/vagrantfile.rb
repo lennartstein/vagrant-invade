@@ -19,7 +19,8 @@ module VagrantPlugins
             begin
 
               # Set variables for template files
-              hostmanager = @vagrantfile_data['hostmanager']
+              global_hostmanager = @vagrantfile_data['hostmanager']
+              global_nfs = @vagrantfile_data['nfs']
               machines = @vagrantfile_data['machines']
 
               eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))

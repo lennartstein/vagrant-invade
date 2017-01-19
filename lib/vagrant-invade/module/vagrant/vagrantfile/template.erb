@@ -6,5 +6,6 @@ Vagrant.configure(2) do |config|
   <% machines.each do |_, data| %>
 <%= data %>
   <% end %>
-  <%= hostmanager %>
+  <%= global_hostmanager %>
+  <%= global_nfs %>
 end

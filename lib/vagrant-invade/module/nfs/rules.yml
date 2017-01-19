@@ -3,10 +3,10 @@ functional:
   default: nil
 map_uid:
   type: Integer
-  default: Process.uid
+  default: nil
 map_gid:
   type: Integer
-  default: Process.gid
+  default: nil
 verify_installed:
   type: Boolean
   default: nil
