@@ -28,7 +28,7 @@ module VagrantPlugins
           config = env[:invade]
 
           # Remove empty Hashes
-          config.delete_blank
+          config = config.compact(config)
 
           config.each do |config_key, config_data|
             if config_key == 'machines'
@@ -122,6 +122,8 @@ module VagrantPlugins
 
         def process_vagrant_part(config_key, config_data)
           @env[:ui].info("\n[Invade]: Validating #{config_key.upcase} part...") unless @quiet
+
+          puts config_data
 
           validated_data = validate(config_key, config_key, config_data, config_data.depth)
           @invade_vagrantfile[config_key] = generate(

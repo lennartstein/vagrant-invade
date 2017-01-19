@@ -27,6 +27,7 @@ module VagrantPlugins
 
             # Fill with defaults
             @ruleset.rules.each do |rule_key, rule_value|
+
               unless rule_value['default'] == 'nil'
                 value_data[rule_key] = rule_value['default'] if value_data[rule_key].nil?
               end

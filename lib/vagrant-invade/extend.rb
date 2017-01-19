@@ -8,9 +8,12 @@ class Hash
       d
   end
 
-  def delete_blank
-    delete_if do |_, v|
-      (v.respond_to?(:empty?) ? v.empty? : !v) or v.instance_of?(Hash) && v.delete_blank.empty?
+  def compact(opts={})
+    inject({}) do |new_hash, (k,v)|
+      if !v.nil?
+        new_hash[k] = opts[:recurse] && v.class == Hash ? v.compact(opts) : v
+      end
+      new_hash
     end
   end
 end
