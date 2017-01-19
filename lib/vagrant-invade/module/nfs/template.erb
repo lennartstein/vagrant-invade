@@ -1,8 +1,9 @@
-    <% if functional %>
-    <%= machine_name %>.nfs.functional = <%= functional %>
-    <% end %>
-    <%= machine_name %>.nfs.map_uid = <%= map_uid %>
-    <%= machine_name %>.nfs.map_gid = <%= map_gid %>
-    <% if verify_installed %>
-    <%= machine_name %>.nfs.verify_installed = <%= verify_installed %>
-    <% end %>
+# --- NFS Global Settings --- #
+	<% if functional %>
+	config.nfs.functional = <%= functional %>
+	<% end %>
+	config.nfs.map_uid = <%= map_uid %>
+  config.nfs.map_gid = <%= map_gid %>
+  <% if verify_installed %>
+  config.nfs.verify_installed = <%= verify_installed %>
+  <% end %>
