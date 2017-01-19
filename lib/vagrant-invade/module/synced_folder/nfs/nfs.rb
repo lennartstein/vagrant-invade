@@ -29,6 +29,10 @@ module VagrantPlugins
               source = @nfs_data['source']
               path = @nfs_data['path']
               mount_options = @nfs_data['mount_options']
+              linux__nfs_options = @nfs_data['linux__nfs_options']
+              bsd__nfs_options = @nfs_data['bsd__nfs_options']
+              nfs_version = @nfs_data['nfs_version']
+              nfs_udp = @nfs_data['nfs_udp']
 
               eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
               @result = eruby.result b

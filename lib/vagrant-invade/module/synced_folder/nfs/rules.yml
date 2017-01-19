@@ -20,3 +20,15 @@ mount_options:
   type: Array
   default:
     - nolock
+linux__nfs_options:
+  type: Array
+  default: nil
+bsd__nfs_options:
+  type: Array
+  default: nil
+nfs_version:
+  type: Integer
+  default: nil
+nfs_udp:
+  type: Boolean
+  default: nil

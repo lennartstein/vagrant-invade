@@ -1,2 +1,2 @@
     <%= machine_name %>.vm.synced_folder '<%= source %>', '<%= path %>',
-      type: 'nfs'<% if mount_options %>, mount_options: <%= mount_options %><% end %><% if enabled %>, disabled: true<% end %>
+      type: 'nfs'<% if mount_options %>, mount_options: <%= mount_options %><% end %><% if linux__nfs_options %>, linux__nfs_options: <%= linux__nfs_options %><% end %><% if bsd__nfs_options %>, bsd__nfs_options: <%= bsd__nfs_options%><% end %><% if nfs_version %>, nfs_version: <%= nfs_version %><% end %><% unless nfs_udp.nil? %>, nfs_udp: <%= nfs_udp %><% end %><% if enabled %>, disabled: true<% end %>
