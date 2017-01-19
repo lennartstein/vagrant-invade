@@ -26,6 +26,7 @@ module VagrantPlugins
               machine_name = @machine_name
 
               # Values for hostmanager section
+              puts @hostmanager_data['enabled']
               enabled = @hostmanager_data['enabled']
               aliases = @hostmanager_data['aliases']
 
