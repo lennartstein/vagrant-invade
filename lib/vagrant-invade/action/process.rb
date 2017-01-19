@@ -123,8 +123,6 @@ module VagrantPlugins
         def process_vagrant_part(config_key, config_data)
           @env[:ui].info("\n[Invade]: Validating #{config_key.upcase} part...") unless @quiet
 
-          puts config_data
-
           validated_data = validate(config_key, config_key, config_data, config_data.depth)
           @invade_vagrantfile[config_key] = generate(
             part_type: config_key,

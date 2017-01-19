@@ -20,7 +20,7 @@ module VagrantPlugins
             b = binding
 
             # Delete all nil keys
-            @private_network_data.delete_blank
+            @private_network_data.compact
 
             ip = @private_network_data['ip']
 
