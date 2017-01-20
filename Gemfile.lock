@@ -103,7 +103,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.12, >= 1.12.5)
+  bundler (>= 1.12.5)
   rake (~> 10.0)
   vagrant!
   vagrant-invade!
