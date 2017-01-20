@@ -20,7 +20,7 @@ module VagrantPlugins
             # Values for nfs part
             functional = @nfs_data['functional']
             @nfs_data['map_uid'] ? map_uid = @nfs_data['map_uid'] : map_uid = Process.uid
-            @nfs_data['map_uid'] ? @nfs_data['map_gid'] : map_gid = Process.gid
+            @nfs_data['map_gid'] ? map_gid = @nfs_data['map_gid'] : map_gid = Process.gid
             verify_installed = @nfs_data['verify_installed']
 
             eruby = Erubis::Eruby.new(File.read(self.get_template_path(__FILE__)))
