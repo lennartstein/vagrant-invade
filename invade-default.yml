@@ -5,7 +5,7 @@ invade:
 #  enabled: true
 
 # Machine settings. Each entry is one box
-machines:
+machine:
 
   # Machine 1 (default)
   default:

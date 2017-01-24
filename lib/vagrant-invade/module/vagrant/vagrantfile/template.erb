@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
 
-  <% machines.each do |_, data| %>
+  <% machine.each do |_, data| %>
 <%= data %>
   <% end %>
   <%= global_hostmanager %>

@@ -31,7 +31,7 @@ module VagrantPlugins
           config = config.compact(config)
 
           config.each do |config_key, config_data|
-            if config_key == 'machines'
+            if config_key == 'machine'
               process_machines(config_data)
             else
               process_vagrant_part(config_key, config_data)
@@ -43,22 +43,22 @@ module VagrantPlugins
               generator_type: Invade::Generator::Type::VAGRANTFILE
           ) if @generate
 
-          @env[:invade].delete('machines')
+          @env[:invade].delete('machine')
 
           @app.call(env)
         end
 
         private
 
-        def process_machines(machines)
+        def process_machines(machine)
         
           # Iterate over machine configurations
-          machines.each_with_index do |(machine, machine_data), _|
+          machine.each_with_index do |(machine, machine_data), _|
             process_machine(machine, machine_data)
           end
 
-          @invade_vagrantfile['machines'] = @invade_machine
-          @env[:ui].success "\n[Invade]: Processed #{machines.count} machine(s)."
+          @invade_vagrantfile['machine'] = @invade_machine
+          @env[:ui].success "\n[Invade]: Processed #{machine.count} machine(s)."
 
         end
 

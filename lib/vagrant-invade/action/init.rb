@@ -51,8 +51,8 @@ module VagrantPlugins
             FileUtils.cp(File.expand_path('~/.invade/invade.yml.dist'), invade_config_file)
             @env[:ui].success "[Invade] User customized template file '~/.invade/invade.yml.dist' was found!"
           else
-            plugin_root_path = File.expand_path('../../../../', __FILE__)
-            default_invade_config_file = plugin_root_path + '/invade.yml.dist'
+            plugin_root_path = File.expand_path('../../../..', __FILE__)
+            default_invade_config_file = plugin_root_path + '/invade-default.yml'
             FileUtils.cp(default_invade_config_file, invade_config_file)
             @env[:ui].warn '[Invade] Project template file or customized user configuration file NOT found!'
           end

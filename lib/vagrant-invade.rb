@@ -14,20 +14,25 @@ module VagrantPlugins
     def self.get_invade_config
 
       #Loading Invade configuration settings from file
-      invade_config_file = Dir.pwd + '/invade.yml'
+      invade_config_file = Dir.glob(Dir.pwd + "/invade/invade.{yml,yaml}")
+      invade_config = Hash.new
 
-      if File.exists?(invade_config_file)
-        begin
-          return YAML.load_file(invade_config_file)
-        rescue SyntaxError => e
-          @logger.error e
-          fail e
-        end
-      else
-        @config_values = nil
+      # If sinlge file configuration for invade exists - use it
+      if invade_config_file.any?
+        invade_config = YAML.load_file(invade_config_file[0])
+      end
+      
+      # Iterate over each machine definition in ./invade/ folder
+      # Will replace machine definitions with the same name
+      if invade_config['machine'].nil?
+        invade_config['machine'] = Hash.new
+      end
+      
+      Dir.glob("#{Dir.pwd}/invade/invade-*.{yml,yaml}") do |config|
+        invade_config['machine'].merge!(YAML.load_file(config))
       end
 
-      @config_values
+      invade_config
     end
   end
 end

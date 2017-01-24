@@ -1,4 +1,8 @@
+!invade-default.yml
 invade.yml
+invade.yaml
+invade-*.yml
+invade-*.yaml
 Vagrantfile
 !Vagrantfile/
 !vagrantfile.rb
