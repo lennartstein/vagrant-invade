@@ -4,13 +4,12 @@ module VagrantPlugins
 
       class Checksum
 
-        attr_accessor :env, :root_path, :vagrantfile, :data
+        attr_accessor :data, :root_path, :vagrantfile
 
-        def initialize(env)
-          @env          = env
+        def initialize(data)
+          @data         = data
           @root_path    = Dir.pwd
           @vagrantfile  = ENV['VAGRANT_VAGRANTFILE'] ? vagrantfile_name = ENV['VAGRANT_VAGRANTFILE'] : vagrantfile_name = "Vagrantfile"
-          @data         = env[:invade]['vagrantfile']
         end
 
         # Compare Vagrantfile <=> invade.yml with MD5 checksum

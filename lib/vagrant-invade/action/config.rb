@@ -18,8 +18,7 @@ module VagrantPlugins
 
         def call(env)
 
-          root_path = "#{@dir}/invade"
-          config_file_path = "#{root_path}/invade.yml"
+          config_file_path = "#{@dir}/invade.yml"
 
           # Returns with invade in environment if Invade Configuration file already exists
           if File.exist?(config_file_path)

@@ -14,7 +14,7 @@ module VagrantPlugins
     def self.get_invade_config
 
       #Loading Invade configuration settings from file
-      invade_config_file = Dir.glob(Dir.pwd + "/invade/invade.{yml,yaml}")
+      invade_config_file = Dir.glob(Dir.pwd + "/invade.{yml,yaml}")
       invade_config = Hash.new
 
       # If sinlge file configuration for invade exists - use it
@@ -28,7 +28,7 @@ module VagrantPlugins
         invade_config['machine'] = Hash.new
       end
       
-      Dir.glob("#{Dir.pwd}/invade/invade-*.{yml,yaml}") do |config|
+      Dir.glob("#{Dir.pwd}/invade-*.{yml,yaml}") do |config|
         invade_config['machine'].merge!(YAML.load_file(config))
       end
 

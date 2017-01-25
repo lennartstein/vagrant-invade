@@ -27,9 +27,15 @@ module VagrantPlugins
           end
 
           # BUILD COMMAND ("vagrant invade build")
-            @subcommands.register(:build) do
+          @subcommands.register(:build) do
             require_relative 'build'
             Build
+          end
+
+          # CHECK COMMAND ("vagrant invade check")
+          @subcommands.register(:check) do
+            require_relative 'check'
+            Check
           end
         end
 
