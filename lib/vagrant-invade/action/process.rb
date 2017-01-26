@@ -27,8 +27,11 @@ module VagrantPlugins
 
           config = env[:invade]
 
-          # Remove empty Hashes
-          config = config.compact(config)
+          # If config data is not a hash, something went totally wrong or it's not correct YAML
+          # This should never happen - but better to stop the progress here.
+          if !config.is_a?(Hash)
+            raise "Something went wrong parsing your configuration file. Is your YAML in a correct format?"
+          end
 
           config.each do |config_key, config_data|
             if config_key == 'machine'
@@ -51,7 +54,7 @@ module VagrantPlugins
         private
 
         def process_machines(machine)
-        
+
           # Iterate over machine configurations
           machine.each_with_index do |(machine, machine_data), _|
             process_machine(machine, machine_data)
@@ -63,6 +66,7 @@ module VagrantPlugins
         end
 
         def process_machine(machine_name, machine_data)
+
           # Iterate over each machine part configuration
           machine_data.each do |machine_part_name, machine_part_data|
             @env[:ui].info("\n[Invade][Machine: #{machine_name.upcase}]: Validating #{machine_part_name.upcase} part...") unless @quiet
@@ -82,6 +86,7 @@ module VagrantPlugins
         end
 
         def process_machine_part(machine, machine_part_name, machine_part_data)
+
           validated_data = validate('Machine', machine_part_name, machine_part_data, machine_part_data.depth)
           @invade_machine_part[machine_part_name] = generate(
               machine_name: machine,

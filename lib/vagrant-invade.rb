@@ -22,15 +22,18 @@ module VagrantPlugins
         invade_config = YAML.load_file(invade_config_file[0])
       end
       
-      # Iterate over each machine definition in ./invade/ folder
-      # Will replace machine definitions with the same name
+      # Creates empty machine hash if it not exists
       if invade_config['machine'].nil?
         invade_config['machine'] = Hash.new
       end
       
+      # Iterate over each machine definition in ./invade/ folder and deep merge it
       Dir.glob("#{Dir.pwd}/invade-*.{yml,yaml}") do |config|
-        invade_config['machine'].merge!(YAML.load_file(config))
+        invade_config.deep_merge!(YAML.load_file(config))
       end
+
+      # Clean hash from empty/nil values recursively
+      invade_config = invade_config.deep_compact(exclude_blanks: true)
 
       invade_config
     end
