@@ -29,7 +29,7 @@ module VagrantPlugins
       end
 
       def self.check
-        Vagrant::Action::Build.new.tap do |builder|
+        Vagrant::Action::Builder.new.tap do |builder|
           builder.use Config
           builder.use Process
           builder.use Check

@@ -16,8 +16,10 @@ module VagrantPlugins
           return unless argv
 
           # Validates InVaDE configuration
-          action(Action.process, {
-            :invade_generate => true
+          action(Action.check, {
+            :invade_generate => true,
+            :invade_validate_quiet => true,
+            :invade_build_quiet => true
           })
 
           # Success, exit status 0

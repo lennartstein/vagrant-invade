@@ -18,6 +18,7 @@ module VagrantPlugins
           @invade_vagrantfile = Hash.new
 
           @generate = @env[:invade_generate]
+          @build_quiet = @env[:invade_build_quiet]
           @quiet = @env[:invade_validate_quiet]
 
           @logger = Log4r::Logger.new('vagrant::invade::action::validate')
@@ -61,7 +62,7 @@ module VagrantPlugins
           end
 
           @invade_vagrantfile['machine'] = @invade_machine
-          @env[:ui].success "\n[Invade]: Processed #{machine.count} machine(s)."
+          @env[:ui].success "\n[Invade]: Processed #{machine.count} machine(s)." unless @build_quiet
 
         end
 
