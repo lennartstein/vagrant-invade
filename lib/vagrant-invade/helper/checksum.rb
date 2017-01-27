@@ -26,7 +26,7 @@ module VagrantPlugins
           true
         end
 
-        def get_checksum_of_data(data)
+        def get_checksum_of_data
 
           begin
             checksum = Digest::MD5.hexdigest(@data)

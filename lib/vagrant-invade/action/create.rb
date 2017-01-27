@@ -20,10 +20,10 @@ module VagrantPlugins
 
           data = @env[:invade]['vagrantfile']
 
-          checksum_helper = Helper::Checksum.new @env
+          checksum_helper = Helper::Checksum.new data
           vagrantfile_path = "#{@root_path}/#{@vagrantfile_name}"
           md5_current = checksum_helper.get_checksum_of_file(vagrantfile_path)
-          md5_generated = checksum_helper.get_checksum_of_data(data)
+          md5_generated = checksum_helper.get_checksum_of_data
 
           # Write new Vagrantfile if checksum is not equal
           if !checksum_helper.check
