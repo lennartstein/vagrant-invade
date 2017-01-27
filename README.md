@@ -12,7 +12,7 @@ Simply run `vagrant plugin install vagrant-invade`
 To install a certain version use the `-v 'VERSION'` option.
 
 ## Commands
-There are new commands you can use to init, validate and build your Vagrantfile.
+There are new commands you can use to init, validate and build a Vagrantfile.
 
 ### Init
 `vagrant invade init` creates the default **invade.yml** configuration file for you.
@@ -33,11 +33,12 @@ There are new commands you can use to init, validate and build your Vagrantfile.
 	* VirtualBox
 	* VMWare
 * Provision
-	* shell
-	* inline
+	* ansible
+	* ansible_local
 	* puppet-agent
 	* puppet-apply
 	* salt
+	* shell
 * Synced Folder
 	* VB
 	* NFS (use *vagrant-winnfsd* plugin to support Windows)
