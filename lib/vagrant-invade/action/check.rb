@@ -23,7 +23,7 @@ module VagrantPlugins
           checksum_helper = Helper::Checksum.new data
           vagrantfile_path = "#{@root_path}/#{@vagrantfile_name}"
           md5_current = checksum_helper.get_checksum_of_file(vagrantfile_path)
-          md5_generated = checksum_helper.get_checksum_of_data(data)
+          md5_generated = checksum_helper.get_checksum_of_data
 
           if checksum_helper.check
             @ui.success "[Invade][CHECK] NO CHANGES FOUND"
