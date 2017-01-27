@@ -11,7 +11,7 @@ install_syncdir:
   type: Boolean
   default: false
 install_type:
-  type: String
+  type: Symbol
   default: :stable
 install_args:
   type: String

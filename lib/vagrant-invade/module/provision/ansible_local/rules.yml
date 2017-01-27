@@ -1,0 +1,27 @@
+playbook:
+  type: String
+  default: nil
+verbose:
+  type: Boolean
+  default: nil
+install:
+  type: Boolean
+  default: nil
+install_mode:
+  type: Symbol
+  default: :default
+limit:
+  type: String
+  default: nil
+inventory_path:
+  type: String
+  default: nil
+provisioning_path:
+  type: String
+  default: nil
+tmp_path:
+  type: String
+  default: nil
+version:
+  type: String
+  default: nil

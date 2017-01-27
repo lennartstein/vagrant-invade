@@ -1,0 +1,33 @@
+playbook:
+  type: String
+  default: nil
+groups:
+  type: Hash
+  default: nil
+limit:
+  type: String
+  default: nil
+inventory_path:
+  type: String
+  default: nil
+ask_sudo_pass:
+  type: Boolean
+  default: nil
+ask_vault_pass:
+  type: Boolean
+  default: nil
+force_remote_user:
+  type: Boolean
+  default: nil
+host_key_checking:
+  type: Boolean
+  default: nil
+host_vars:
+  type: Hash
+  default: nil
+raw_ssh_args:
+  type: Array
+  default: nil
+raw_arguments:
+  type: Array
+  default: nil

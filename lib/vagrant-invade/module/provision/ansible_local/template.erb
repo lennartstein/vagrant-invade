@@ -1,0 +1,30 @@
+
+    <%= machine_name %>.vm.provision "ansible_local" do |ansible|
+      <% unless playbook.nil? %>
+      ansible.playbook = '<%= playbook %>'
+      <% end %>
+      <% unless verbose.nil? %>
+      ansible.verbose = <%= verbose %>
+      <% end %>
+      <% unless install.nil? %>
+      ansible.install = <%= install %>
+      <% end %>
+      <% unless install_mode.nil? %>
+      ansible.install_mode = <%= install_mode %>
+      <% end %>
+      <% unless limit.nil? %>
+      ansible.limit = '<%= limit %>'
+      <% end %>
+      <% unless inventory_path.nil? %>
+      ansible.inventory_path = '<%= inventory_path %>'
+      <% end %>
+      <% unless provisioning_path.nil? %>
+      ansible.provisioning_path = '<%= provisioning_path %>'
+      <% end %>
+      <% unless tmp_path.nil? %>
+      ansible.tmp_path = '<%= tmp_path %>'
+      <% end %>
+      <% unless version.nil? %>
+      ansible.version = '<%= version %>'
+      <% end %>
+    end

@@ -1,0 +1,36 @@
+
+    <%= machine_name %>.vm.provision "ansible" do |ansible|
+      <% unless playbook.nil? %>
+      ansible.playbook = '<%= playbook %>'
+      <% end %>
+      <% unless groups.nil? %>
+      ansible.groups = '<%= groups %>'
+      <% end %>
+      <% unless limit.nil? %>
+      ansible.limit = '<%= limit %>'
+      <% end %>
+      <% unless inventory_path.nil? %>
+      ansible.inventory_path = '<%= inventory_path %>'
+      <% end %>
+      <% unless ask_sudo_pass.nil? %>
+      ansible.ask_sudo_pass = <%= ask_sudo_pass %>
+      <% end %>
+      <% unless ask_vault_pass.nil? %>
+      ansible.ask_vault_pass = <%= ask_vault_pass %>
+      <% end %>
+      <% unless force_remote_user.nil? %>
+      ansible.force_remote_user = <%= force_remote_user %>
+      <% end %>
+      <% unless host_key_checking.nil? %>
+      ansible.host_key_checking = <%= host_key_checking %>
+      <% end %>
+      <% unless host_vars.nil? %>
+      ansible.host_vars = <%= host_vars %>
+      <% end %>
+      <% unless raw_ssh_args.nil? %>
+      ansible.raw_ssh_args = <%= raw_ssh_args %>
+      <% end %>
+      <% unless raw_arguments.nil? %>
+      ansible.raw_arguments = <%= raw_arguments %>
+      <% end %>
+    end

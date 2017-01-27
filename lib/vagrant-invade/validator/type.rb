@@ -8,6 +8,7 @@ module VagrantPlugins
         autoload :IntegerValidator, 'vagrant-invade/validator/type/type_integer'
         autoload :StringOrArrayValidator, 'vagrant-invade/validator/type/type_string_array'
         autoload :StringValidator, 'vagrant-invade/validator/type/type_string'
+        autoload :SymbolValidator, 'vagrant-invade/validator/type/type_symbol'
       end
     end
   end
