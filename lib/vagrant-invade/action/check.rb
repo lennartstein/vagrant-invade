@@ -27,11 +27,13 @@ module VagrantPlugins
 
           if checksum_helper.check
             @ui.success "[Invade][CHECK] NO CHANGES FOUND"
+            @ui.success "----------------------------------------------------------"
             @ui.success "[Invade][CHECK] Current    : '#{md5_current}'"
             @ui.success "[Invade][CHECK] Generated  : '#{md5_generated}'"
             @ui.success "[Invade][CHECK] No changes found."
           else
             @ui.warn "[Invade][CHECK] CONFIGURATION FILE UPDATED"
+            @ui.warn "-------------------------------------------------------------"
             @ui.warn "[Invade][CHECK] Current    : '#{md5_current}'"
             @ui.warn "[Invade][CHECK] Generated  : '#{md5_generated}'"
             @ui.warn '[Invade][CHECK] Configuration file updated - free to rebuild.'

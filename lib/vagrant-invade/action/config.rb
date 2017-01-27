@@ -24,6 +24,8 @@ module VagrantPlugins
           if File.exist?(config_file_path)
             @logger.debug 'Config file found. Proceed.'
             @env[:ui].info "[Invade] Using Plugin vagrant-invade-#{VERSION} to build a Vagrantfile."
+            @env[:ui].info '-----------------------------------------------------------------------'
+            @env[:ui].info ''
 
             # Add invade configuration as global environment variable since we know configuration file exists
             env[:invade] = Invade.get_invade_config
